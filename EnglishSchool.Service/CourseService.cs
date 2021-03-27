@@ -4,6 +4,7 @@ using EnglishSchool.Data.Repositories;
 using EnglishSchool.Model.DTOs;
 using EnglishSchool.Model.Models;
 using EnglishSchool.Model.ResponseService;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,12 +28,12 @@ namespace EnglishSchool.Service
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public ResponseService<string> AddAndSave(CourseDTO entity)
+        public ResponseService<string> AddAndSave(JObject entity)
         {
             var response = new ResponseService<string>();
             try
             {
-                _repository._course.Add(_mapper.Map<CourseDTO, Course>(entity));
+                _repository._course.Add(_mapper.Map<JObject, Course>(entity));
                 SaveChanges();
                 response.result = "Add Course Successfully";
             }
@@ -97,12 +98,12 @@ namespace EnglishSchool.Service
             _unitOfWork.Commit();
         }
 
-        public ResponseService<string> Update(CourseDTO entity)
+        public ResponseService<string> Update(JObject entity)
         {
             var response = new ResponseService<string>();
             try
             {
-                _repository._course.Update(_mapper.Map<CourseDTO, Course>(entity));
+                _repository._course.Update(_mapper.Map<JObject, Course>(entity));
                 SaveChanges();
                 response.result = "Update Course Successfully";
             }
@@ -114,7 +115,7 @@ namespace EnglishSchool.Service
             return response;
         }
 
-        public ResponseService<string> Add(CourseDTO entity)
+        public ResponseService<string> Add(JObject entity)
         {
             throw new NotImplementedException();
         }

@@ -81,10 +81,6 @@ E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Service\bin\Debug\Microsoft.Owin.S
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Service\bin\Debug\Microsoft.Owin.Security.xml
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Service\bin\Debug\Microsoft.Owin.Security.Jwt.xml
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Service\bin\Debug\Microsoft.Owin.Security.OAuth.xml
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\obj\Debug\EnglishSchool.Service.csprojAssemblyReference.cache
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\obj\Debug\EnglishSchool.Service.csproj.CoreCompileInputs.cache
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\obj\Debug\EnglishSchool.Service.dll
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\obj\Debug\EnglishSchool.Service.pdb
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Debug\EnglishSchool.Service.dll.config
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Debug\EnglishSchool.Service.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Debug\EnglishSchool.Service.pdb
@@ -163,4 +159,8 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Debug\System.Web.Ra
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Debug\System.Web.WebPages.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Debug\System.Web.WebPages.Deployment.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Debug\System.Web.WebPages.Razor.xml
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\obj\Debug\EnglishSchool.Service.csprojAssemblyReference.cache
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\obj\Debug\EnglishSchool.Service.csproj.CoreCompileInputs.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\obj\Debug\EnglishSchool.Service.csproj.CopyComplete
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\obj\Debug\EnglishSchool.Service.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\obj\Debug\EnglishSchool.Service.pdb

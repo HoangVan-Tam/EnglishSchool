@@ -19,43 +19,13 @@ namespace EnglishSchool.Controllers
             _service = service;
         }
 
-        [Route("{Username}")]
-        [HttpGet]
-        public IHttpActionResult GetByUserName(string Username)
-        {
-            var response = _service.GetByUserName(Username);
-            if (response.success == false)
-            {
-                return BadRequest(response.message);
-            }
-            if (response.result == null)
-            {
-                return NotFound();
-            }
-            return Ok(response.result);
-        }
 
-        [Route("All")]
-        [HttpGet]
-        public IHttpActionResult GetAll()
-        {
-            var response = _service.GetAll();
-            if (response.success == false)
-            {
-                return BadRequest(response.message);
-            }
-            if (response.result == null)
-            {
-                return NotFound();
-            }
-            return Ok(response.result);
-        }
 
-        [Route("Add")]
+        [Route("Parent/Login")]
         [HttpPost]
-        public IHttpActionResult CreateAccount(Account account)
+        public IHttpActionResult ParentLogin(ParentLoginDTO parent)
         {
-            var response = _service.AddAndSave(account);
+            var response = _service.ParentLogin(parent);
             if (response.success == false)
             {
                 return BadRequest(response.message);
@@ -63,23 +33,36 @@ namespace EnglishSchool.Controllers
             return Ok(response.result);
         }
 
-        [Route("Login")]
+        [Route("Student/Login")]
         [HttpPost]
-        public IHttpActionResult Login(Account account)
+        public IHttpActionResult StudentLogin(StudentLoginDTO student)
         {
-            var response = _service.Login(account);
+            var response = _service.StudentLogin(student);
             if (response.success == false)
             {
                 return BadRequest(response.message);
             }
             return Ok(response.result);
         }
+
+        [Route("parent/ChangePassword")]
+        [HttpPost]
+        public IHttpActionResult ParentChangePassword(ChangePasswordDTO account)
+        {
+            var response = _service.ParentChangePassword(account);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            return Ok(response.result);
+        }
+
 
         [Route("ChangePassword")]
         [HttpPost]
-        public IHttpActionResult ChangePassword(AccountChangePasswordDTO account)
+        public IHttpActionResult ChangePassword(ChangePasswordDTO account)
         {
-            var response = _service.ChangePassword(account);
+            var response = _service.StudentChangePassword(account);
             if (response.success == false)
             {
                 return BadRequest(response.message);

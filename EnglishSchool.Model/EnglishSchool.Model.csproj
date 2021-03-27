@@ -49,6 +49,8 @@
     <Reference Include="BCrypt.Net, Version=0.1.4141.31969, Culture=neutral, PublicKeyToken=f3bc8f8c31beeb49, processorArchitecture=MSIL">
       <HintPath>..\packages\BCrypt.Net.0.1.0\lib\net35\BCrypt.Net.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Data.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -153,19 +155,21 @@
     <Compile Include="DTOs\CourseDetailOfStudentDTO.cs" />
     <Compile Include="DTOs\CourseDTO.cs" />
     <Compile Include="DTOs\DepartmentDTO.cs" />
+    <Compile Include="DTOs\ParentDTO.cs" />
     <Compile Include="DTOs\RecruitmentDetailDTO.cs" />
     <Compile Include="DTOs\RecruitmentDTO.cs" />
     <Compile Include="DTOs\StudentDTO.cs" />
-    <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseDetailOfStudent.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Event.cs" />
-    <Compile Include="Models\ListPersonOfEvent.cs" />
+    <Compile Include="Models\Parent.cs" />
+    <Compile Include="Models\Question.cs" />
     <Compile Include="Models\RecruitmentDetail.cs" />
     <Compile Include="Models\News.cs" />
     <Compile Include="Models\PersonalInformation.cs" />
     <Compile Include="Models\Recruitment.cs" />
+    <Compile Include="Models\ScoreResult.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseService\ResponseService.cs" />

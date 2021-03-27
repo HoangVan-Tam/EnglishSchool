@@ -17,6 +17,8 @@ namespace EnglishSchool.Model.Models
         public string email { get; set; }
         [Required]
         public string address { get; set; }
-        public List<ListPersonOfEvent> listPersonOfEvents { get; set; }
+        [Required]
+        public string status { get; set; }
+        public string note { get; set; }
     }
 }

@@ -23,6 +23,5 @@ namespace EnglishSchool.Model.Models
         public string detail { get; set; }
         public List<Student> students { get; set; }
         public List<RecruitmentDetail> listRecruitmentDetails { get; set; }
-        public List<Event> events { get; set; }
     }
 }

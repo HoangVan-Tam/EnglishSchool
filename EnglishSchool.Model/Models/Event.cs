@@ -19,7 +19,6 @@ namespace EnglishSchool.Model.Models
         public string subTitle { get; set; }
         [Required]
         public string detail { get; set; }
-        public List<ListPersonOfEvent> listPersonOfEvents { get; set; }
         [ForeignKey("department")]
         public int departmentId { get; set; }
         public Department department { get; set; }

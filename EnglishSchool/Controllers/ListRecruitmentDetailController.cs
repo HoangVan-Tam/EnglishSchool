@@ -1,5 +1,6 @@
 ﻿using EnglishSchool.Model.DTOs;
 using EnglishSchool.Service;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace EnglishSchool.Controllers
 
         [Route("add")]
         [HttpPost]
-        public IHttpActionResult AddRecruitmentDetail(RecruitmentDetailDTO recruitmentDetail)
+        public IHttpActionResult AddRecruitmentDetail(JObject recruitmentDetail)
         {
             var response = _service.AddAndSave(recruitmentDetail);
             if (response.success == false)
@@ -76,7 +77,7 @@ namespace EnglishSchool.Controllers
 
         [Route("update")]
         [HttpPut]
-        public IHttpActionResult UpdateDepartment(RecruitmentDetailDTO recruitmentDetailDTO)
+        public IHttpActionResult UpdateDepartment(JObject recruitmentDetailDTO)
         {
             var response = _service.Update(recruitmentDetailDTO);
             if (response.success == false)

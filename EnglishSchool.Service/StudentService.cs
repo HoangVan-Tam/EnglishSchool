@@ -4,6 +4,7 @@ using EnglishSchool.Data.Repositories;
 using EnglishSchool.Model.DTOs;
 using EnglishSchool.Model.Models;
 using EnglishSchool.Model.ResponseService;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace EnglishSchool.Service
 {
-        public interface IStudentService : IServiceBase<StudentDTO>
+        public interface IStudentService : IServiceBase<FullInfoStudentDTO>
     {
-        ResponseService<StudentDTO> GetById(string id);
+        ResponseService<FullInfoStudentDTO> GetById(string id);
     }
     public class StudentService : IStudentService
     {
@@ -31,36 +32,47 @@ namespace EnglishSchool.Service
         }
        
 
-        public ResponseService<string> AddAndSave(StudentDTO entity)
+        public ResponseService<string> AddAndSave(JObject entity)
         {
             var response = new ResponseService<string>();
             var tempId = _repository._student.GetLastStudentId()+1;
-            Account account = new Account()
+            int courseId = Convert.ToInt32(entity.GetValue("courseId").ToString());
+            var tempCourse = _repository._course.GetSingleByCondition(p => p.id == courseId);
+            if (tempCourse == null)
             {
-                userName = entity.departmentId.ToString() + "." + String.Format("{0:D5}", tempId) + ".vn",
-                password = entity.firstName.First().ToString().ToUpper() + entity.firstName.Substring(1).ToLower() + entity.lastName.First().ToString().ToUpper() + "@" + entity.phoneNumber.Substring(6),
-                role = 2,
-                status = "available"
-            };
+                response.message = "Course is not created";
+                response.success = false;
+                return response;
+            }
+            var tempStudent = _mapper.Map<JObject, Student>(entity);
+            tempStudent.studentId="stu"+ String.Format("{0:D2}", tempStudent.departmentId)+"-"+ String.Format("{0:D6}", tempId);
+            tempStudent.password = tempStudent.firstName.First().ToString().ToUpper() + tempStudent.firstName.Substring(1).ToLower()
+                                    + tempStudent.lastName.First().ToString().ToUpper() + "@" + tempStudent.phoneNumber.Substring(6);
+            /*
+            tempStudent.studentId = "stu"+entity.GetValue("departmentId").ToString() + "-" + String.Format("{0:D6}", tempId);
+            tempStudent.password = entity.GetValue("firstName").ToString().First().ToString().ToUpper() + entity.GetValue("firstName").ToString().Substring(1).ToLower() 
+                                    + entity.GetValue("lastName").ToString().First().ToString().ToUpper() + "@" + entity.GetValue("phoneNumber").ToString().Substring(6);
+            */
+
+            tempStudent.status = true;
+            tempStudent.deactivationDate = DateTime.Now.AddMonths(tempCourse.numberOfMonths);
             var db = _db.Init();
             using (var transaction = db.Database.BeginTransaction())
             {
                 try
                 {
-                    _repository._account.Add(account);
+                    tempStudent.password = BCrypt.Net.BCrypt.HashPassword(tempStudent.password);
+                    _repository._student.Add(tempStudent);
                     db.SaveChanges();
-                    entity.userName = account.userName;
-                    entity.studentId = String.Format("{0:D5}", tempId);
-                    _repository._student.Add(_mapper.Map<StudentDTO, Student>(entity));
-                    db.SaveChanges();
-                    var tempCourse = _repository._course.GetSingleByCondition(p=>p.id==entity.courseId);
+
                     CourseDetailOfStudent courseOfStudent = new CourseDetailOfStudent()
                     {
-                        courseId = tempCourse.id,
-                        studentId = entity.studentId,
-                        dayStart = DateTime.Now,
                         dayFinish = DateTime.Now.AddMonths(tempCourse.numberOfMonths),
+                        dayStart = DateTime.Now,
                         finish = false,
+                        courseId = tempCourse.id,
+                        studentId = tempStudent.studentId,
+                        tuition = tempCourse.tuition / 100 * tempCourse.discount
                     };
                     _repository._courseDetailOfStudent.Add(courseOfStudent);
                     db.SaveChanges();
@@ -82,12 +94,12 @@ namespace EnglishSchool.Service
             throw new NotImplementedException();
         }
 
-        public ResponseService<List<StudentDTO>> GetAll()
+        public ResponseService<List<FullInfoStudentDTO>> GetAll()
         {
-            ResponseService<List<StudentDTO>> response = new ResponseService<List<StudentDTO>>();
+            ResponseService<List<FullInfoStudentDTO>> response = new ResponseService<List<FullInfoStudentDTO>>();
             try
             {
-                response.result = _mapper.Map<List<Student>, List<StudentDTO>>(_repository._student.GetAll());
+                response.result = _mapper.Map<List<Student>, List<FullInfoStudentDTO>>(_repository._student.GetAll());
             }
             catch (Exception ex)
             {
@@ -97,12 +109,12 @@ namespace EnglishSchool.Service
             return response;
         }
 
-        public ResponseService<StudentDTO> GetById(string id)
+        public ResponseService<FullInfoStudentDTO> GetById(string id)
         {
-            ResponseService<StudentDTO> response = new ResponseService<StudentDTO>();
+            ResponseService<FullInfoStudentDTO> response = new ResponseService<FullInfoStudentDTO>();
             try
             {
-                response.result = _mapper.Map<Student, StudentDTO>(_repository._student.GetSingleByCondition(p => p.studentId == id));
+                response.result = _mapper.Map<Student, FullInfoStudentDTO>(_repository._student.GetSingleByCondition(p => p.studentId == id));
             }
             catch(Exception ex)
             {
@@ -117,17 +129,29 @@ namespace EnglishSchool.Service
             _unitOfWork.Commit();
         }
 
-        public ResponseService<string> Update(StudentDTO entity)
+        public ResponseService<string> Update(JObject entity)
+        {
+            var response =new ResponseService<string>();
+            try
+            {
+                _repository._student.Update(_mapper.Map<JObject, Student>(entity));
+                SaveChanges();
+                response.result = "Update Student successfully";
+            }
+            catch(Exception ex)
+            {
+                response.success = false;
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        public ResponseService<string> Add(JObject entity)
         {
             throw new NotImplementedException();
         }
 
-        public ResponseService<string> Add(StudentDTO entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ResponseService<StudentDTO> GetById(int id)
+        public ResponseService<FullInfoStudentDTO> GetById(int id)
         {
             throw new NotImplementedException();
         }

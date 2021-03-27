@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Jwt;
+using Newtonsoft.Json.Linq;
 using Owin;
 
 [assembly: OwinStartup(typeof(EnglishSchool.App_Start.Startup))]
@@ -72,12 +73,18 @@ namespace EnglishSchool.App_Start
 
             builder.Register(context => new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap <Department, DepartmentDTO>().ReverseMap();
-                cfg.CreateMap<Account, AccountDTO>().ReverseMap();
+                cfg.CreateMap<JObject, DepartmentDTO>().ReverseMap();
+                cfg.CreateMap<Department, DepartmentDTO>().ReverseMap();
                 cfg.CreateMap<Recruitment, RecruitmentDTO>().ReverseMap();
                 cfg.CreateMap<RecruitmentDetail, RecruitmentDetailDTO>().ReverseMap();
                 cfg.CreateMap<Recruitment, NameOfRecruitment>();
                 cfg.CreateMap<Department, NameOfDepartment>();
+                cfg.CreateMap<Student, StudentLoginReponseDTO>().ReverseMap();
+                cfg.CreateMap<Student, FullInfoStudentDTO>().ReverseMap();
+                cfg.CreateMap<Course, CourseDTO>().ReverseMap();
+                cfg.CreateMap<CourseDetailOfStudent, CourseDetailOfStudentDTO>().ReverseMap();
+                cfg.CreateMap<Student, NameOfStudent>();
+                cfg.CreateMap<Course, NameOfCourse>();
             })).AsSelf().SingleInstance();
 
             builder.Register(c =>

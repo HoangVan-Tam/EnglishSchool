@@ -17,13 +17,10 @@ namespace EnglishSchool.Service
 {
     public interface IAuthService
     {
-        ResponseService<string> AddAndSave(Account entity);
-        ResponseService<string> Add(Account entity);
-        ResponseService<List<AccountDTO>> GetAll();
-        ResponseService<AccountDTO> Login(Account account);
-        ResponseService<AccountDTO> Update(Account account);
-        ResponseService<AccountDTO> GetByUserName(string username);
-        ResponseService<AccountDTO> ChangePassword(AccountChangePasswordDTO account);
+        ResponseService<ParentLoginResponseDTO> ParentLogin(ParentLoginDTO account);
+        ResponseService<StudentLoginReponseDTO> StudentLogin(StudentLoginDTO account);
+        ResponseService<string> ParentChangePassword(ChangePasswordDTO account);
+        ResponseService<string> StudentChangePassword(ChangePasswordDTO account);
         void SaveChanges();
     }
     public class AuthService : IAuthService
@@ -43,66 +40,14 @@ namespace EnglishSchool.Service
             _unitOfWork.Commit();
         }
 
-        //add
-        public ResponseService<string> AddAndSave(Account entity)
-        {
-            var response = new ResponseService<string>();
-            if (GetByUserName(entity.userName).result != null)
-            {
-                response.message = "Duplicate Account";
-                response.success = false;
-            }
-            else
-            {
-                try
-                {
-                    entity.password = BCrypt.Net.BCrypt.HashPassword(entity.password);
-                    _repository._account.Add(entity);
-                    SaveChanges();
-                    response.result = "Add Account Successfully";
-                }
-                catch (Exception ex)
-                {
-                    response.message = ex.Message;
-                    response.success = false;
-                }
-            }
-            return response;
-        }
-
-        public ResponseService<string> Add(Account entity)
-        {
-            var response = new ResponseService<string>();
-            if (GetByUserName(entity.userName).result != null)
-            {
-                response.message = "Duplicate Account";
-                response.success = false;
-            }
-            else
-            {
-                try
-                {
-                    entity.password = BCrypt.Net.BCrypt.HashPassword(entity.password);
-                    _repository._account.Add(entity);
-                    response.result = "Add Account Successfully";
-                }
-                catch (Exception ex)
-                {
-                    response.message = ex.Message;
-                    response.success = false;
-                }
-            }
-            return response;
-        }
-
         //create token
-        public string CreateToken(Account account)
+        public string CreateToken(string userName, int role)
         {
             string secretKey = "my_secret_key_12345";
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, account.userName),
-                new Claim(ClaimTypes.Role, account.role.ToString()),
+                new Claim(ClaimTypes.Name, userName),
+                new Claim(ClaimTypes.Role, role.ToString()),
                 //new Claim(ClaimTypes.StateOrProvince, account.status)
             };
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
@@ -117,36 +62,24 @@ namespace EnglishSchool.Service
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
+
         //login
-        public ResponseService<AccountDTO> Login(Account account)
+        public ResponseService<ParentLoginResponseDTO> ParentLogin(ParentLoginDTO account)
         {
-            var response = new ResponseService<AccountDTO>();
-            var temp = _repository._account.GetSingleByCondition(p => p.userName == account.userName);
+            var response = new ResponseService<ParentLoginResponseDTO>();
+            var temp = _repository._parent.GetSingleByCondition(p => p.parentId == account.parentId);
             if (temp != null)
             {
-                if (temp.status == "available")
+                if (temp.status == true)
                 {
-                    if (temp.role == account.role)
+                    if (BCrypt.Net.BCrypt.Verify(account.password, temp.password))
                     {
-                        if (BCrypt.Net.BCrypt.Verify(account.password, temp.password))
-                        {
-                            response.result = new AccountDTO()
-                            {
-                                token = CreateToken(temp),
-                                userName = temp.userName,
-                                role = temp.role,
-                                status = temp.status
-                            };
-                        }
-                        else
-                        {
-                            response.message = "Password is not correct";
-                            response.success = false;
-                        }
+                        response.result = _mapper.Map<Parent, ParentLoginResponseDTO>(temp);
                     }
                     else
                     {
-                        response.message = "Access denied, dont have role";
+                        response.message = "Password is not correct";
                         response.success = false;
                     }
                 }
@@ -164,61 +97,12 @@ namespace EnglishSchool.Service
             return response;
         }
 
-        //Get all
-        public ResponseService<List<AccountDTO>> GetAll()
-        {
-            var response = new ResponseService<List<AccountDTO>>();
-            try
-            {
-                response.result = _mapper.Map<List<Account>, List<AccountDTO>>(_repository._account.GetAll());
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-                response.success = false;
-            }
-            return response;
-        }
-
-        //Update
-        public ResponseService<AccountDTO> Update(Account account)
-        {
-            var response = new ResponseService<AccountDTO>();
-            try
-            {
-                _repository._account.Update(account);
-                SaveChanges();
-                response = GetByUserName(account.userName);
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-                response.success = false;
-            }
-            return response;
-        }
-
-        //Get by username
-        public ResponseService<AccountDTO> GetByUserName(string name)
-        {
-            var response = new ResponseService<AccountDTO>();
-            try
-            {
-                response.result = _mapper.Map<Account, AccountDTO>(_repository._account.GetSingleByCondition(p => p.userName == name));
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-                response.success = false;
-            }
-            return response;
-        }
 
         //Chang Password
-        public ResponseService<AccountDTO> ChangePassword(AccountChangePasswordDTO account)
+        public ResponseService<string> ParentChangePassword(ChangePasswordDTO account)
         {
-            var response = new ResponseService<AccountDTO>();
-            var temp = _repository._account.GetSingleByCondition(p => p.userName == account.userName);
+            var response = new ResponseService<string>();
+            var temp = _repository._parent.GetSingleByCondition(p => p.parentId == account.userName);
             if (temp != null)
             {
                 if (BCrypt.Net.BCrypt.Verify(account.newPassword, temp.password) == true)
@@ -226,9 +110,9 @@ namespace EnglishSchool.Service
                     try
                     {
                         temp.password = BCrypt.Net.BCrypt.HashPassword(account.newPassword);
-                        _repository._account.Update(temp);
+                        _repository._parent.Update(temp);
                         SaveChanges();
-                        response = GetByUserName(account.userName);
+                        response.result = "Action successfully";
                     }
                     catch (Exception ex)
                     {
@@ -245,6 +129,92 @@ namespace EnglishSchool.Service
             else
             {
                 response.message = "Username is not found";
+                response.success = false;
+            }
+            return response;
+        }
+
+
+        public ResponseService<string> StudentChangePassword(ChangePasswordDTO account)
+        {
+            var response = new ResponseService<string>();
+            var temp = _repository._student.GetSingleByCondition(p => p.studentId == account.userName);
+            if (temp != null)
+            {
+                if (BCrypt.Net.BCrypt.Verify(account.newPassword, temp.password) == true)
+                {
+                    try
+                    {
+                        temp.password = BCrypt.Net.BCrypt.HashPassword(account.newPassword);
+                        _repository._student.Update(temp);
+                        SaveChanges();
+                        response.result = "Action successfully";
+                    }
+                    catch (Exception ex)
+                    {
+                        response.message = ex.Message;
+                        response.success = false;
+                    }
+                }
+                else
+                {
+                    response.message = "Old Password is not correct";
+                    response.success = false;
+                }
+            }
+            else
+            {
+                response.message = "Username is not found";
+                response.success = false;
+            }
+            return response;
+        }
+        public ResponseService<StudentLoginReponseDTO> StudentLogin(StudentLoginDTO student)
+        {
+            var response = new ResponseService<StudentLoginReponseDTO>();
+            var temp = _repository._student.GetSingleByCondition(p => p.studentId == student.studentId);
+            if (temp != null)
+            {
+                if (temp.status == true)
+                {
+                    if (temp.deactivationDate > DateTime.Now)
+                    {
+                        if (BCrypt.Net.BCrypt.Verify(student.password, temp.password))
+                        {
+                            response.result = _mapper.Map<Student, StudentLoginReponseDTO>(temp);
+                        }
+                        else
+                        {
+                            response.message = "Password is not correct";
+                            response.success = false;
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            temp.status = false;
+                            _repository._student.Update(temp);
+                            SaveChanges();
+                            response.message = "Account is disable";
+                            response.success = false;
+                        }
+                        catch (Exception ex)
+                        {
+                            response.message = ex.Message;
+                            response.success = false;
+                        }
+                    }
+                }
+                else
+                {
+                    response.message = "Account is not available";
+                    response.success = false;
+                }
+            }
+            else
+            {
+                response.message = "Account is not found";
                 response.success = false;
             }
             return response;

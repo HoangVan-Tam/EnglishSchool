@@ -9,7 +9,7 @@ namespace EnglishSchool.Data.Repositories
 {
     public interface IRepositoryWrapper
     {
-        IAccountRepository _account { get; }
+        IParentRepository _parent { get; }
         IDepartmentRepository _department { get; }
         IRecruitRepository _recruitment { get; }
         IRecruitmentDetailRepository _listRecruitmentDetail { get; }
@@ -21,12 +21,12 @@ namespace EnglishSchool.Data.Repositories
     {
         private IDbFactory _dbFactory;
         private DepartmentRepository departmentRepository;
-        private AccountRepository accountRepository;
         private RecruitmentRepository recruitmentRepository;
         private RecruitmentDetailRepository listRecruitmentDetailRepository;
         private StudentRepository studentRepository;
         private CourseRepository courseRepository;
         private CourseDetailOfStudentRepository courseDetailOfStudentRepository;
+        private ParentRepository parentRepository;
 
         public RepositoryWrapper(IDbFactory dbFactory)
         {
@@ -44,17 +44,6 @@ namespace EnglishSchool.Data.Repositories
             }
         }
 
-        public IAccountRepository _account
-        {
-            get
-            {
-                if (accountRepository == null)
-                {
-                    accountRepository = new AccountRepository(_dbFactory);
-                }
-                return accountRepository;
-            }
-        }
 
         public IRecruitRepository _recruitment
         {
@@ -113,6 +102,18 @@ namespace EnglishSchool.Data.Repositories
                     courseDetailOfStudentRepository = new CourseDetailOfStudentRepository(_dbFactory);
                 }
                 return courseDetailOfStudentRepository;
+            }
+        }
+
+        public IParentRepository _parent
+        {
+            get
+            {
+                if (parentRepository == null)
+                {
+                    parentRepository = new ParentRepository(_dbFactory);
+                }
+                return parentRepository;
             }
         }
     }

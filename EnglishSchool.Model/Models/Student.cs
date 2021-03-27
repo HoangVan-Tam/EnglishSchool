@@ -10,6 +10,7 @@ namespace EnglishSchool.Model.Models
 {
     public class Student
     {
+        [Key]
         public string studentId { get; set; }
         [Required]
         public string firstName { get; set; }
@@ -26,10 +27,12 @@ namespace EnglishSchool.Model.Models
         public string email { get; set; }
         [Required]
         public int level { get; set; }
-        [Key]
-        [ForeignKey("accounts")]
-        public string userName { get; set; }
-        public Account accounts { get; set; }
+        [Required]
+        public bool status { get; set; }
+        [Required]
+        public DateTime deactivationDate { get; set; }
+        [Required]
+        public string password { get; set; }
         [ForeignKey("departments")]
         public int departmentId { get; set; }
         public Department departments { get; set; }

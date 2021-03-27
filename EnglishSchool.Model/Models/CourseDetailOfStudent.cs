@@ -11,22 +11,25 @@ namespace EnglishSchool.Model.Models
     public class CourseDetailOfStudent
     {
         [Key]
-        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int courseDetailId { get; set; }
+
+
         [ForeignKey("courses")]
         public int courseId { get; set; }
         public Course courses { get; set; }
-        [Key]
-        [Column(Order = 2)]
         [ForeignKey("students")]
         public string studentId { get; set; }
         public Student students { get; set; }
-        [Key]
-        [Column(Order = 3)]
+
+        [Required]
         public DateTime dayStart { get; set; }
         [Required]
         public DateTime dayFinish { get; set; }
         [Required]
         public bool finish { get; set; }
+        [Required]
         public float tuition { get; set; }
+        public List<ScoreResult> scoreResults { get; set; }
     }
 }

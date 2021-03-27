@@ -3,6 +3,7 @@ using EnglishSchool.Data.Repositories;
 using EnglishSchool.Model.DTOs;
 using EnglishSchool.Model.Models;
 using EnglishSchool.Service;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,14 +26,14 @@ namespace EnglishSchool.Controllers
 
         [Route("add")]
         [HttpPost]
-        public IHttpActionResult AddDepartment(DepartmentDTO department)
+        public IHttpActionResult AddDepartment(JObject department)
         {
             var response = _service.AddAndSave(department);
             if (response.success == false)
             {
                 return BadRequest(response.message);
             }
-            return Ok(_service.GetAll().result);
+            return Ok(response.result);
         }
 
         [Route("all")]

@@ -157,18 +157,38 @@
     <Compile Include="Infracstructure\IUnitOfWork.cs" />
     <Compile Include="Infracstructure\RepositoryBase.cs" />
     <Compile Include="Infracstructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\202103231938105_create-database.cs" />
-    <Compile Include="Migrations\202103231938105_create-database.designer.cs">
-      <DependentUpon>202103231938105_create-database.cs</DependentUpon>
+    <Compile Include="Migrations\202103271103126_create-db.cs" />
+    <Compile Include="Migrations\202103271103126_create-db.designer.cs">
+      <DependentUpon>202103271103126_create-db.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103271107419_create-db1.cs" />
+    <Compile Include="Migrations\202103271107419_create-db1.designer.cs">
+      <DependentUpon>202103271107419_create-db1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103271108581_create-db2.cs" />
+    <Compile Include="Migrations\202103271108581_create-db2.designer.cs">
+      <DependentUpon>202103271108581_create-db2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103271627205_db6.cs" />
+    <Compile Include="Migrations\202103271627205_db6.designer.cs">
+      <DependentUpon>202103271627205_db6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103271628097_db7.cs" />
+    <Compile Include="Migrations\202103271628097_db7.designer.cs">
+      <DependentUpon>202103271628097_db7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103271647354_db8.cs" />
+    <Compile Include="Migrations\202103271647354_db8.designer.cs">
+      <DependentUpon>202103271647354_db8.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\BlogRepository.cs" />
     <Compile Include="Repositories\CourseDetailOfStudentRepository.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
     <Compile Include="Repositories\DepartmentRepository.cs" />
     <Compile Include="Repositories\EventRepository.cs" />
+    <Compile Include="Repositories\ParentRepository.cs" />
     <Compile Include="Repositories\RecruitmentDetailRepository.cs" />
     <Compile Include="Repositories\RecruitmentRepository.cs" />
     <Compile Include="Repositories\RepositoryWrapper.cs" />
@@ -185,8 +205,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202103231938105_create-database.resx">
-      <DependentUpon>202103231938105_create-database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202103271103126_create-db.resx">
+      <DependentUpon>202103271103126_create-db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103271107419_create-db1.resx">
+      <DependentUpon>202103271107419_create-db1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103271108581_create-db2.resx">
+      <DependentUpon>202103271108581_create-db2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103271627205_db6.resx">
+      <DependentUpon>202103271627205_db6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103271628097_db7.resx">
+      <DependentUpon>202103271628097_db7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103271647354_db8.resx">
+      <DependentUpon>202103271647354_db8.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
