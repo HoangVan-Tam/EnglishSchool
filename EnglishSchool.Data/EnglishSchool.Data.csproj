@@ -181,6 +181,10 @@
     <Compile Include="Migrations\202103271647354_db8.designer.cs">
       <DependentUpon>202103271647354_db8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103291228256_db12.cs" />
+    <Compile Include="Migrations\202103291228256_db12.designer.cs">
+      <DependentUpon>202103291228256_db12.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BlogRepository.cs" />
@@ -222,6 +226,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103271647354_db8.resx">
       <DependentUpon>202103271647354_db8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103291228256_db12.resx">
+      <DependentUpon>202103291228256_db12.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

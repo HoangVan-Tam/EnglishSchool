@@ -54,9 +54,9 @@ namespace EnglishSchool.Data.Infracstructure
             return dbContext.Set<T>().ToList();
         }
 
-        public IQueryable<T> GetMulti(Expression<Func<T, bool>> expression)
+        public List<T> GetMulti(Expression<Func<T, bool>> expression)
         {
-            return dbContext.Set<T>().Where<T>(expression).AsQueryable<T>();
+            return dbContext.Set<T>().Where<T>(expression).ToList();
         }
 
         public int Count(Expression<Func<T, bool>> expression)

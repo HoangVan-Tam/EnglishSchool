@@ -14,7 +14,7 @@ namespace EnglishSchool.Data.Infracstructure
         void Delete(T entity);
         T GetSingleByCondition(Expression<Func<T, bool>> expression);
         List<T> GetAll();
-        IQueryable<T> GetMulti(Expression<Func<T, bool>> predicate);
+        List<T> GetMulti(Expression<Func<T, bool>> predicate);
         int Count(Expression<Func<T, bool>> predicate);
         bool CheckContains(Expression<Func<T, bool>> predicate);
         Task<T> GetSingleByConditionAsync(Expression<Func<T, bool>> expression);

@@ -183,6 +183,7 @@
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\CourseDetailOfStudentController.cs" />
     <Compile Include="Controllers\ListRecruitmentDetailController.cs" />
+    <Compile Include="Controllers\ParentController.cs" />
     <Compile Include="Controllers\RecruitmentController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />

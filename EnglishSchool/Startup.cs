@@ -73,18 +73,25 @@ namespace EnglishSchool.App_Start
 
             builder.Register(context => new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<JObject, DepartmentDTO>().ReverseMap();
                 cfg.CreateMap<Department, DepartmentDTO>().ReverseMap();
                 cfg.CreateMap<Recruitment, RecruitmentDTO>().ReverseMap();
+
+
                 cfg.CreateMap<RecruitmentDetail, RecruitmentDetailDTO>().ReverseMap();
                 cfg.CreateMap<Recruitment, NameOfRecruitment>();
                 cfg.CreateMap<Department, NameOfDepartment>();
+
+
                 cfg.CreateMap<Student, StudentLoginReponseDTO>().ReverseMap();
                 cfg.CreateMap<Student, FullInfoStudentDTO>().ReverseMap();
+
                 cfg.CreateMap<Course, CourseDTO>().ReverseMap();
-                cfg.CreateMap<CourseDetailOfStudent, CourseDetailOfStudentDTO>().ReverseMap();
+
+
                 cfg.CreateMap<Student, NameOfStudent>();
                 cfg.CreateMap<Course, NameOfCourse>();
+                cfg.CreateMap<CourseDetailOfStudent, CourseDetailOfStudentDTO>().ReverseMap();
+
             })).AsSelf().SingleInstance();
 
             builder.Register(c =>

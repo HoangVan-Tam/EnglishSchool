@@ -8,11 +8,13 @@ namespace EnglishSchool.Model.DTOs
 {
     public class CourseDetailOfStudentDTO
     {
+        public int courseDetailId { get; set; }
         public int courseId { get; set; }
-        public int studentId { get; set; }
+        public string studentId { get; set; }
         public DateTime dayStart { get; set; }
         public DateTime dayFinish { get; set; }
         public bool finish { get; set; }
+        public float tuition { get; set; }
         public NameOfCourse courses { get; set; }
         public NameOfStudent students { get; set; }
     }

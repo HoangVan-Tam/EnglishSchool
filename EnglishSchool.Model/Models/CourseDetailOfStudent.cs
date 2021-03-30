@@ -11,13 +11,14 @@ namespace EnglishSchool.Model.Models
     public class CourseDetailOfStudent
     {
         [Key]
+        [Column(Order =1)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int courseDetailId { get; set; }
-
 
         [ForeignKey("courses")]
         public int courseId { get; set; }
         public Course courses { get; set; }
+
         [ForeignKey("students")]
         public string studentId { get; set; }
         public Student students { get; set; }

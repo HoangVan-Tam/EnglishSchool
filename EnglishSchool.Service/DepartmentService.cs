@@ -7,13 +7,10 @@ using EnglishSchool.Model.ResponseService;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Service
 {
-    public interface IDepartmentService : IServiceBase<JObject>
+    public interface IDepartmentService : IServiceBase<DepartmentDTO>
     {
 
     }
@@ -31,12 +28,12 @@ namespace EnglishSchool.Service
 
 
         // Add
-        public ResponseService<string> AddAndSave(JObject departmentDTO)
+        public ResponseService<string> AddAndSave(DepartmentDTO departmentDTO)
         {
             var response = new ResponseService<string>();
             try
             {
-                _repository._department.Add(_mapper.Map<JObject, Department>(departmentDTO));
+                _repository._department.Add(_mapper.Map<DepartmentDTO, Department>(departmentDTO));
                 SaveChanges();
                 response.result = "Add Student Successfully";
             }
@@ -70,12 +67,12 @@ namespace EnglishSchool.Service
 
 
         //Get all
-        public ResponseService<List<JObject>> GetAll()
+        public ResponseService<List<DepartmentDTO>> GetAll()
         {
-            var response = new ResponseService<List<JObject>>();
+            var response = new ResponseService<List<DepartmentDTO>>();
             try
             {
-                response.result = _mapper.Map<List<Department>, List<JObject>>(_repository._department.GetAll());
+                response.result = _mapper.Map<List<Department>, List<DepartmentDTO>>(_repository._department.GetAll());
             }
             catch (Exception ex)
             {
@@ -86,12 +83,12 @@ namespace EnglishSchool.Service
         }
 
         //Get by id
-        public ResponseService<JObject> GetById(int id)
+        public ResponseService<DepartmentDTO> GetById(int id)
         {
-            var response = new ResponseService<JObject>();
+            var response = new ResponseService<DepartmentDTO>();
             try
             {
-                response.result = _mapper.Map<Department, JObject>(_repository._department.GetSingleByCondition(p => p.id == id));
+                response.result = _mapper.Map<Department, DepartmentDTO>(_repository._department.GetSingleByCondition(p => p.id == id));
             }
             catch (Exception ex)
             {
@@ -103,12 +100,12 @@ namespace EnglishSchool.Service
 
 
         //Update
-        public ResponseService<string> Update(JObject departmentDTO)
+        public ResponseService<string> Update(DepartmentDTO departmentDTO)
         {
             var response = new ResponseService<string>();
             try
             {
-                _repository._department.Update(_mapper.Map<JObject, Department>(departmentDTO));
+                _repository._department.Update(_mapper.Map<DepartmentDTO, Department>(departmentDTO));
                 SaveChanges();
                 response.result = "Update Department Successfully";
             }
@@ -126,7 +123,7 @@ namespace EnglishSchool.Service
             _unitOfWork.Commit();
         }
 
-        public ResponseService<string> Add(JObject entity)
+        public ResponseService<string> Add(DepartmentDTO entity)
         {
             throw new NotImplementedException();
         }

@@ -31,5 +31,37 @@ namespace EnglishSchool.Controllers
             }
             return Ok(response.result);
         }
+
+        [Route("all/{id}")]
+        [HttpGet]
+        public IHttpActionResult GetAllCourseDetailOfStudent(string id)
+        {
+            var response = _service.GetAllCourseOfStudent(id);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            if (response.result.Count() < 0)
+            {
+                return NotFound();
+            }
+            return Ok(response.result);
+        }
+
+        [Route("all")]
+        [HttpPut]
+        public IHttpActionResult PutAllCourseDetailOfStudent()
+        {
+            var response = _service.Update();
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            if (response.result.Count() < 0)
+            {
+                return NotFound();
+            }
+            return Ok(response.result);
+        }
     }
 }

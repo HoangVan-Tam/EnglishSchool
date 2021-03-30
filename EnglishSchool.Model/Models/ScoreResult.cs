@@ -11,9 +11,11 @@ namespace EnglishSchool.Model.Models
     public class ScoreResult
     {
         [Key]
+        [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int scoreResultId { get; set; }
-
+        [Key]
+        [Column(Order =2)]
         [ForeignKey("courseDetailOfStudents")]
         public int courseDetailId { get; set; }
         public CourseDetailOfStudent courseDetailOfStudents { get; set; }

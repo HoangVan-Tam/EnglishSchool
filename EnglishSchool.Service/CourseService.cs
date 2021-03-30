@@ -28,12 +28,13 @@ namespace EnglishSchool.Service
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public ResponseService<string> AddAndSave(JObject entity)
+        public ResponseService<string> AddAndSave(CourseDTO entity)
         {
             var response = new ResponseService<string>();
             try
             {
-                _repository._course.Add(_mapper.Map<JObject, Course>(entity));
+                var temp = _mapper.Map<CourseDTO, Course>(entity);
+                _repository._course.Add(temp);
                 SaveChanges();
                 response.result = "Add Course Successfully";
             }
@@ -98,12 +99,12 @@ namespace EnglishSchool.Service
             _unitOfWork.Commit();
         }
 
-        public ResponseService<string> Update(JObject entity)
+        public ResponseService<string> Update(CourseDTO entity)
         {
             var response = new ResponseService<string>();
             try
             {
-                _repository._course.Update(_mapper.Map<JObject, Course>(entity));
+                _repository._course.Update(_mapper.Map<CourseDTO, Course>(entity));
                 SaveChanges();
                 response.result = "Update Course Successfully";
             }
@@ -115,7 +116,7 @@ namespace EnglishSchool.Service
             return response;
         }
 
-        public ResponseService<string> Add(JObject entity)
+        public ResponseService<string> Add(CourseDTO entity)
         {
             throw new NotImplementedException();
         }

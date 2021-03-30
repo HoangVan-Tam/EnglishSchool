@@ -41,13 +41,12 @@ namespace EnglishSchool.Service
         }
 
         //create token
-        public string CreateToken(string userName, int role)
+        public string CreateToken(string userName)
         {
             string secretKey = "my_secret_key_12345";
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, userName),
-                new Claim(ClaimTypes.Role, role.ToString()),
                 //new Claim(ClaimTypes.StateOrProvince, account.status)
             };
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
@@ -182,6 +181,7 @@ namespace EnglishSchool.Service
                         if (BCrypt.Net.BCrypt.Verify(student.password, temp.password))
                         {
                             response.result = _mapper.Map<Student, StudentLoginReponseDTO>(temp);
+                            response.result.token = CreateToken(temp.studentId);
                         }
                         else
                         {

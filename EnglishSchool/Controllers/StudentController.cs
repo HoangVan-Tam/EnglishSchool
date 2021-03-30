@@ -20,7 +20,7 @@ namespace EnglishSchool.Controllers
 
         [Route("add")]
         [HttpPost]
-        public IHttpActionResult AddStudent(JObject studentDTO)
+        public IHttpActionResult AddStudent(FullInfoStudentDTO studentDTO)
         {
             var response = _service.AddAndSave(studentDTO);
             if (response.success == false)
@@ -42,6 +42,18 @@ namespace EnglishSchool.Controllers
             if (response.result.Count() < 0)
             {
                 return NotFound();
+            }
+            return Ok(response.result);
+        }
+
+        [Route("RegisterCourse")]
+        [HttpPost]
+        public IHttpActionResult GetAllStudent(StudentRegisterCourse registerCourse)
+        {
+            var response = _service.StudentRegisterCourse(registerCourse);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
             }
             return Ok(response.result);
         }

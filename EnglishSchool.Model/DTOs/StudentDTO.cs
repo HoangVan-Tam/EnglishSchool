@@ -39,6 +39,11 @@ namespace EnglishSchool.Model.DTOs
         public int level { get; set; }
         public int departmentId { get; set; }
         public string token { get; set; }
+    }
 
+    public class StudentRegisterCourse
+    {
+        public string studentId { get; set; }
+        public int courseId { get; set; }
     }
 }

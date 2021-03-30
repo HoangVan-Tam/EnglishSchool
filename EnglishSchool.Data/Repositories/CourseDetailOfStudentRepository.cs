@@ -10,7 +10,7 @@ namespace EnglishSchool.Data.Repositories
 {
     public interface ICourseDetailOfStudentRepository : IRepository<CourseDetailOfStudent>
     {
-        List<CourseDetailOfStudent> GetAllInFomation();
+        List<CourseDetailOfStudent> GetAllInFormation();
     }
     public class CourseDetailOfStudentRepository : RepositoryBase<CourseDetailOfStudent>, ICourseDetailOfStudentRepository
     {
@@ -19,7 +19,7 @@ namespace EnglishSchool.Data.Repositories
 
         }
 
-        public List<CourseDetailOfStudent> GetAllInFomation()
+        public List<CourseDetailOfStudent> GetAllInFormation()
         {
             return db.CourseDetailOfStudent.Include("courses").Include("students").ToList();
         }

@@ -1,23 +1,22 @@
 ﻿using EnglishSchool.Model.DTOs;
 using EnglishSchool.Service;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace EnglishSchool.Controllers
 {
-    [RoutePrefix("api/course")]
-    public class CourseController : ApiController
+    [RoutePrefix("api/parent")]
+    public class ParentController : ApiController
     {
-        private ICourseService _service;
-        public CourseController(ICourseService service)
+        private readonly IParentService _service;
+        public ParentController(IParentService service)
         {
             _service = service;
         }
-
 
         [Route("All")]
         [HttpGet]
@@ -35,12 +34,11 @@ namespace EnglishSchool.Controllers
             return Ok(response.result);
         }
 
-
         [Route("add")]
         [HttpPost]
-        public IHttpActionResult AddCourse(CourseDTO courseDTO)
+        public IHttpActionResult AddCourse(ParentDTO parentDTO)
         {
-            var response = _service.AddAndSave(courseDTO);
+            var response = _service.AddAndSave(parentDTO);
             if (response.success == false)
             {
                 return BadRequest(response.message);

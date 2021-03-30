@@ -15,7 +15,10 @@ namespace EnglishSchool.Service
 {
     public interface ICourseDetailOfStudentService : IServiceBase<CourseDetailOfStudentDTO>
     {
+        ResponseService<string> Update();
+        ResponseService<List<CourseDetailOfStudentDTO>> GetAllCourseOfStudent(string studentId);
         ResponseService<string> Delete(int courseId, string studentId);
+        
     }
     public class CourseDetailOfStudentService : ICourseDetailOfStudentService
     {
@@ -28,12 +31,12 @@ namespace EnglishSchool.Service
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public ResponseService<string> AddAndSave(JObject entity)
+        public ResponseService<string> AddAndSave(CourseDetailOfStudentDTO entity)
         {
             var response = new ResponseService<string>();
             try
             {
-                _repository._courseDetailOfStudent.Add(_mapper.Map<JObject, CourseDetailOfStudent>(entity));
+                _repository._courseDetailOfStudent.Add(_mapper.Map<CourseDetailOfStudentDTO, CourseDetailOfStudent>(entity));
                 SaveChanges();
                 response.result = "Add Course Detail Successfully";
             }
@@ -73,7 +76,8 @@ namespace EnglishSchool.Service
             var response = new ResponseService<List<CourseDetailOfStudentDTO>>();
             try
             {
-                response.result = _mapper.Map<List<CourseDetailOfStudent>, List<CourseDetailOfStudentDTO>>(_repository._courseDetailOfStudent.GetAllInFomation());
+                var temp = _repository._courseDetailOfStudent.GetAllInFormation();
+                response.result = _mapper.Map<List<CourseDetailOfStudent>, List<CourseDetailOfStudentDTO>>(temp);
             }
             catch (Exception ex)
             {
@@ -85,13 +89,28 @@ namespace EnglishSchool.Service
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            _unitOfWork.Commit();
         }
 
-        public ResponseService<string> Update(JObject entity)
+
+        public ResponseService<string> Update()
         {
-            throw new NotImplementedException();
+            var response = new ResponseService<string>();
+            try
+            {
+                var temp = DateTime.Now;
+                _repository._courseDetailOfStudent.GetMulti(p => p.dayFinish < DateTime.Now).ForEach(p => p.finish = true);
+                SaveChanges();
+                response.result = "Update All Successfully";
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.message = ex.Message;
+            }
+            return response;
         }
+
 
         public ResponseService<CourseDetailOfStudentDTO> GetById(int id)
         {
@@ -109,7 +128,32 @@ namespace EnglishSchool.Service
             return response;
         }
 
-        public ResponseService<string> Add(JObject entity)
+
+        public ResponseService<List<CourseDetailOfStudentDTO>> GetAllCourseOfStudent(string studentId)
+        {
+            var response = new ResponseService<List<CourseDetailOfStudentDTO>>();
+            try
+            {
+
+                var result = _repository._courseDetailOfStudent.GetMulti(p => p.studentId == studentId);
+                response.result = _mapper.Map<List<CourseDetailOfStudent>, List<CourseDetailOfStudentDTO>>(result);
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+                response.success = false;
+            }
+            return response;
+        }
+
+
+
+
+        public ResponseService<string> Add(CourseDetailOfStudentDTO entity)
+        {
+            throw new NotImplementedException();
+        }
+        public ResponseService<string> Update(CourseDetailOfStudentDTO entity)
         {
             throw new NotImplementedException();
         }

@@ -26,7 +26,7 @@ namespace EnglishSchool.Controllers
 
         [Route("add")]
         [HttpPost]
-        public IHttpActionResult AddDepartment(JObject department)
+        public IHttpActionResult AddDepartment(DepartmentDTO department)
         {
             var response = _service.AddAndSave(department);
             if (response.success == false)

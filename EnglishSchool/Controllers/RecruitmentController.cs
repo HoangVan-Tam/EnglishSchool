@@ -21,7 +21,7 @@ namespace EnglishSchool.Controllers
 
         [Route("add")]
         [HttpPost]
-        public IHttpActionResult AddRecruitment(JObject recruitment)
+        public IHttpActionResult AddRecruitment(RecruitmentDTO recruitment)
         {
             var response = _service.AddAndSave(recruitment);
             if (response.success == false)
@@ -77,7 +77,7 @@ namespace EnglishSchool.Controllers
 
         [Route("update")]
         [HttpPut]
-        public IHttpActionResult UpdateDepartment(JObject recruitmentDTO)
+        public IHttpActionResult UpdateDepartment(RecruitmentDTO recruitmentDTO)
         {
             var response = _service.Update(recruitmentDTO);
             if (response.success == false)

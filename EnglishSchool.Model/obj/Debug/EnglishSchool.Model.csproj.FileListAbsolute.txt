@@ -83,6 +83,8 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\Autofac.Integra
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\Autofac.Integration.WebApi.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\AutoMapper.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\BCrypt.Net.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\DevExpress.Data.v19.2.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\DevExpress.Xpo.v19.2.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\EntityFramework.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\EntityFramework.SqlServer.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
@@ -120,6 +122,8 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\Autofac.Integra
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\Autofac.Integration.WebApi.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\AutoMapper.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\BCrypt.Net.xml
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\DevExpress.Data.v19.2.xml
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\DevExpress.Xpo.v19.2.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\EntityFramework.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\EntityFramework.SqlServer.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
@@ -147,15 +151,6 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\System.Web.Razo
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\System.Web.WebPages.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\System.Web.WebPages.Deployment.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\System.Web.WebPages.Razor.xml
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.csprojAssemblyReference.cache
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.csproj.CoreCompileInputs.cache
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.csproj.CopyComplete
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.dll
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.pdb
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\DevExpress.Data.v19.2.dll
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\DevExpress.Xpo.v19.2.dll
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\DevExpress.Data.v19.2.xml
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\DevExpress.Xpo.v19.2.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\de\DevExpress.Data.v19.2.resources.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\es\DevExpress.Data.v19.2.resources.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\ja\DevExpress.Data.v19.2.resources.dll
@@ -164,3 +159,7 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\de\DevExpress.X
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\es\DevExpress.Xpo.v19.2.resources.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\ja\DevExpress.Xpo.v19.2.resources.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\ru\DevExpress.Xpo.v19.2.resources.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.csproj.CoreCompileInputs.cache
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.csproj.CopyComplete
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.pdb
