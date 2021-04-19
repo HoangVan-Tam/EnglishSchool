@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EnglishSchool.Controllers
 {
     [RoutePrefix("api/CourseDetail")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CourseDetailOfStudentController : ApiController
     {
         private readonly ICourseDetailOfStudentService _service;

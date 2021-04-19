@@ -16,6 +16,9 @@ namespace EnglishSchool.Model.Models
         [Required]
         public string title { get; set; }
         [Required]
+        public DateTime postDate { get; set; }
+        public string image { get; set; }
+        [Required]
         public string detail { get; set; }
     }
 }

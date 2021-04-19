@@ -14,9 +14,9 @@ namespace EnglishSchool.Data
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
+        public DbSet<News> News { get; set; }
         public DbSet<Department> Department { get; set; }
         public DbSet<Recruitment> Recruitment { get; set; }
-        public DbSet<Event> Event { get; set; }
         public DbSet<PersonalInformation> PersonalInformation { get; set; }
         public DbSet<RecruitmentDetail> ListRecruitmentDetail { get; set; }
         public DbSet<Student> Student { get; set; }
@@ -24,6 +24,6 @@ namespace EnglishSchool.Data
         public DbSet<CourseDetailOfStudent> CourseDetailOfStudent { get; set; }
         public DbSet<Parent> parents { get; set; }
         public DbSet<ScoreResult> scoreResults { get; set; }
-        public DbSet<Question> questions { get; set; }
+        public DbSet<Question> Questions { get; set; }
     }
 }

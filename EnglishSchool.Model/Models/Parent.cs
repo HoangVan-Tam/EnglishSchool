@@ -12,6 +12,7 @@ namespace EnglishSchool.Model.Models
     {
         [Key]
         public string parentId { get; set; }
+        [Required]
         public List<Student> students { get; set; }
         [Required]
         public string password { get; set; }

@@ -13,6 +13,8 @@ namespace EnglishSchool
         {
             // Web API configuration and services
             //config.Filters.Add(new ExceptionFilter()); 
+
+            config.EnableCors();
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             // Web API routes
             config.MapHttpAttributeRoutes();

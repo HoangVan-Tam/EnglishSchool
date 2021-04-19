@@ -11,9 +11,11 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EnglishSchool.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/department")]
     public class DepartmentController : ApiController
     {
@@ -77,6 +79,18 @@ namespace EnglishSchool.Controllers
             else if (response.result == null)
             {
                 return NotFound();
+            }
+            return Ok(response.result);
+        }
+
+        [Route("{id}")]
+        [HttpPut]
+        public IHttpActionResult UpdateDepartment(DepartmentDTO departmentDTO)
+        {
+            var response = _service.Update(departmentDTO);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
             }
             return Ok(response.result);
         }

@@ -54,25 +54,25 @@ namespace EnglishSchool.Service
                 response.success = false;
                 return response;
             }
-            var tempStudent = _mapper.Map<FullInfoStudentDTO, Student>(entity);
-            tempStudent.studentId="stu"+ String.Format("{0:D2}", tempStudent.departmentId)+"-"+ String.Format("{0:D6}", tempId);
-            var firstName = convertToUnSign3(tempStudent.firstName);
-            var lastName = convertToUnSign3(tempStudent.lastName);
-            tempStudent.password = firstName.First().ToString().ToUpper() + firstName.Substring(1).ToLower()
-                                    + lastName.First().ToString().ToUpper() + "@" + tempStudent.phoneNumber.Substring(6);
             /*
             tempStudent.studentId = "stu"+entity.GetValue("departmentId").ToString() + "-" + String.Format("{0:D6}", tempId);
             tempStudent.password = entity.GetValue("firstName").ToString().First().ToString().ToUpper() + entity.GetValue("firstName").ToString().Substring(1).ToLower() 
                                     + entity.GetValue("lastName").ToString().First().ToString().ToUpper() + "@" + entity.GetValue("phoneNumber").ToString().Substring(6);
             */
-
-            tempStudent.status = true;
-            tempStudent.deactivationDate = DateTime.Now.AddMonths(tempCourse.numberOfMonths);
             var db = _db.Init();
             using (var transaction = db.Database.BeginTransaction())
             {
+                
                 try
                 {
+                    var tempStudent = _mapper.Map<FullInfoStudentDTO, Student>(entity);
+                    tempStudent.studentId = "stu" + String.Format("{0:D2}", tempStudent.departmentId) + "-" + String.Format("{0:D6}", tempId);
+                    var firstName = convertToUnSign3(tempStudent.firstName);
+                    var lastName = convertToUnSign3(tempStudent.lastName);
+                    tempStudent.password = firstName.First().ToString().ToUpper() + firstName.Substring(1).ToLower()
+                                            + lastName.First().ToString().ToUpper() + "@" + tempStudent.phoneNumber.Substring(6);
+                    tempStudent.status = true;
+                    tempStudent.deactivationDate = DateTime.Now.AddMonths(tempCourse.numberOfMonths);
                     tempStudent.password = BCrypt.Net.BCrypt.HashPassword(tempStudent.password);
                     _repository._student.Add(tempStudent);
                     db.SaveChanges();

@@ -9,6 +9,7 @@ namespace EnglishSchool.Data.Repositories
 {
     public interface IRepositoryWrapper
     {
+        IScoreResultRepository _scoreResult { get; }
         IParentRepository _parent { get; }
         IDepartmentRepository _department { get; }
         IRecruitRepository _recruitment { get; }
@@ -16,6 +17,9 @@ namespace EnglishSchool.Data.Repositories
         IStudentRepository _student { get; }
         ICourseRepository _course { get; }
         ICourseDetailOfStudentRepository _courseDetailOfStudent { get; }
+        INewsRepository _news { get; }
+        IQuestionRepository _question { get; }
+        IPersonalInformationRepository _personalInformation { get; }
     }
     public class RepositoryWrapper : IRepositoryWrapper
     {
@@ -27,10 +31,47 @@ namespace EnglishSchool.Data.Repositories
         private CourseRepository courseRepository;
         private CourseDetailOfStudentRepository courseDetailOfStudentRepository;
         private ParentRepository parentRepository;
+        private ScoreResultRepository scoreResultRepository;
+        private NewsRepository newsRepository;
+        private QuestionRepository questionRepository;
+        private PersonalInformationRepository personalInformationRepository;
 
         public RepositoryWrapper(IDbFactory dbFactory)
         {
             _dbFactory = dbFactory;
+        }
+        public IPersonalInformationRepository _personalInformation
+        {
+            get
+            {
+                if (personalInformationRepository == null)
+                {
+                    personalInformationRepository = new PersonalInformationRepository(_dbFactory);
+                }
+                return personalInformationRepository;
+            }
+        }
+        public IQuestionRepository _question
+        {
+            get
+            {
+                if (questionRepository == null)
+                {
+                    questionRepository = new QuestionRepository(_dbFactory);
+                }
+                return questionRepository;
+            }
+        }
+        public INewsRepository _news
+        {
+            get
+            {
+                if (newsRepository == null)
+                {
+                    newsRepository = new NewsRepository(_dbFactory);
+                }
+                return newsRepository;
+            }
         }
         public IDepartmentRepository _department
         {
@@ -114,6 +155,18 @@ namespace EnglishSchool.Data.Repositories
                     parentRepository = new ParentRepository(_dbFactory);
                 }
                 return parentRepository;
+            }
+        }
+
+        public IScoreResultRepository _scoreResult
+        {   
+            get
+            {
+                if (scoreResultRepository == null)
+                {
+                    scoreResultRepository = new ScoreResultRepository(_dbFactory);
+                }
+                return scoreResultRepository;
             }
         }
     }

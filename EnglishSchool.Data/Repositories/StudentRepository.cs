@@ -36,7 +36,6 @@ namespace EnglishSchool.Data.Repositories
             {
                 return 0;
             }
-
         }
     }
 }

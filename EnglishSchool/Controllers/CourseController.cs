@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EnglishSchool.Controllers
 {
     [RoutePrefix("api/course")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CourseController : ApiController
     {
         private ICourseService _service;
@@ -41,6 +43,18 @@ namespace EnglishSchool.Controllers
         public IHttpActionResult AddCourse(CourseDTO courseDTO)
         {
             var response = _service.AddAndSave(courseDTO);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            return Ok(response.result);
+        }
+
+        [Route("update")]
+        [HttpPut]
+        public IHttpActionResult UpdateCourse(CourseDTO courseDTO)
+        {
+            var response = _service.Update(courseDTO);
             if (response.success == false)
             {
                 return BadRequest(response.message);

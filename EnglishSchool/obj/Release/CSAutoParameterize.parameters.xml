@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="school-Web.config Connection String" description="school Connection String used in web.config by the application to access the database." defaultValue="Data Source=englishschooldbserver.database.windows.net;Initial Catalog=EnglishSchool_db;User ID=sqlAdmin;Password=123456789Tam;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\Đồ\ án\\\.Net\\BE_EnglichSchool\\EnglishSchool\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='school']/@connectionString" />
+  </parameter>
+  <parameter name="school_DatabasePublish-Web.config Connection String" description="school_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="school_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\Đồ\ án\\\.Net\\BE_EnglichSchool\\EnglishSchool\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='school_DatabasePublish']/@connectionString" />
+  </parameter>
+</parameters>

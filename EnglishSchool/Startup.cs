@@ -92,6 +92,14 @@ namespace EnglishSchool.App_Start
                 cfg.CreateMap<Course, NameOfCourse>();
                 cfg.CreateMap<CourseDetailOfStudent, CourseDetailOfStudentDTO>().ReverseMap();
 
+
+                cfg.CreateMap<Question, QuestionDTO>().ReverseMap();
+
+
+                cfg.CreateMap<News, NewsDTO>().ReverseMap();
+
+
+                cfg.CreateMap<PersonalInformation, PersonalInformationDTO>().ReverseMap();
             })).AsSelf().SingleInstance();
 
             builder.Register(c =>
