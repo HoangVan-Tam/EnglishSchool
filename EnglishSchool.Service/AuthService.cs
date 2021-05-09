@@ -21,6 +21,7 @@ namespace EnglishSchool.Service
         ResponseService<StudentLoginReponseDTO> StudentLogin(StudentLoginDTO account);
         ResponseService<string> ParentChangePassword(ChangePasswordDTO account);
         ResponseService<string> StudentChangePassword(ChangePasswordDTO account);
+        ResponseService<string> Login(LoginDTO account);
         void SaveChanges();
     }
     public class AuthService : IAuthService
@@ -216,6 +217,24 @@ namespace EnglishSchool.Service
             {
                 response.message = "Account is not found";
                 response.success = false;
+            }
+            return response;
+        }
+
+        public ResponseService<string> Login(LoginDTO account)
+        {
+            var response = new ResponseService<string>();
+            if (_repository._student.GetSingleByCondition(p => p.studentId == account.userID) != null)
+            {
+                response.result = "Student";
+            }
+            else if(_repository._parent.GetSingleByCondition(p=>p.parentId==account.userID)!=null)
+            {
+                response.result = "Parent";
+            }
+            else
+            {
+                response.message = "Account is not found";
             }
             return response;
         }

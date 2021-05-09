@@ -92,3 +92,6 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.pdb
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db123.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db10.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db11.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db15.resources

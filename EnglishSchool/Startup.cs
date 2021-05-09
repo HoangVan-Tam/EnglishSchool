@@ -84,6 +84,8 @@ namespace EnglishSchool.App_Start
 
                 cfg.CreateMap<Student, StudentLoginReponseDTO>().ReverseMap();
                 cfg.CreateMap<Student, FullInfoStudentDTO>().ReverseMap();
+                cfg.CreateMap<Student, NameOfDepartment>().ReverseMap();
+                cfg.CreateMap<Student, NameOfParent>().ReverseMap();
 
                 cfg.CreateMap<Course, CourseDTO>().ReverseMap();
 
@@ -100,6 +102,8 @@ namespace EnglishSchool.App_Start
 
 
                 cfg.CreateMap<PersonalInformation, PersonalInformationDTO>().ReverseMap();
+
+                cfg.CreateMap<ScoreResult, ScoreResultDTO>().ReverseMap();
             })).AsSelf().SingleInstance();
 
             builder.Register(c =>

@@ -61,14 +61,29 @@ namespace EnglishSchool.Controllers
         }
 
         [Route("update")]
-        [HttpPut]
-        public IHttpActionResult UpdateStudent(string id,FullInfoStudentDTO studentDTO)
+        [HttpPatch]
+        public IHttpActionResult UpdateStudent(FullInfoStudentDTO studentDTO)
         {
-            studentDTO.studentId = id;
             var response = _service.Update(studentDTO);
             if (response.success == false)
             {
                 return BadRequest(response.message);
+            }
+            return Ok(response.result);
+        }
+
+        [Route("{id}")]
+        [HttpGet]
+        public IHttpActionResult GetStudentId(string id)
+        {
+            var response = _service.GetById(id);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            else if (response.result == null)
+            {
+                return NotFound();
             }
             return Ok(response.result);
         }

@@ -84,7 +84,7 @@ namespace EnglishSchool.Service
                         finish = false,
                         courseId = tempCourse.id,
                         studentId = tempStudent.studentId,
-                        tuition = tempCourse.tuition / 100 * tempCourse.discount
+                        tuition = (tempCourse.tuition - (tempCourse.tuition / 100 * tempCourse.discount)),
                     };
                     _repository._courseDetailOfStudent.Add(courseOfStudent);
                     db.SaveChanges();
@@ -108,7 +108,7 @@ namespace EnglishSchool.Service
             ResponseService<List<FullInfoStudentDTO>> response = new ResponseService<List<FullInfoStudentDTO>>();
             try
             {
-                response.result = _mapper.Map<List<Student>, List<FullInfoStudentDTO>>(_repository._student.GetAll());
+                response.result = _mapper.Map<List<Student>, List<FullInfoStudentDTO>>(_repository._student.GetAllInFomation());
             }
             catch (Exception ex)
             {
@@ -123,7 +123,7 @@ namespace EnglishSchool.Service
             ResponseService<FullInfoStudentDTO> response = new ResponseService<FullInfoStudentDTO>();
             try
             {
-                response.result = _mapper.Map<Student, FullInfoStudentDTO>(_repository._student.GetSingleByCondition(p => p.studentId == id));
+                response.result = _mapper.Map<Student, FullInfoStudentDTO>(_repository._student.GetAllInfoById(id));
             }
             catch(Exception ex)
             {
@@ -143,7 +143,17 @@ namespace EnglishSchool.Service
             var response =new ResponseService<string>();
             try
             {
-                _repository._student.Update(_mapper.Map<FullInfoStudentDTO, Student>(entity));
+                var student = _repository._student.GetSingleByCondition(p => p.studentId == entity.studentId);
+                student.firstName = entity.firstName;
+                student.lastName = entity.lastName;
+                student.sex = entity.sex;
+                student.birthday = entity.birthday;
+                student.address = entity.address;
+                student.phoneNumber = entity.phoneNumber;
+                student.email = entity.email;
+                student.level = entity.level;
+                student.departmentId = entity.departmentId;
+                _repository._student.Update(student);
                 SaveChanges();
                 response.result = "Update Student successfully";
             }
@@ -174,7 +184,7 @@ namespace EnglishSchool.Service
                             dayFinish = DateTime.Now.AddMonths(course.numberOfMonths),
                             finish = false,
                             studentId = student.studentId,
-                            tuition = course.tuition + course.tuition / 100 * course.discount,
+                            tuition = (course.tuition - (course.tuition / 100 * course.discount)),
                         };
                         _repository._courseDetailOfStudent.Add(courseDetailOfStudent);
                         SaveChanges();

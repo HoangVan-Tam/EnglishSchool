@@ -22,7 +22,34 @@ namespace EnglishSchool.Controllers
             _service = service;
         }
 
-
+        [Route("login")]
+        [HttpPost]
+        public IHttpActionResult login(LoginDTO account)
+        {
+            var response = _service.Login(account);
+            if (response.result == "Student")
+            {
+                StudentLoginDTO student = new StudentLoginDTO()
+                {
+                    password = account.password,
+                    studentId = account.userID,
+                };
+                return Ok(_service.StudentLogin(student));
+            }
+            else if (response.result == "Parent")
+            {
+                ParentLoginDTO parent = new ParentLoginDTO()
+                {
+                    password = account.password,
+                    parentId = account.userID,
+                };
+                return Ok(_service.ParentLogin(parent));
+            }
+            else
+            {
+                return BadRequest(response.message);
+            }
+        }
 
         [Route("Parent/Login")]
         [HttpPost]

@@ -19,9 +19,6 @@ namespace EnglishSchool.Model.Models
         [ForeignKey("courseDetailOfStudents")]
         public int courseDetailId { get; set; }
         public CourseDetailOfStudent courseDetailOfStudents { get; set; }
-
-
-
         [Required]
         public string nameOfExam { get; set; }
         [Required]

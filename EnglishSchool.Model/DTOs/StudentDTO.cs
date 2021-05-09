@@ -17,9 +17,16 @@ namespace EnglishSchool.Model.DTOs
         public string phoneNumber { get; set; }
         public string email { get; set; }
         public int level { get; set; }
+        public bool status { get; set; }
         public DateTime deactivationDate { get; set; }
         public int departmentId { get; set; }
         public int courseId { get; set; }
+        public NameOfDepartment departments { get; set; }
+    }
+    public class NameOfParent
+    {
+        public string firstName { get; set; }
+        public string lastName { get; set; }
     }
     public class StudentLoginDTO
     {

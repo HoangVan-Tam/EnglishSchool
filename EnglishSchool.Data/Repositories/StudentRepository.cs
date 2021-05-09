@@ -11,6 +11,7 @@ namespace EnglishSchool.Data.Repositories
     public interface IStudentRepository : IRepository<Student>
     {
         List<Student> GetAllInFomation();
+        Student GetAllInfoById(string id);
         int GetLastStudentId();
     }
     public class StudentRepository : RepositoryBase<Student>, IStudentRepository
@@ -20,9 +21,14 @@ namespace EnglishSchool.Data.Repositories
 
         }
 
+        public Student GetAllInfoById(string id)
+        {
+            return db.Student.Include("departments").Include("parents").Where(p=>p.studentId==id).FirstOrDefault();
+        }
+
         public List<Student> GetAllInFomation()
         {
-            return db.Student.Include("departments").ToList();
+            return db.Student.Include("departments").Include("parents").ToList();
         }
 
         public int GetLastStudentId()

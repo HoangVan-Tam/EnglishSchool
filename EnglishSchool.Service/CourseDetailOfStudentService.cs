@@ -135,7 +135,7 @@ namespace EnglishSchool.Service
             try
             {
 
-                var result = _repository._courseDetailOfStudent.GetMulti(p => p.studentId == studentId);
+                var result = _repository._courseDetailOfStudent.GetAllInFormationById(p => p.studentId == studentId);
                 response.result = _mapper.Map<List<CourseDetailOfStudent>, List<CourseDetailOfStudentDTO>>(result);
             }
             catch (Exception ex)

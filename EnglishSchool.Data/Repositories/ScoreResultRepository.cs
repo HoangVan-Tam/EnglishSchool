@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace EnglishSchool.Data.Repositories
 {
-    public interface IScoreResultRepository : IRepository<Parent>
+    public interface IScoreResultRepository : IRepository<ScoreResult>
     {
 
     }
-    public class ScoreResultRepository : RepositoryBase<Parent>, IScoreResultRepository
+    public class ScoreResultRepository : RepositoryBase<ScoreResult>, IScoreResultRepository
     {
         public ScoreResultRepository(IDbFactory dbFactory) : base(dbFactory)
         {

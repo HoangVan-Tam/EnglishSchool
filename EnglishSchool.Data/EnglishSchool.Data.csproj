@@ -203,6 +203,18 @@
     <Compile Include="Migrations\202104190606090_db123.designer.cs">
       <DependentUpon>202104190606090_db123.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104280922492_db10.cs" />
+    <Compile Include="Migrations\202104280922492_db10.designer.cs">
+      <DependentUpon>202104280922492_db10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104280937342_db11.cs" />
+    <Compile Include="Migrations\202104280937342_db11.designer.cs">
+      <DependentUpon>202104280937342_db11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105021953296_db15.cs" />
+    <Compile Include="Migrations\202105021953296_db15.designer.cs">
+      <DependentUpon>202105021953296_db15.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseDetailOfStudentRepository.cs" />
@@ -258,6 +270,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104190606090_db123.resx">
       <DependentUpon>202104190606090_db123.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104280922492_db10.resx">
+      <DependentUpon>202104280922492_db10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104280937342_db11.resx">
+      <DependentUpon>202104280937342_db11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105021953296_db15.resx">
+      <DependentUpon>202105021953296_db15.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

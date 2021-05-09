@@ -18,6 +18,10 @@ namespace EnglishSchool.Model.Models
         [Required]
         public int numberOfMonths { get; set; }
         [Required]
+        public string schedule { get; set; }
+        [Required]
+        public DateTime theOpeningDay { get; set; }
+        [Required]
         public float tuition { get; set; }
         public string note { get; set; }
         public float discount { get; set; }

@@ -25,5 +25,6 @@ namespace EnglishSchool.Data
         public DbSet<Parent> parents { get; set; }
         public DbSet<ScoreResult> scoreResults { get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
     }
 }
