@@ -10,8 +10,8 @@ using System.Web.Http.Cors;
 
 namespace EnglishSchool.Controllers
 {
-    [RoutePrefix("api/news")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("api/news")]
     public class NewsController : ApiController
     {
         private readonly INewsService _service;

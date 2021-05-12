@@ -15,6 +15,8 @@ namespace EnglishSchool.Service
 {
     public interface IParentService:IServiceBase<ParentDTO>
     {
+        ResponseService<bool> AddStudentOfParent(string student, string parentId);
+
     }
     public class ParentService : IParentService
     {
@@ -41,15 +43,15 @@ namespace EnglishSchool.Service
         public ResponseService<string> AddAndSave(ParentDTO entity)
         {
             var response = new ResponseService<string>();
+            var tempId = _repository._parent.GetLastParentId() + 1;
+            var student = _repository._student.GetSingleByCondition(p => p.studentId == entity.studentId);
             var checkParent = _repository._parent.GetSingleByCondition(p => p.phoneNumber == entity.phoneNumber);
-            if (checkParent==null)
+            if (checkParent!=null)
             {
                 response.success = false;
                 response.message = "Parent was created";
-                return response;
             }
-            var tempId = _repository._student.GetLastStudentId() + 1;
-            try
+            else
             {
                 var db = _db.Init();
                 using (var transaction = db.Database.BeginTransaction())
@@ -60,12 +62,14 @@ namespace EnglishSchool.Service
                         parent.parentId = "par" + "-" + String.Format("{0:D6}", tempId);
                         var firstName = convertToUnSign3(parent.firstName);
                         var lastName = convertToUnSign3(parent.lastName);
-                        parent.password = firstName.First().ToString().ToUpper() + firstName.Substring(1).ToLower()
-                                                + lastName.First().ToString().ToUpper() + "@" + parent.phoneNumber.Substring(6);
+                        parent.password = lastName.First().ToString().ToUpper() + lastName.Substring(1).ToLower()
+                                                + firstName.First().ToString().ToUpper() + "@" + parent.phoneNumber.Substring(6);
+                        parent.password = BCrypt.Net.BCrypt.HashPassword(parent.password);
                         parent.status = true;
+                        parent.students = new List<Student>();
+                        parent.students.Add(student);
                         _repository._parent.Add(parent);
                         SaveChanges();
-                        var student = _repository._student.GetSingleByCondition(p => p.studentId ==entity.studentId);
                         student.parentId = parent.parentId;
                         _repository._student.Update(student);
                         SaveChanges();
@@ -79,16 +83,9 @@ namespace EnglishSchool.Service
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                response.success = false;
-                response.message = ex.Message;
-            }
+                
             return response;
         }
-
-
-
 
 
         public ResponseService<string> Add(ParentDTO entity)
@@ -101,7 +98,14 @@ namespace EnglishSchool.Service
             var response = new ResponseService<string>();
             try
             {
-                _repository._parent.Update(_mapper.Map<ParentDTO, Parent>(entity));
+                var temp = _repository._parent.GetSingleByCondition(p => p.parentId == entity.parentId);
+                temp.lastName = entity.lastName;
+                temp.firstName = entity.firstName;
+                temp.birthday = entity.birthday;
+                temp.sex = entity.sex;
+                temp.phoneNumber = entity.phoneNumber;
+                temp.email = entity.email;
+                _repository._parent.Update(temp);
                 SaveChanges();
                 response.result = "Update Parent successfully";
             }
@@ -120,7 +124,17 @@ namespace EnglishSchool.Service
 
         public ResponseService<List<ParentDTO>> GetAll()
         {
-            throw new NotImplementedException();
+            var response = new ResponseService<List<ParentDTO>>();
+            try
+            {
+                response.result = _mapper.Map<List<Parent>, List<ParentDTO>>(_repository._parent.GetAll());
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.message = ex.Message;
+            }
+            return response;
         }
 
         public ResponseService<ParentDTO> GetById(int id)
@@ -130,7 +144,32 @@ namespace EnglishSchool.Service
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            _unitOfWork.Commit();
+        }
+
+        public ResponseService<bool> AddStudentOfParent(string student, string parentId)
+        {
+            var response = new ResponseService<bool>();
+            try
+            {
+                var temp = _repository._student.GetSingleByCondition(p => p.studentId == student);
+                if (temp.parentId==null)
+                {
+                    temp.parentId = parentId;
+                    _repository._student.Update(temp);
+                    response.result = true;
+                }
+                else
+                {
+                    response.result = false;
+                }
+            }
+            catch(Exception ex)
+            {
+                response.success = false;
+                response.message = ex.Message;
+            }
+            return response;
         }
     }
 }

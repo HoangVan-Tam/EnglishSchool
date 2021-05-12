@@ -38,6 +38,7 @@ namespace EnglishSchool.Service
             var response = new ResponseService<string>();
             try
             {
+                entity.postDate = Convert.ToDateTime(entity.postDateClient);
                 _repository._news.Add(_mapper.Map<NewsDTO,News> (entity));
                 SaveChanges();
                 response.result = "Add News successfully";
@@ -57,7 +58,18 @@ namespace EnglishSchool.Service
 
         public ResponseService<List<NewsDTO>> GetAll()
         {
-            throw new NotImplementedException();
+            var response = new ResponseService<List<NewsDTO>>();
+            try
+            {
+                var result = _repository._news.GetAll();
+                response.result = _mapper.Map<List<News>, List<NewsDTO>>(result);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.message = ex.Message;
+            }
+            return response;
         }
 
         public ResponseService<NewsDTO> GetById(int id)

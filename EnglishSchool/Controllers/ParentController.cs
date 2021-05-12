@@ -38,7 +38,7 @@ namespace EnglishSchool.Controllers
 
         [Route("add")]
         [HttpPost]
-        public IHttpActionResult AddCourse(ParentDTO parentDTO)
+        public IHttpActionResult AddParent(ParentDTO parentDTO)
         {
             var response = _service.AddAndSave(parentDTO);
             if (response.success == false)
@@ -50,7 +50,7 @@ namespace EnglishSchool.Controllers
 
         [Route("update")]
         [HttpPut]
-        public IHttpActionResult UpdateCourse(ParentDTO parentDTO)
+        public IHttpActionResult UpdateParent(ParentDTO parentDTO)
         {
             var response = _service.Update(parentDTO);
             if (response.success == false)
@@ -58,6 +58,21 @@ namespace EnglishSchool.Controllers
                 return BadRequest(response.message);
             }
             return Ok(response.result);
+        }
+
+        [Route("addStudentofparent/{parentId}")]
+        [HttpPost]
+        public IHttpActionResult AddStudentOfParent(string studentId, string parentId)
+        {
+            var response = _service.AddStudentOfParent(studentId, parentId);
+            if (response.success == true)
+            {
+                return Ok(response.result);
+            }
+            else
+            {
+                return BadRequest(response.message);
+            }
         }
     }
 }

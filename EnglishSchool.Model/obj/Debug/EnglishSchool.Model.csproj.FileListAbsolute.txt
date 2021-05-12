@@ -162,8 +162,8 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\de\DevExpress.X
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\es\DevExpress.Xpo.v19.2.resources.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\ja\DevExpress.Xpo.v19.2.resources.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\ru\DevExpress.Xpo.v19.2.resources.dll
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.csprojAssemblyReference.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.csproj.CoreCompileInputs.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.csproj.CopyComplete
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.pdb
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.csprojAssemblyReference.cache

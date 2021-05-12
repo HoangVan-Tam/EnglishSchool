@@ -13,12 +13,21 @@ namespace EnglishSchool.Data.Repositories
         List<Student> GetAllInFomation();
         Student GetAllInfoById(string id);
         int GetLastStudentId();
+        bool CheckCourseDetail(string schedule);
     }
     public class StudentRepository : RepositoryBase<Student>, IStudentRepository
     {
         public StudentRepository(IDbFactory dbFactory) : base(dbFactory)
         {
 
+        }
+
+        public bool CheckCourseDetail(string schedule)
+        {
+            var check = db.CourseDetailOfStudent.Where(p => p.courses.schedule == schedule && p.finish == false).FirstOrDefault();
+            if (check == null)
+                return true;
+            return false;
         }
 
         public Student GetAllInfoById(string id)

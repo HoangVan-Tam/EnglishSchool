@@ -12,7 +12,6 @@ namespace EnglishSchool.Model.Models
     {
         [Key]
         public string parentId { get; set; }
-        [Required]
         public List<Student> students { get; set; }
         [Required]
         public string password { get; set; }
@@ -23,7 +22,7 @@ namespace EnglishSchool.Model.Models
         [Required]
         public bool sex { get; set; }
         [Required]
-        public DateTime birdDay { get; set; }
+        public DateTime birthday { get; set; }
         [Required]
         public string phoneNumber { get; set; }
         public string email { get; set; }

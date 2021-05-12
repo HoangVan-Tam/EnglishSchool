@@ -18,7 +18,6 @@ namespace EnglishSchool.Data
         public DbSet<Department> Department { get; set; }
         public DbSet<Recruitment> Recruitment { get; set; }
         public DbSet<PersonalInformation> PersonalInformation { get; set; }
-        public DbSet<RecruitmentDetail> ListRecruitmentDetail { get; set; }
         public DbSet<Student> Student { get; set; }
         public DbSet<Course> Course { get; set; }
         public DbSet<CourseDetailOfStudent> CourseDetailOfStudent { get; set; }

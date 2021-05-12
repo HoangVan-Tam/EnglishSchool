@@ -17,9 +17,17 @@ namespace EnglishSchool.Model.Models
         [StringLength(100)]
         public string vacancies { get; set; }
         [Required]
-        public string detail { get; set; }
+        public string jobDecription { get; set; }
         [Required]
-        public string requirement { get; set; }
-        public List<RecruitmentDetail> listRecruitmentDetails { get; set; }
+        public string jobRequirements { get; set; }
+        [Required]
+        public string rightsOfTheEmployees { get; set; }
+        [Required]
+        public string address { get; set; }
+        [Required]
+        public int amount { get; set; }
+        [Required]
+        public bool complete { get; set; }
+
     }
 }

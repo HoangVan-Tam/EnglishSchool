@@ -215,6 +215,38 @@
     <Compile Include="Migrations\202105021953296_db15.designer.cs">
       <DependentUpon>202105021953296_db15.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105091543585_db16.cs" />
+    <Compile Include="Migrations\202105091543585_db16.designer.cs">
+      <DependentUpon>202105091543585_db16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105111141276_db17.cs" />
+    <Compile Include="Migrations\202105111141276_db17.designer.cs">
+      <DependentUpon>202105111141276_db17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105111521490_db18.cs" />
+    <Compile Include="Migrations\202105111521490_db18.designer.cs">
+      <DependentUpon>202105111521490_db18.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105111522351_db19.cs" />
+    <Compile Include="Migrations\202105111522351_db19.designer.cs">
+      <DependentUpon>202105111522351_db19.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105111622187_db20.cs" />
+    <Compile Include="Migrations\202105111622187_db20.designer.cs">
+      <DependentUpon>202105111622187_db20.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105120509573_db21.cs" />
+    <Compile Include="Migrations\202105120509573_db21.designer.cs">
+      <DependentUpon>202105120509573_db21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105121826327_db22.cs" />
+    <Compile Include="Migrations\202105121826327_db22.designer.cs">
+      <DependentUpon>202105121826327_db22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105121931548_db23.cs" />
+    <Compile Include="Migrations\202105121931548_db23.designer.cs">
+      <DependentUpon>202105121931548_db23.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseDetailOfStudentRepository.cs" />
@@ -224,7 +256,6 @@
     <Compile Include="Repositories\ParentRepository.cs" />
     <Compile Include="Repositories\PersonalInformationRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
-    <Compile Include="Repositories\RecruitmentDetailRepository.cs" />
     <Compile Include="Repositories\RecruitmentRepository.cs" />
     <Compile Include="Repositories\RepositoryWrapper.cs" />
     <Compile Include="Repositories\ScoreResultRepository.cs" />
@@ -279,6 +310,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105021953296_db15.resx">
       <DependentUpon>202105021953296_db15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105091543585_db16.resx">
+      <DependentUpon>202105091543585_db16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105111141276_db17.resx">
+      <DependentUpon>202105111141276_db17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105111521490_db18.resx">
+      <DependentUpon>202105111521490_db18.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105111522351_db19.resx">
+      <DependentUpon>202105111522351_db19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105111622187_db20.resx">
+      <DependentUpon>202105111622187_db20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105120509573_db21.resx">
+      <DependentUpon>202105120509573_db21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105121826327_db22.resx">
+      <DependentUpon>202105121826327_db22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105121931548_db23.resx">
+      <DependentUpon>202105121931548_db23.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

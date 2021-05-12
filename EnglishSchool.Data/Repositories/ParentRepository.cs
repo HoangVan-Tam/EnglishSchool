@@ -10,6 +10,7 @@ namespace EnglishSchool.Data.Repositories
 {
     public interface IParentRepository : IRepository<Parent>
     {
+        List<Parent> GetAllInFomation();
         int GetLastParentId();
     }
     public class ParentRepository : RepositoryBase<Parent>, IParentRepository
@@ -17,6 +18,11 @@ namespace EnglishSchool.Data.Repositories
         public ParentRepository(IDbFactory dbFactory) : base(dbFactory)
         {
 
+        }
+
+        public List<Parent> GetAllInFomation()
+        {
+            return db.parents.Include("students").ToList();
         }
 
         public int GetLastParentId()

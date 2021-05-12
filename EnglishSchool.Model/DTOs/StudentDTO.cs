@@ -22,9 +22,15 @@ namespace EnglishSchool.Model.DTOs
         public int departmentId { get; set; }
         public int courseId { get; set; }
         public NameOfDepartment departments { get; set; }
+        public NameOfParent parents { get; set; }
+    }
+    public class NameOfDepartment
+    {
+        public string name { get; set; }
     }
     public class NameOfParent
     {
+        public string parentId { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
     }
@@ -51,6 +57,7 @@ namespace EnglishSchool.Model.DTOs
     public class StudentRegisterCourse
     {
         public string studentId { get; set; }
-        public int courseId { get; set; }
+        public int id { get; set; }
+        public string schedule { get; set; }
     }
 }

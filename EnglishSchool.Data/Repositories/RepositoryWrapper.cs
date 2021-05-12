@@ -13,7 +13,6 @@ namespace EnglishSchool.Data.Repositories
         IParentRepository _parent { get; }
         IDepartmentRepository _department { get; }
         IRecruitRepository _recruitment { get; }
-        IRecruitmentDetailRepository _listRecruitmentDetail { get; }
         IStudentRepository _student { get; }
         ICourseRepository _course { get; }
         ICourseDetailOfStudentRepository _courseDetailOfStudent { get; }
@@ -26,7 +25,6 @@ namespace EnglishSchool.Data.Repositories
         private IDbFactory _dbFactory;
         private DepartmentRepository departmentRepository;
         private RecruitmentRepository recruitmentRepository;
-        private RecruitmentDetailRepository listRecruitmentDetailRepository;
         private StudentRepository studentRepository;
         private CourseRepository courseRepository;
         private CourseDetailOfStudentRepository courseDetailOfStudentRepository;
@@ -95,18 +93,6 @@ namespace EnglishSchool.Data.Repositories
                     recruitmentRepository = new RecruitmentRepository(_dbFactory);
                 }
                 return recruitmentRepository;
-            }
-        }
-
-        public IRecruitmentDetailRepository _listRecruitmentDetail
-        {
-            get
-            {
-                if (listRecruitmentDetailRepository == null)
-                {
-                    listRecruitmentDetailRepository = new RecruitmentDetailRepository(_dbFactory);
-                }
-                return listRecruitmentDetailRepository;
             }
         }
 

@@ -95,3 +95,11 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db10.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db11.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db15.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db16.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db17.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db18.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db19.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db20.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db21.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db22.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db23.resources

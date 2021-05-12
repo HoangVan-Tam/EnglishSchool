@@ -168,46 +168,55 @@ namespace EnglishSchool.Service
         public ResponseService<string> StudentRegisterCourse(StudentRegisterCourse student)
         {
             var response = new ResponseService<string>();
-            var courseDetail = _repository._courseDetailOfStudent.GetSingleByCondition(p => p.courseId == student.courseId && p.studentId == student.studentId);
-            if (courseDetail == null || courseDetail.finish == true)
+            var courseDetail = _repository._courseDetailOfStudent.GetSingleByCondition(p => p.courseId == student.id && p.finish == false);
+            if (courseDetail==null)
             {
-                var course = _repository._course.GetSingleByCondition(p => p.id == student.courseId);
-                var db = _db.Init();
-                using (var transaction = db.Database.BeginTransaction())
+                var checkSchedule = _repository._student.CheckCourseDetail(student.schedule);
+                if (checkSchedule == true)
                 {
-                    try
+                    var course = _repository._course.GetSingleByCondition(p => p.id == student.id);
+                    var db = _db.Init();
+                    using (var transaction = db.Database.BeginTransaction())
                     {
-                        CourseDetailOfStudent courseDetailOfStudent = new CourseDetailOfStudent()
+                        try
                         {
-                            courseId = student.courseId,
-                            dayStart = DateTime.Now,
-                            dayFinish = DateTime.Now.AddMonths(course.numberOfMonths),
-                            finish = false,
-                            studentId = student.studentId,
-                            tuition = (course.tuition - (course.tuition / 100 * course.discount)),
-                        };
-                        _repository._courseDetailOfStudent.Add(courseDetailOfStudent);
-                        SaveChanges();
-                        var tempStudent = _repository._student.GetSingleByCondition(p => p.studentId == student.studentId);
-                        tempStudent.deactivationDate = courseDetailOfStudent.dayFinish;
-                        SaveChanges();
-                        transaction.Commit();
-                        response.result = "Register Successfully";
-                        db.Dispose();
+                            CourseDetailOfStudent courseDetailOfStudent = new CourseDetailOfStudent()
+                            {
+                                courseId = student.id,
+                                dayStart = DateTime.Now,
+                                dayFinish = DateTime.Now.AddMonths(course.numberOfMonths),
+                                finish = false,
+                                studentId = student.studentId,
+                                tuition = (course.tuition - (course.tuition / 100 * course.discount)),
+                            };
+                            _repository._courseDetailOfStudent.Add(courseDetailOfStudent);
+                            SaveChanges();
+                            var tempStudent = _repository._student.GetSingleByCondition(p => p.studentId == student.studentId);
+                            tempStudent.deactivationDate = courseDetailOfStudent.dayFinish;
+                            SaveChanges();
+                            transaction.Commit();
+                            response.result = "Register Successfully";
+                            db.Dispose();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            response.success = false;
+                            response.message = ex.Message;
+                        }
+
                     }
-                    catch(Exception ex)
-                    {
-                        transaction.Rollback();
-                        response.success = false;
-                        response.message = ex.Message;
-                    }
-                    
+                }
+                else
+                {
+                    response.success = false;
+                    response.message = "Student has the same class schedule";
                 }
             }
             else
             {
                 response.success = false;
-                response.message = "Student has not completed the course";
+                response.message = "Student has not completed the course";           
             }
             return response;
         }

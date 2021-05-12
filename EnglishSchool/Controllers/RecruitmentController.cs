@@ -67,7 +67,7 @@ namespace EnglishSchool.Controllers
 
         [Route("{id}")]
         [HttpDelete]
-        public IHttpActionResult DeleteDepartment(int id)
+        public IHttpActionResult DeleteRecruitment(int id)
         {
             var response = _service.Delete(id);
             if (response.success == false)
@@ -78,7 +78,7 @@ namespace EnglishSchool.Controllers
         }
 
         [Route("update")]
-        [HttpPut]
+        [HttpPatch]
         public IHttpActionResult UpdateDepartment(RecruitmentDTO recruitmentDTO)
         {
             var response = _service.Update(recruitmentDTO);
