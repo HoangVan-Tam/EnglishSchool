@@ -106,6 +106,9 @@ namespace EnglishSchool.App_Start
 
                 cfg.CreateMap<Parent, ParentDTO>().ReverseMap();
                 cfg.CreateMap<Parent, NameOfParent>().ReverseMap();
+
+                cfg.CreateMap<Employee, EmployeeDTO>().ReverseMap();
+                cfg.CreateMap<Employee, EmployeeLoginDTO>().ReverseMap();
             })).AsSelf().SingleInstance();
 
             builder.Register(c =>

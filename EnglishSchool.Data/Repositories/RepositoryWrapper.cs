@@ -19,6 +19,7 @@ namespace EnglishSchool.Data.Repositories
         INewsRepository _news { get; }
         IQuestionRepository _question { get; }
         IPersonalInformationRepository _personalInformation { get; }
+        IEmployeeRepository _employee { get; }
     }
     public class RepositoryWrapper : IRepositoryWrapper
     {
@@ -33,11 +34,24 @@ namespace EnglishSchool.Data.Repositories
         private NewsRepository newsRepository;
         private QuestionRepository questionRepository;
         private PersonalInformationRepository personalInformationRepository;
+        private EmployeeRepository employeeRepository;
 
         public RepositoryWrapper(IDbFactory dbFactory)
         {
             _dbFactory = dbFactory;
         }
+        public IEmployeeRepository _employee
+        {
+            get
+            {
+                if (employeeRepository == null)
+                {
+                    employeeRepository = new EmployeeRepository(_dbFactory);
+                }
+                return employeeRepository;
+            }
+        }
+
         public IPersonalInformationRepository _personalInformation
         {
             get

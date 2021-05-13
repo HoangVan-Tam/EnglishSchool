@@ -12,8 +12,9 @@ using System.Web.Http.Cors;
 namespace EnglishSchool.Controllers
 {
 
-    [RoutePrefix("api/auth")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("api/auth")]
+
     public class AuthController : ApiController
     {
         private IAuthService _service;
@@ -68,6 +69,18 @@ namespace EnglishSchool.Controllers
         public IHttpActionResult StudentLogin(StudentLoginDTO student)
         {
             var response = _service.StudentLogin(student);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            return Ok(response.result);
+        }
+
+        [Route("Admin/Login")]
+        [HttpPost]
+        public IHttpActionResult AdminLogin(LoginDTO employee)
+        {
+            var response = _service.AdminLogin(employee);
             if (response.success == false)
             {
                 return BadRequest(response.message);

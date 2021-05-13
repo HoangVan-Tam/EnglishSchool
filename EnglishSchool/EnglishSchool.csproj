@@ -188,6 +188,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\CourseDetailOfStudentController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ParentController.cs" />
     <Compile Include="Controllers\PersonalInformationController.cs" />

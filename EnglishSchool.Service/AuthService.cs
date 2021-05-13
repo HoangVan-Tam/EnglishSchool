@@ -22,6 +22,8 @@ namespace EnglishSchool.Service
         ResponseService<string> ParentChangePassword(ChangePasswordDTO account);
         ResponseService<string> StudentChangePassword(ChangePasswordDTO account);
         ResponseService<string> Login(LoginDTO account);
+        ResponseService<EmployeeLoginDTO> AdminLogin(LoginDTO account);
+        ResponseService<Employee> AdminRegister(ParentLoginDTO account);
         void SaveChanges();
     }
     public class AuthService : IAuthService
@@ -237,6 +239,53 @@ namespace EnglishSchool.Service
                 response.message = "Account is not found";
             }
             return response;
+        }
+
+
+        public ResponseService<EmployeeLoginDTO> AdminLogin(LoginDTO account)
+        {
+            var response = new ResponseService<EmployeeLoginDTO>();
+            var temp = _repository._employee.GetSingleByCondition(p => p.userId == account.userID);
+            if (temp != null)
+            {
+                if(temp.role == "Admin")
+                {
+                    if (temp.status == true)
+                    {
+                        if (BCrypt.Net.BCrypt.Verify(account.password, temp.password))
+                        {
+                            response.result = _mapper.Map<Employee, EmployeeLoginDTO>(temp);
+                            response.result.token = CreateToken(account.userID);
+                        }
+                        else
+                        {
+                            response.message = "Password is not correct";
+                            response.success = false;
+                        }
+                    }
+                    else
+                    {
+                        response.message = "Account is not available";
+                        response.success = false;
+                    }
+                }
+                else
+                {
+                    response.message = "Account does not have access";
+                    response.success = false;
+                }
+            }
+            else
+            {
+                response.message = "Account is not found";
+                response.success = false;
+            }
+            return response;
+        }
+
+        public ResponseService<Employee> AdminRegister(ParentLoginDTO account)
+        {
+            throw new NotImplementedException();
         }
     }
 }

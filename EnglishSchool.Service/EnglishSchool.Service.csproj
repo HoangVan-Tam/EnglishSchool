@@ -162,6 +162,7 @@
     <Compile Include="CourseDetailOfStudentService.cs" />
     <Compile Include="CourseService.cs" />
     <Compile Include="DepartmentService.cs" />
+    <Compile Include="EmployeeService.cs" />
     <Compile Include="IServiceBase.cs" />
     <Compile Include="NewsService.cs" />
     <Compile Include="ParentService.cs" />

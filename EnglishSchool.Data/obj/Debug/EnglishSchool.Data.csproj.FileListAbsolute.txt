@@ -183,10 +183,13 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Da
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db19.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db20.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db21.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db22.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db23.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db24.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db25.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db26.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csproj.GenerateResource.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csproj.CoreCompileInputs.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csproj.CopyComplete
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.pdb
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db22.resources
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db23.resources

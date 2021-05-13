@@ -161,6 +161,7 @@
     <Compile Include="DTOs\CourseDetailOfStudentDTO.cs" />
     <Compile Include="DTOs\CourseDTO.cs" />
     <Compile Include="DTOs\DepartmentDTO.cs" />
+    <Compile Include="DTOs\EmployeeDTO.cs" />
     <Compile Include="DTOs\NewsDTO.cs" />
     <Compile Include="DTOs\ParentDTO.cs" />
     <Compile Include="DTOs\PersonalInformationDTO.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="DTOs\RecruitmentDTO.cs" />
     <Compile Include="DTOs\ScoreResultDTO.cs" />
     <Compile Include="DTOs\StudentDTO.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseDetailOfStudent.cs" />
