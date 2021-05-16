@@ -47,5 +47,21 @@ namespace EnglishSchool.Controllers
             }
             return Ok(response.result);
         }
+
+        [Route("all")]
+        [HttpGet]
+        public IHttpActionResult GetAllAdvisorystring ()
+        {
+            var response = _service.GetAll();
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            else if (response.result == null)
+            {
+                return NotFound();
+            }
+            return Ok(response.result);
+        }
     }
 }

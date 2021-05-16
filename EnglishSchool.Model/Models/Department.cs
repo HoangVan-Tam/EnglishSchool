@@ -22,5 +22,6 @@ namespace EnglishSchool.Model.Models
         [Required]
         public string detail { get; set; }
         public List<Student> students { get; set; }
+        public List<Employee> employees { get; set; }
     }
 }

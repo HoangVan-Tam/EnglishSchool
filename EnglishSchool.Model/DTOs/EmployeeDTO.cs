@@ -16,8 +16,10 @@ namespace EnglishSchool.Model.DTOs
         public string address { get; set; }
         public string phoneNumber { get; set; }
         public string email { get; set; }
-        public string password { get; set; }
         public string role { get; set; }
+        public bool status { get; set; }
+        public int departmentId { get; set; }
+        public NameOfDepartment departments { get; set; }
     }
     public class EmployeeLoginDTO
     {
