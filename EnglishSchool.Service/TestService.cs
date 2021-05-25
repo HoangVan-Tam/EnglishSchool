@@ -61,6 +61,7 @@ namespace EnglishSchool.Service
         var response = new ResponseService<List<DetailTestDTO>>();
         try
         {
+            var question = _repository
         }
         catch(Exception ex)
         {
