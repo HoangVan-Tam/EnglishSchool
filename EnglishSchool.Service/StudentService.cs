@@ -61,16 +61,14 @@ namespace EnglishSchool.Service
             */
             var db = _db.Init();
             using (var transaction = db.Database.BeginTransaction())
-            {
-                
+            { 
                 try
                 {
                     var tempStudent = _mapper.Map<FullInfoStudentDTO, Student>(entity);
                     tempStudent.studentId = "stu" + String.Format("{0:D2}", tempStudent.departmentId) + "-" + String.Format("{0:D6}", tempId);
                     var firstName = convertToUnSign3(tempStudent.firstName);
                     var lastName = convertToUnSign3(tempStudent.lastName);
-                    tempStudent.password = firstName.First().ToString().ToUpper() + firstName.Substring(1).ToLower()
-                                            + lastName.First().ToString().ToUpper() + "@" + tempStudent.phoneNumber.Substring(6);
+                    tempStudent.password = "123456789";
                     tempStudent.status = true;
                     tempStudent.deactivationDate = DateTime.Now.AddMonths(tempCourse.numberOfMonths);
                     tempStudent.password = BCrypt.Net.BCrypt.HashPassword(tempStudent.password);
@@ -86,7 +84,7 @@ namespace EnglishSchool.Service
                         studentId = tempStudent.studentId,
                         tuition = (tempCourse.tuition - (tempCourse.tuition / 100 * tempCourse.discount)),
                     };
-                    _repository._courseDetailOfStudent.Add(courseOfStudent);
+                    _repository._courseDetailOfStudent.Add(courseOfStudent, tempCourse.numberOfMonths);
                     db.SaveChanges();
                     transaction.Commit();
                     response.result = "Add Student Successfully";
@@ -168,10 +166,10 @@ namespace EnglishSchool.Service
         public ResponseService<string> StudentRegisterCourse(StudentRegisterCourse student)
         {
             var response = new ResponseService<string>();
-            var courseDetail = _repository._courseDetailOfStudent.GetSingleByCondition(p => p.courseId == student.id && p.finish == false);
+            var courseDetail = _repository._courseDetailOfStudent.GetSingleByCondition(p => p.courseId == student.id && p.studentId==student.studentId && p.finish == false);
             if (courseDetail==null)
             {
-                var checkSchedule = _repository._student.CheckCourseDetail(student.schedule);
+                var checkSchedule = _repository._student.CheckCourseDetail(student.schedule, student.studentId);
                 if (checkSchedule == true)
                 {
                     var course = _repository._course.GetSingleByCondition(p => p.id == student.id);
@@ -189,7 +187,7 @@ namespace EnglishSchool.Service
                                 studentId = student.studentId,
                                 tuition = (course.tuition - (course.tuition / 100 * course.discount)),
                             };
-                            _repository._courseDetailOfStudent.Add(courseDetailOfStudent);
+                            _repository._courseDetailOfStudent.Add(courseDetailOfStudent, course.numberOfMonths);
                             SaveChanges();
                             var tempStudent = _repository._student.GetSingleByCondition(p => p.studentId == student.studentId);
                             tempStudent.deactivationDate = courseDetailOfStudent.dayFinish;
@@ -220,12 +218,6 @@ namespace EnglishSchool.Service
             }
             return response;
         }
-
-
-
-
-
-
 
         public ResponseService<string> Delete(int id)
         {

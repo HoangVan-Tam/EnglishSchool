@@ -263,8 +263,21 @@
     <Compile Include="Migrations\202105140656233_db27.designer.cs">
       <DependentUpon>202105140656233_db27.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105190753138_db28.cs" />
+    <Compile Include="Migrations\202105190753138_db28.designer.cs">
+      <DependentUpon>202105190753138_db28.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105191023522_db29.cs" />
+    <Compile Include="Migrations\202105191023522_db29.designer.cs">
+      <DependentUpon>202105191023522_db29.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105250705124_db30.cs" />
+    <Compile Include="Migrations\202105250705124_db30.designer.cs">
+      <DependentUpon>202105250705124_db30.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DetailTestRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\CourseDetailOfStudentRepository.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
@@ -275,7 +288,7 @@
     <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\RecruitmentRepository.cs" />
     <Compile Include="Repositories\RepositoryWrapper.cs" />
-    <Compile Include="Repositories\ScoreResultRepository.cs" />
+    <Compile Include="Repositories\TestRepository.cs" />
     <Compile Include="Repositories\StudentRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -363,6 +376,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105140656233_db27.resx">
       <DependentUpon>202105140656233_db27.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105190753138_db28.resx">
+      <DependentUpon>202105190753138_db28.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105191023522_db29.resx">
+      <DependentUpon>202105191023522_db29.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105250705124_db30.resx">
+      <DependentUpon>202105250705124_db30.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

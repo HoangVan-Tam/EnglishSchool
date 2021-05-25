@@ -72,7 +72,13 @@ namespace EnglishSchool.Service
             var response = new ResponseService<List<DepartmentDTO>>();
             try
             {
-                response.result = _mapper.Map<List<Department>, List<DepartmentDTO>>(_repository._department.GetAll());
+                var result = _repository._department.GetListDepartmentWithStudent();
+                
+                response.result = _mapper.Map<List<Department>, List<DepartmentDTO>>(result);
+                for(int i = 0; i < response.result.Count; i++)
+                {
+                    response.result[i].numberStudent = result[i].students.Count;
+                }
             }
             catch (Exception ex)
             {

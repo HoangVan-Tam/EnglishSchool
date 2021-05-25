@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Web;
 using AutoMapper;
 using DevExpress.Xpo;
 using EnglishSchool.Data.Infracstructure;
@@ -12,7 +14,8 @@ namespace EnglishSchool.Service
 {
     public interface INewsService : IServiceBase<NewsDTO>
     {
-
+        ResponseService<string> AddAndSave();
+        ResponseService<string> Update();
     }
 
     public class NewsService : INewsService
@@ -28,20 +31,32 @@ namespace EnglishSchool.Service
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public ResponseService<string> Add(NewsDTO entity)
-        {
-            throw new NotImplementedException();
-        }
 
-        public ResponseService<string> AddAndSave(NewsDTO entity)
+        public ResponseService<string> AddAndSave()
         {
             var response = new ResponseService<string>();
             try
             {
-                entity.postDate = Convert.ToDateTime(entity.postDateClient);
-                _repository._news.Add(_mapper.Map<NewsDTO,News> (entity));
+                News news=new News();
+                news.detail = HttpContext.Current.Request.Form.Get("detail");
+                news.title = HttpContext.Current.Request.Form.Get("title");
+                var postDateClient = HttpContext.Current.Request.Form.Get("postDateClient");
+                news.postDate = Convert.ToDateTime(postDateClient);
+                if (HttpContext.Current.Request.Files.Count > 0)
+                {
+                    string path = HttpContext.Current.Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    HttpPostedFile postedFile = HttpContext.Current.Request.Files[0];
+                    string fileName = "image" + news.postDate.Day.ToString() + news.postDate.Month.ToString() + news.postDate.Year.ToString() +
+                        "-" + DateTime.Now.Millisecond.ToString() + news.postDate.Second.ToString() + news.postDate.Minute.ToString() + news.postDate.Hour.ToString() + ".png";
+                    postedFile.SaveAs(path + fileName);
+                    news.image = fileName;
+                }   
+                _repository._news.Add(news);
                 SaveChanges();
-                response.result = "Add News successfully";
             }
             catch (Exception ex)
             {
@@ -49,6 +64,17 @@ namespace EnglishSchool.Service
                 response.message = ex.Message;
             }
             return response;
+        }
+
+
+        public ResponseService<string> Add(NewsDTO entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ResponseService<string> AddAndSave(NewsDTO entity)
+        {
+            throw new NotImplementedException();
         }
 
         public ResponseService<string> Delete(int id)
@@ -92,12 +118,36 @@ namespace EnglishSchool.Service
             _unitOfWork.Commit();
         }
 
-        public ResponseService<string> Update(NewsDTO entity)
+        public ResponseService<string> Update()
         {
             var response = new ResponseService<string>();
             try
             {
-                _repository._news.Update(_mapper.Map<NewsDTO, News>(entity));
+                int id = Convert.ToInt32(HttpContext.Current.Request.Form.Get("id"));
+                var news = _repository._news.GetSingleByCondition(p => p.id == id);
+                news.title= HttpContext.Current.Request.Form.Get("title");
+                news.detail=HttpContext.Current.Request.Form.Get("detail");
+                string Path = HttpContext.Current.Server.MapPath("~/Uploads/"); 
+                if (HttpContext.Current.Request.Files.Count != 0)
+                {     
+                    HttpPostedFile postedFile = HttpContext.Current.Request.Files[0];
+                    if(news.image=="" || news.image == null)
+                    {
+                        news.image= "image" + news.postDate.Day.ToString() + news.postDate.Month.ToString() + news.postDate.Year.ToString() +
+                        "-" + DateTime.Now.Millisecond.ToString()+ news.postDate.Second.ToString() + news.postDate.Minute.ToString() + news.postDate.Hour.ToString() + ".png";
+                    }
+                    else
+                    {
+                        news.image = HttpContext.Current.Request.Form.Get("image");
+                    }
+                    FileInfo file = new FileInfo(Path + news.image);
+                    if (file.Exists)
+                    {
+                        file.Delete();
+                    }
+                    postedFile.SaveAs(Path + news.image);
+                }       
+                _repository._news.Update(news);
                 SaveChanges();
                 response.result = "Update News successfully";
             }
@@ -107,6 +157,11 @@ namespace EnglishSchool.Service
                 response.message = ex.Message;
             }
             return response;
+        }
+
+        public ResponseService<string> Update(NewsDTO entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

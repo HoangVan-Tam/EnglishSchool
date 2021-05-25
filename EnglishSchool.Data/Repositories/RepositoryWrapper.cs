@@ -9,7 +9,7 @@ namespace EnglishSchool.Data.Repositories
 {
     public interface IRepositoryWrapper
     {
-        IScoreResultRepository _scoreResult { get; }
+        ITestRepository _test { get; }
         IParentRepository _parent { get; }
         IDepartmentRepository _department { get; }
         IRecruitRepository _recruitment { get; }
@@ -20,6 +20,7 @@ namespace EnglishSchool.Data.Repositories
         IQuestionRepository _question { get; }
         IPersonalInformationRepository _personalInformation { get; }
         IEmployeeRepository _employee { get; }
+        IDetailTestRepository _detailTest { get; }
     }
     public class RepositoryWrapper : IRepositoryWrapper
     {
@@ -30,11 +31,12 @@ namespace EnglishSchool.Data.Repositories
         private CourseRepository courseRepository;
         private CourseDetailOfStudentRepository courseDetailOfStudentRepository;
         private ParentRepository parentRepository;
-        private ScoreResultRepository scoreResultRepository;
+        private TestRepository testRepository;
         private NewsRepository newsRepository;
         private QuestionRepository questionRepository;
         private PersonalInformationRepository personalInformationRepository;
         private EmployeeRepository employeeRepository;
+        private DetailTestRepository detailTestRepository;
 
         public RepositoryWrapper(IDbFactory dbFactory)
         {
@@ -158,15 +160,27 @@ namespace EnglishSchool.Data.Repositories
             }
         }
 
-        public IScoreResultRepository _scoreResult
+        public ITestRepository _test
         {   
             get
             {
-                if (scoreResultRepository == null)
+                if (testRepository == null)
                 {
-                    scoreResultRepository = new ScoreResultRepository(_dbFactory);
+                    testRepository = new TestRepository(_dbFactory);
                 }
-                return scoreResultRepository;
+                return testRepository;
+            }
+        }
+
+        public IDetailTestRepository _detailTest
+        {
+            get
+            {
+                if (detailTestRepository == null)
+                {
+                    detailTestRepository = new DetailTestRepository(_dbFactory);
+                }
+                return detailTestRepository;
             }
         }
     }

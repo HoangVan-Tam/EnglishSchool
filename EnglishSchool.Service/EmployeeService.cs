@@ -42,7 +42,7 @@ namespace EnglishSchool.Service
                 var temp = _repository._employee.GetLastTeacherId()+1;
                 var teacher = _mapper.Map<EmployeeDTO, Employee>(entity);
                 teacher.userId = String.Format("{0:D2}", entity.departmentId) + "_giaovien_" + temp.ToString();
-                teacher.password= BCrypt.Net.BCrypt.HashPassword("giaovien"+temp.ToString());
+                teacher.password= BCrypt.Net.BCrypt.HashPassword("123456789");
                 teacher.role = "Teacher";
                 teacher.status = true;
                 _repository._employee.Add(teacher);

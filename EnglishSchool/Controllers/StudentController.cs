@@ -50,7 +50,7 @@ namespace EnglishSchool.Controllers
 
         [Route("RegisterCourse")]
         [HttpPost]
-        public IHttpActionResult GetAllStudent(StudentRegisterCourse registerCourse)
+        public IHttpActionResult StudentRegisterCourse(StudentRegisterCourse registerCourse)
         {
             var response = _service.StudentRegisterCourse(registerCourse);
             if (response.success == false)

@@ -212,6 +212,7 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\Microsoft.Owin.Security.OAu
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\Microsoft.Web.Infrastructure.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\Newtonsoft.Json.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\Owin.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\Swashbuckle.Core.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\System.Buffers.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\System.Diagnostics.DiagnosticSource.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\System.IdentityModel.Tokens.Jwt.dll
@@ -230,6 +231,7 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\System.Web.Razor.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\System.Web.WebPages.Deployment.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\System.Web.WebPages.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\System.Web.WebPages.Razor.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\WebActivatorEx.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\EnglishSchool.Data.pdb
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\EnglishSchool.Data.dll.config
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\EnglishSchool.Model.pdb

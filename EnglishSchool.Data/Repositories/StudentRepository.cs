@@ -13,7 +13,7 @@ namespace EnglishSchool.Data.Repositories
         List<Student> GetAllInFomation();
         Student GetAllInfoById(string id);
         int GetLastStudentId();
-        bool CheckCourseDetail(string schedule);
+        bool CheckCourseDetail(string schedule, string studentId);
     }
     public class StudentRepository : RepositoryBase<Student>, IStudentRepository
     {
@@ -22,9 +22,9 @@ namespace EnglishSchool.Data.Repositories
 
         }
 
-        public bool CheckCourseDetail(string schedule)
+        public bool CheckCourseDetail(string schedule, string studentId)
         {
-            var check = db.CourseDetailOfStudent.Where(p => p.courses.schedule == schedule && p.finish == false).FirstOrDefault();
+            var check = db.CourseDetailOfStudent.Where(p => p.courses.schedule == schedule && p.studentId==studentId && p.finish == false).FirstOrDefault();
             if (check == null)
                 return true;
             return false;

@@ -102,7 +102,7 @@ namespace EnglishSchool.App_Start
 
                 cfg.CreateMap<PersonalInformation, PersonalInformationDTO>().ReverseMap();
 
-                cfg.CreateMap<ScoreResult, ScoreResultDTO>().ReverseMap();
+                cfg.CreateMap<Test, TestDTO>().ReverseMap();
 
                 cfg.CreateMap<Parent, ParentDTO>().ReverseMap();
                 cfg.CreateMap<Parent, NameOfParent>().ReverseMap();

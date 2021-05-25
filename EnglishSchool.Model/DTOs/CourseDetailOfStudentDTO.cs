@@ -26,5 +26,6 @@ namespace EnglishSchool.Model.DTOs
     public class NameOfCourse
     {
         public string name { get; set; }
+        public string schedule { get; set; }
     }
 }

@@ -22,14 +22,14 @@ namespace EnglishSchool.Data.Repositories
 
         public List<Parent> GetAllInFomation()
         {
-            return db.parents.Include("students").ToList();
+            return db.Parents.Include("students").ToList();
         }
 
         public int GetLastParentId()
         {
             try
             {
-                var studentId = db.parents.ToList().Last().parentId.Substring(4, 6);
+                var studentId = db.Parents.ToList().Last().parentId.Substring(4, 6);
                 return Convert.ToInt32(studentId);
             }
             catch

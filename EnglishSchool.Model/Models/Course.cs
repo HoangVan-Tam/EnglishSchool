@@ -16,6 +16,12 @@ namespace EnglishSchool.Model.Models
         [Required]
         public string name { get; set; }
         [Required]
+        public string title { get; set; }
+        [Required]
+        public string headContent { get; set; }
+        [Required]
+        public string bodyContent { get; set; }
+        [Required]
         public int numberOfMonths { get; set; }
         [Required]
         public string schedule { get; set; }

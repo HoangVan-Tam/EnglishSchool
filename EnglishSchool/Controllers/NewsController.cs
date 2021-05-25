@@ -22,9 +22,9 @@ namespace EnglishSchool.Controllers
 
         [Route("add")]
         [HttpPost]
-        public IHttpActionResult AddNews(NewsDTO newsDTO)
+        public IHttpActionResult AddNews()
         {
-            var response = _service.AddAndSave(newsDTO);
+            var response = _service.AddAndSave();
             if (response.success == false)
             {
                 return BadRequest(response.message);
@@ -32,11 +32,23 @@ namespace EnglishSchool.Controllers
             return Ok(response.result);
         }
 
+        /*[Route("add")]
+        [HttpPost]
+        public IHttpActionResult UploadFiles()
+        {
+            var response = _service.AddAndSave();
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            return Ok(response.result);
+        }*/
+
         [Route("update")]
         [HttpPut]
-        public IHttpActionResult UpdateNews(NewsDTO newsDTO)
+        public IHttpActionResult UpdateNews()
         {
-            var response = _service.Update(newsDTO);
+            var response = _service.Update();
             if (response.success == false)
             {
                 return BadRequest(response.message);

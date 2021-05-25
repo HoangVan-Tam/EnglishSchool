@@ -15,4 +15,8 @@ namespace EnglishSchool.Model.DTOs
         public string image { get; set; }
         public string detail { get; set; }
     }
+    public class AddNews
+    {
+        public NewsDTO entity { get; set; }
+    }
 }

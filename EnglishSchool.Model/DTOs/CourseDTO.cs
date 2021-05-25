@@ -16,5 +16,8 @@ namespace EnglishSchool.Model.DTOs
         public float tuition { get; set; }
         public string note { get; set; }
         public float discount { get; set; }
+        public string title { get; set; }
+        public string headContent { get; set; }
+        public string bodyContent { get; set; }
     }
 }

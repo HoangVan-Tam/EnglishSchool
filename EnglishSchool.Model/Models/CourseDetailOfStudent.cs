@@ -14,7 +14,6 @@ namespace EnglishSchool.Model.Models
         [Column(Order =1)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int courseDetailId { get; set; }
-
         [ForeignKey("courses")]
         public int courseId { get; set; }
         public Course courses { get; set; }
@@ -31,6 +30,7 @@ namespace EnglishSchool.Model.Models
         public bool finish { get; set; }
         [Required]
         public float tuition { get; set; }
-        public List<ScoreResult> scoreResults { get; set; }
+        public List<Test> tests { get; set; }
+        public List<Attendance> attendances { get; set; }
     }
 }

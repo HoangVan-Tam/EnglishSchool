@@ -13,5 +13,6 @@ namespace EnglishSchool.Model.DTOs
         public string name { get; set; }
         public string address { get; set; }
         public string detail { get; set; }
+        public int numberStudent { get; set; }
     }
 }

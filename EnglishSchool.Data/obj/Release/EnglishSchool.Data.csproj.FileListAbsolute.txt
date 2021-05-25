@@ -107,3 +107,6 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db25.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db26.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db27.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db28.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db29.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db30.resources

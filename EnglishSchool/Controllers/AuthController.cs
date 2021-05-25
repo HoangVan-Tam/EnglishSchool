@@ -101,11 +101,23 @@ namespace EnglishSchool.Controllers
         }
 
 
-        [Route("ChangePassword")]
+        [Route("student/ChangePassword")]
         [HttpPost]
-        public IHttpActionResult ChangePassword(ChangePasswordDTO account)
+        public IHttpActionResult StudentChangePassword(ChangePasswordDTO account)
         {
             var response = _service.StudentChangePassword(account);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            return Ok(response.result);
+        }
+
+        [Route("employee/ChangePassword")]
+        [HttpPost]
+        public IHttpActionResult EmployeeChangePassword(ChangePasswordDTO account)
+        {
+            var response = _service.EmployeeChangePassword(account);
             if (response.success == false)
             {
                 return BadRequest(response.message);

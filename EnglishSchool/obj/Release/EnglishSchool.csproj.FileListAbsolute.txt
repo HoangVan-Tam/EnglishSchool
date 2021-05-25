@@ -140,3 +140,5 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\obj\Release\EnglishSchool.cspro
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\obj\Release\EnglishSchool.csproj.CopyComplete
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\obj\Release\EnglishSchool.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\obj\Release\EnglishSchool.pdb
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\Swashbuckle.Core.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\WebActivatorEx.dll

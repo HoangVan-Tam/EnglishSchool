@@ -13,8 +13,8 @@ namespace EnglishSchool.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ScoreResultController : ApiController
     {
-        private IScoreResultService _service;
-        public ScoreResultController(IScoreResultService service)
+        private ITestService _service;
+        public ScoreResultController(ITestService service)
         {
             _service = service;
         }
@@ -23,7 +23,7 @@ namespace EnglishSchool.Controllers
         [HttpGet]
         public IHttpActionResult GetAllScoreResultByCourseDetailId(int id)
         {
-            var response = _service.GetListScoreResultByCourseDetailId(id);
+            var response = _service.GetListTestByCourseDetailId(id);
             if (response.success == false)
             {
                 return BadRequest(response.message);

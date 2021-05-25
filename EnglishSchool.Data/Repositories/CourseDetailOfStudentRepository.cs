@@ -13,6 +13,7 @@ namespace EnglishSchool.Data.Repositories
     {
         List<CourseDetailOfStudent> GetAllInFormation();
         List<CourseDetailOfStudent> GetAllInFormationById(Expression<Func<CourseDetailOfStudent, bool>> expression);
+        void Add(CourseDetailOfStudent entity, int numberOfMonth);
     }
     public class CourseDetailOfStudentRepository : RepositoryBase<CourseDetailOfStudent>, ICourseDetailOfStudentRepository
     {
@@ -25,10 +26,29 @@ namespace EnglishSchool.Data.Repositories
         {
             return db.CourseDetailOfStudent.Include("courses").Include("students").ToList();
         }
-
+        
         public List<CourseDetailOfStudent> GetAllInFormationById(Expression<Func<CourseDetailOfStudent, bool>> expression)
         {
             return db.CourseDetailOfStudent.Include("courses").Include("students").Where(expression).ToList();
+        }
+
+        public virtual void Add(CourseDetailOfStudent entity, int numberOfMonth)
+        {
+            DateTime startday = DateTime.Now;
+            var id= db.CourseDetailOfStudent.Add(entity).courseDetailId;  
+            for(int i=0; i < numberOfMonth; i++)
+            {
+                Test test = new Test()
+                {
+                    status = "Chưa Thi",
+                    startDay = startday,
+                    finishDay = startday.AddDays(7),
+                    score = 0,
+                    courseDetailId = id,
+                };
+                db.Tests.Add(test);
+                startday = test.finishDay;
+            }
         }
     }
 }

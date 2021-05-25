@@ -21,6 +21,7 @@ namespace EnglishSchool.Service
         ResponseService<StudentLoginReponseDTO> StudentLogin(StudentLoginDTO account);
         ResponseService<string> ParentChangePassword(ChangePasswordDTO account);
         ResponseService<string> StudentChangePassword(ChangePasswordDTO account);
+        ResponseService<string> EmployeeChangePassword(ChangePasswordDTO account);
         ResponseService<string> Login(LoginDTO account);
         ResponseService<EmployeeLoginDTO> AdminLogin(LoginDTO account);
         ResponseService<Employee> AdminRegister(ParentLoginDTO account);
@@ -100,6 +101,40 @@ namespace EnglishSchool.Service
         }
 
 
+        public ResponseService<string> EmployeeChangePassword(ChangePasswordDTO account)
+        {
+            var response = new ResponseService<string>();
+            var temp = _repository._employee.GetSingleByCondition(p => p.userId == account.userName);
+            if (temp != null)
+            {
+                if (BCrypt.Net.BCrypt.Verify(account.newPassword, temp.password) == true)
+                {
+                    try
+                    {
+                        temp.password = BCrypt.Net.BCrypt.HashPassword(account.newPassword);
+                        _repository._employee.Update(temp);
+                        SaveChanges();
+                        response.result = "Action successfully";
+                    }
+                    catch (Exception ex)
+                    {
+                        response.message = ex.Message;
+                        response.success = false;
+                    }
+                }
+                else
+                {
+                    response.message = "Old Password is not correct";
+                    response.success = false;
+                }
+            }
+            else
+            {
+                response.message = "Username is not found";
+                response.success = false;
+            }
+            return response;
+        }
         //Chang Password
         public ResponseService<string> ParentChangePassword(ChangePasswordDTO account)
         {

@@ -27,5 +27,6 @@ namespace EnglishSchool.Model.Models
         public int level { get; set; }
         [Required]
         public string rightAnswer { get; set; }
+        public List<DetailTest> detailTests { get; set; }
     }
 }

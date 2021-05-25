@@ -85,10 +85,6 @@ E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db4.resources
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.AddtableStudent.resources
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.AddtableCourseAndMore.resources
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\Microsoft.IdentityModel.Tokens.xml
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db13.resources
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db14.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\EnglishSchool.Data.dll.config
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\EnglishSchool.Data.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\EnglishSchool.Data.pdb
@@ -144,7 +140,9 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\EntityFramework.
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\Microsoft.IdentityModel.Logging.xml
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\Microsoft.IdentityModel.Tokens.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\Microsoft.Owin.xml
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\Microsoft.Owin.Security.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\Microsoft.Owin.Security.Jwt.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\Microsoft.Owin.Security.OAuth.xml
@@ -173,6 +171,8 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Da
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db7.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db8.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db12.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db13.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db14.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db123.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db10.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db11.resources
@@ -189,6 +189,9 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Da
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db25.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db26.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db27.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db28.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db29.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db30.resources
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csproj.GenerateResource.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csproj.CoreCompileInputs.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csproj.CopyComplete
