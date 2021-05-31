@@ -1,8 +1,7 @@
 ﻿namespace EnglishSchool.Data.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class db26 : DbMigration
     {
         public override void Up()
@@ -12,7 +11,7 @@
             AddPrimaryKey("dbo.Employees", "userId");
             DropColumn("dbo.Employees", "usertId");
         }
-        
+
         public override void Down()
         {
             AddColumn("dbo.Employees", "usertId", c => c.String(nullable: false, maxLength: 128));

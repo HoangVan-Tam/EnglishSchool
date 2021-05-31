@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Model.DTOs
 {
@@ -20,6 +16,11 @@ namespace EnglishSchool.Model.DTOs
         public bool status { get; set; }
         public int departmentId { get; set; }
         public NameOfDepartment departments { get; set; }
+    }
+    public class ManageCourse
+    {
+        public int courseId { get; set; }
+        public DateTime firstDayOfWeek { get; set; }
     }
     public class EmployeeLoginDTO
     {

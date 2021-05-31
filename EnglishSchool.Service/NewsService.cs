@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Web;
-using AutoMapper;
-using DevExpress.Xpo;
+﻿using AutoMapper;
 using EnglishSchool.Data.Infracstructure;
 using EnglishSchool.Data.Repositories;
 using EnglishSchool.Model.DTOs;
 using EnglishSchool.Model.Models;
 using EnglishSchool.Model.ResponseService;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Web;
 
 namespace EnglishSchool.Service
 {
@@ -37,8 +36,9 @@ namespace EnglishSchool.Service
             var response = new ResponseService<string>();
             try
             {
-                News news=new News();
-                news.detail = HttpContext.Current.Request.Form.Get("detail");
+                News news = new News();
+                news.bodyContent = HttpContext.Current.Request.Form.Get("bodyContent");
+                news.headContent = HttpContext.Current.Request.Form.Get("headContent");
                 news.title = HttpContext.Current.Request.Form.Get("title");
                 var postDateClient = HttpContext.Current.Request.Form.Get("postDateClient");
                 news.postDate = Convert.ToDateTime(postDateClient);
@@ -54,7 +54,7 @@ namespace EnglishSchool.Service
                         "-" + DateTime.Now.Millisecond.ToString() + news.postDate.Second.ToString() + news.postDate.Minute.ToString() + news.postDate.Hour.ToString() + ".png";
                     postedFile.SaveAs(path + fileName);
                     news.image = fileName;
-                }   
+                }
                 _repository._news.Add(news);
                 SaveChanges();
             }
@@ -125,16 +125,17 @@ namespace EnglishSchool.Service
             {
                 int id = Convert.ToInt32(HttpContext.Current.Request.Form.Get("id"));
                 var news = _repository._news.GetSingleByCondition(p => p.id == id);
-                news.title= HttpContext.Current.Request.Form.Get("title");
-                news.detail=HttpContext.Current.Request.Form.Get("detail");
-                string Path = HttpContext.Current.Server.MapPath("~/Uploads/"); 
+                news.title = HttpContext.Current.Request.Form.Get("title");
+                news.bodyContent = HttpContext.Current.Request.Form.Get("bodyContent");
+                news.headContent = HttpContext.Current.Request.Form.Get("headContent");
+                string Path = HttpContext.Current.Server.MapPath("~/Uploads/");
                 if (HttpContext.Current.Request.Files.Count != 0)
-                {     
+                {
                     HttpPostedFile postedFile = HttpContext.Current.Request.Files[0];
-                    if(news.image=="" || news.image == null)
+                    if (news.image == "" || news.image == null)
                     {
-                        news.image= "image" + news.postDate.Day.ToString() + news.postDate.Month.ToString() + news.postDate.Year.ToString() +
-                        "-" + DateTime.Now.Millisecond.ToString()+ news.postDate.Second.ToString() + news.postDate.Minute.ToString() + news.postDate.Hour.ToString() + ".png";
+                        news.image = "image" + news.postDate.Day.ToString() + news.postDate.Month.ToString() + news.postDate.Year.ToString() +
+                        "-" + DateTime.Now.Millisecond.ToString() + news.postDate.Second.ToString() + news.postDate.Minute.ToString() + news.postDate.Hour.ToString() + ".png";
                     }
                     else
                     {
@@ -146,7 +147,7 @@ namespace EnglishSchool.Service
                         file.Delete();
                     }
                     postedFile.SaveAs(Path + news.image);
-                }       
+                }
                 _repository._news.Update(news);
                 SaveChanges();
                 response.result = "Update News successfully";

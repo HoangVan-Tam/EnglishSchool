@@ -4,7 +4,6 @@ using EnglishSchool.Data.Repositories;
 using EnglishSchool.Model.DTOs;
 using EnglishSchool.Model.Models;
 using EnglishSchool.Model.ResponseService;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
@@ -73,9 +72,9 @@ namespace EnglishSchool.Service
             try
             {
                 var result = _repository._department.GetListDepartmentWithStudent();
-                
+
                 response.result = _mapper.Map<List<Department>, List<DepartmentDTO>>(result);
-                for(int i = 0; i < response.result.Count; i++)
+                for (int i = 0; i < response.result.Count; i++)
                 {
                     response.result[i].numberStudent = result[i].students.Count;
                 }

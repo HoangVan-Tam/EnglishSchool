@@ -1,8 +1,7 @@
 ﻿namespace EnglishSchool.Data.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class db21 : DbMigration
     {
         public override void Up()
@@ -21,20 +20,20 @@
             DropColumn("dbo.Recruitments", "requirement");
             DropTable("dbo.RecruitmentDetails");
         }
-        
+
         public override void Down()
         {
             CreateTable(
                 "dbo.RecruitmentDetails",
                 c => new
-                    {
-                        departmentId = c.Int(nullable: false),
-                        recruitmentId = c.Int(nullable: false),
-                        amount = c.Int(nullable: false),
-                        complete = c.Boolean(nullable: false),
-                    })
+                {
+                    departmentId = c.Int(nullable: false),
+                    recruitmentId = c.Int(nullable: false),
+                    amount = c.Int(nullable: false),
+                    complete = c.Boolean(nullable: false),
+                })
                 .PrimaryKey(t => new { t.departmentId, t.recruitmentId });
-            
+
             AddColumn("dbo.Recruitments", "requirement", c => c.String(nullable: false));
             AddColumn("dbo.Recruitments", "keyAreasOfResponsibility", c => c.String(nullable: false));
             AddColumn("dbo.Recruitments", "keyPurposeOfTheJob", c => c.String(nullable: false));

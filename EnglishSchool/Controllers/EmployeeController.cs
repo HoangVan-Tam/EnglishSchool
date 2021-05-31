@@ -1,10 +1,6 @@
 ﻿using EnglishSchool.Model.DTOs;
 using EnglishSchool.Service;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -31,6 +27,46 @@ namespace EnglishSchool.Controllers
             }
             return Ok(response.result);
         }
+
+        [Route("teacher/allcourse/{teacherId}")]
+        [HttpGet]
+        public IHttpActionResult GetAllCourseOfTeacher(string teacherId)
+        {
+            var response = _service.GetAllCourseOfTeacher(teacherId);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            return Ok(response.result);
+        }
+
+
+
+        [Route("manage")]
+        [HttpGet]
+        public IHttpActionResult GetAllEmployee(ManageCourse manage)
+        {
+            var response = _service.ManageListStudent(manage.firstDayOfWeek, manage.courseId);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            return Ok(response.result);
+        }
+
+
+        [Route("manage/ver2")]
+        [HttpGet]
+        public IHttpActionResult GetAllEmployeeVer2(ManageCourse manage)
+        {
+            var response = _service.ManageListStudentVer2(manage.firstDayOfWeek, manage.courseId);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            return Ok(response.result);
+        }
+
 
         [Route("update")]
         [HttpPatch]

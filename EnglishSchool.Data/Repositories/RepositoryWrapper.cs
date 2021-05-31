@@ -1,14 +1,10 @@
 ﻿using EnglishSchool.Data.Infracstructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Data.Repositories
 {
     public interface IRepositoryWrapper
     {
+        IAttendanceRepository _attendance { get; }
         ITestRepository _test { get; }
         IParentRepository _parent { get; }
         IDepartmentRepository _department { get; }
@@ -21,10 +17,13 @@ namespace EnglishSchool.Data.Repositories
         IPersonalInformationRepository _personalInformation { get; }
         IEmployeeRepository _employee { get; }
         IDetailTestRepository _detailTest { get; }
+        IScheduleRepository _schedule { get; }
+        ICourseDetailOfEmployeeRepository _courseDetailOfEmployee { get; }
     }
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private IDbFactory _dbFactory;
+        private AttendanceRepository attendanceRepository;
         private DepartmentRepository departmentRepository;
         private RecruitmentRepository recruitmentRepository;
         private StudentRepository studentRepository;
@@ -37,6 +36,8 @@ namespace EnglishSchool.Data.Repositories
         private PersonalInformationRepository personalInformationRepository;
         private EmployeeRepository employeeRepository;
         private DetailTestRepository detailTestRepository;
+        private ScheduleRepository scheduleRepository;
+        private CourseDetailOfEmployeeRepository courseDetailOfEmployeeRepository;
 
         public RepositoryWrapper(IDbFactory dbFactory)
         {
@@ -161,7 +162,7 @@ namespace EnglishSchool.Data.Repositories
         }
 
         public ITestRepository _test
-        {   
+        {
             get
             {
                 if (testRepository == null)
@@ -183,5 +184,42 @@ namespace EnglishSchool.Data.Repositories
                 return detailTestRepository;
             }
         }
+
+        public IAttendanceRepository _attendance 
+        {
+            get
+            {
+                if (attendanceRepository == null)
+                {
+                    attendanceRepository = new AttendanceRepository(_dbFactory);
+                }
+                return attendanceRepository;
+            }
+        }
+
+        public IScheduleRepository _schedule
+        {
+            get
+            {
+                if (scheduleRepository == null)
+                {
+                    scheduleRepository = new ScheduleRepository(_dbFactory);
+                }
+                return scheduleRepository;
+            }
+        }
+
+        public ICourseDetailOfEmployeeRepository _courseDetailOfEmployee
+        {
+            get
+            {
+                if (courseDetailOfEmployeeRepository == null)
+                {
+                    courseDetailOfEmployeeRepository = new CourseDetailOfEmployeeRepository(_dbFactory);
+                }
+                return courseDetailOfEmployeeRepository;
+            }
+        }
+        
     }
 }

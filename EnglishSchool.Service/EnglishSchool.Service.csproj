@@ -158,6 +158,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttendanceService.cs" />
     <Compile Include="AuthService.cs" />
     <Compile Include="CourseDetailOfStudentService.cs" />
     <Compile Include="CourseService.cs" />

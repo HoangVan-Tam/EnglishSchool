@@ -1,10 +1,5 @@
 ﻿using EnglishSchool.Model.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Data
 {
@@ -27,5 +22,7 @@ namespace EnglishSchool.Data
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Employee> Employee { get; set; }
         public DbSet<DetailTest> DetailTest { get; set; }
+        public DbSet<Schedule> Schedule { get; set; }
+        public DbSet<CourseDetailOfEmployee> CourseDetailOfEmployee { get; set; }
     }
 }

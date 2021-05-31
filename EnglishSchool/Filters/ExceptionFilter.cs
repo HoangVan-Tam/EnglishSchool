@@ -1,11 +1,6 @@
-﻿using EnglishSchool.Model.Models;
-using EnglishSchool.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http.Filters;
 
 namespace EnglishSchool.Filters
@@ -22,7 +17,7 @@ namespace EnglishSchool.Filters
                 errorMessage = actionExecutedContext.Exception.Message;
                 statusCode = HttpStatusCode.Unauthorized;
             }
-            else if(exceptionType == typeof(NullReferenceException))
+            else if (exceptionType == typeof(NullReferenceException))
             {
                 errorMessage = actionExecutedContext.Exception.Message;
                 statusCode = HttpStatusCode.NotFound;
@@ -39,7 +34,7 @@ namespace EnglishSchool.Filters
             };
 
             actionExecutedContext.Response = response;
-            base.OnException(actionExecutedContext);  
+            base.OnException(actionExecutedContext);
         }
     }
 }

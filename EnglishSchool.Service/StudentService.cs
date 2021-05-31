@@ -4,14 +4,10 @@ using EnglishSchool.Data.Repositories;
 using EnglishSchool.Model.DTOs;
 using EnglishSchool.Model.Models;
 using EnglishSchool.Model.ResponseService;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 
 namespace EnglishSchool.Service
 {
@@ -22,7 +18,7 @@ namespace EnglishSchool.Service
     }
     public class StudentService : IStudentService
     {
-        
+
         private IRepositoryWrapper _repository;
         private IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -46,7 +42,7 @@ namespace EnglishSchool.Service
         public ResponseService<string> AddAndSave(FullInfoStudentDTO entity)
         {
             var response = new ResponseService<string>();
-            var tempId = _repository._student.GetLastStudentId()+1;
+            var tempId = _repository._student.GetLastStudentId() + 1;
             var tempCourse = _repository._course.GetSingleByCondition(p => p.id == entity.courseId);
             if (tempCourse == null)
             {
@@ -61,7 +57,7 @@ namespace EnglishSchool.Service
             */
             var db = _db.Init();
             using (var transaction = db.Database.BeginTransaction())
-            { 
+            {
                 try
                 {
                     var tempStudent = _mapper.Map<FullInfoStudentDTO, Student>(entity);
@@ -123,7 +119,7 @@ namespace EnglishSchool.Service
             {
                 response.result = _mapper.Map<Student, FullInfoStudentDTO>(_repository._student.GetAllInfoById(id));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.message = "Student Error " + ex.Message;
                 response.success = false;
@@ -138,7 +134,7 @@ namespace EnglishSchool.Service
 
         public ResponseService<string> Update(FullInfoStudentDTO entity)
         {
-            var response =new ResponseService<string>();
+            var response = new ResponseService<string>();
             try
             {
                 var student = _repository._student.GetSingleByCondition(p => p.studentId == entity.studentId);
@@ -155,7 +151,7 @@ namespace EnglishSchool.Service
                 SaveChanges();
                 response.result = "Update Student successfully";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.success = false;
                 response.message = ex.Message;
@@ -166,10 +162,11 @@ namespace EnglishSchool.Service
         public ResponseService<string> StudentRegisterCourse(StudentRegisterCourse student)
         {
             var response = new ResponseService<string>();
-            var courseDetail = _repository._courseDetailOfStudent.GetSingleByCondition(p => p.courseId == student.id && p.studentId==student.studentId && p.finish == false);
-            if (courseDetail==null)
+            var courseDetail = _repository._courseDetailOfStudent.GetSingleByCondition(p => p.courseId == student.id && p.studentId == student.studentId && p.finish == false);
+            if (courseDetail == null)
             {
-                var checkSchedule = _repository._student.CheckCourseDetail(student.schedule, student.studentId);
+                var schedule = _repository._schedule.GetMulti(p => p.courseId == student.id);
+                var checkSchedule = _repository._student.CheckCourseDetail(schedule, student.studentId);
                 if (checkSchedule == true)
                 {
                     var course = _repository._course.GetSingleByCondition(p => p.id == student.id);
@@ -214,7 +211,7 @@ namespace EnglishSchool.Service
             else
             {
                 response.success = false;
-                response.message = "Student has not completed the course";           
+                response.message = "Student has not completed the course";
             }
             return response;
         }

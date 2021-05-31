@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Model.DTOs
 {
@@ -13,7 +9,8 @@ namespace EnglishSchool.Model.DTOs
         public DateTime postDate { get; set; }
         public string postDateClient { get; set; }
         public string image { get; set; }
-        public string detail { get; set; }
+        public string headContent { get; set; }
+        public string bodyContent { get; set; }
     }
     public class AddNews
     {

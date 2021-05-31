@@ -4,12 +4,8 @@ using EnglishSchool.Data.Repositories;
 using EnglishSchool.Model.DTOs;
 using EnglishSchool.Model.Models;
 using EnglishSchool.Model.ResponseService;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Service
 {

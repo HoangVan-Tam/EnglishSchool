@@ -3,8 +3,6 @@ using EnglishSchool.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Data.Repositories
 {
@@ -13,7 +11,7 @@ namespace EnglishSchool.Data.Repositories
         List<Student> GetAllInFomation();
         Student GetAllInfoById(string id);
         int GetLastStudentId();
-        bool CheckCourseDetail(string schedule, string studentId);
+        bool CheckCourseDetail(List<Schedule> schedule, string studentId);
     }
     public class StudentRepository : RepositoryBase<Student>, IStudentRepository
     {
@@ -22,17 +20,27 @@ namespace EnglishSchool.Data.Repositories
 
         }
 
-        public bool CheckCourseDetail(string schedule, string studentId)
+        public bool CheckCourseDetail(List<Schedule> schedule, string studentId)
         {
-            var check = db.CourseDetailOfStudent.Where(p => p.courses.schedule == schedule && p.studentId==studentId && p.finish == false).FirstOrDefault();
-            if (check == null)
-                return true;
-            return false;
+            var check = db.CourseDetailOfStudent.Where(p =>p.studentId == studentId && p.finish == false).ToList();
+            List<Schedule> lst = new List<Schedule>();
+            foreach(var item1 in check)
+            {
+                lst.AddRange(db.Schedule.Where(p => p.courseId == item1.courseId).ToList());   
+            }
+            foreach(var item2 in schedule)
+            {
+                if(lst.Where(p=>p.day==item2.day && Convert.ToDateTime(item2.timeStart)>=Convert.ToDateTime(p.timeStart) || Convert.ToDateTime(item2.timeEnd) <= Convert.ToDateTime(p.timeEnd)).FirstOrDefault() != null)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public Student GetAllInfoById(string id)
         {
-            return db.Student.Include("departments").Include("parents").Where(p=>p.studentId==id).FirstOrDefault();
+            return db.Student.Include("departments").Include("parents").Where(p => p.studentId == id).FirstOrDefault();
         }
 
         public List<Student> GetAllInFomation()
@@ -44,7 +52,7 @@ namespace EnglishSchool.Data.Repositories
         {
             try
             {
-                var studentId =  db.Student.ToList().Last().studentId.Substring(6,6);  
+                var studentId = db.Student.ToList().Last().studentId.Substring(6, 6);
                 return Convert.ToInt32(studentId);
             }
             catch

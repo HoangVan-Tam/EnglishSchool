@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Model.Models
 {
     public class Question
-    { 
+    {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int questionId { get; set; }
@@ -24,7 +20,7 @@ namespace EnglishSchool.Model.Models
         [Required]
         public string answer4 { get; set; }
         [Required]
-        public int level { get; set; }
+        public string level { get; set; }
         [Required]
         public string rightAnswer { get; set; }
         public List<DetailTest> detailTests { get; set; }

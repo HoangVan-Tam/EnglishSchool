@@ -1,10 +1,5 @@
 ﻿using EnglishSchool.Model.DTOs;
 using EnglishSchool.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -50,7 +45,7 @@ namespace EnglishSchool.Controllers
 
         [Route("all")]
         [HttpGet]
-        public IHttpActionResult GetAllAdvisorystring ()
+        public IHttpActionResult GetAllAdvisorystring()
         {
             var response = _service.GetAll();
             if (response.success == false)

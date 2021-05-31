@@ -4,12 +4,9 @@ using EnglishSchool.Data.Repositories;
 using EnglishSchool.Model.DTOs;
 using EnglishSchool.Model.Models;
 using EnglishSchool.Model.ResponseService;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Service
 {
@@ -137,6 +134,10 @@ namespace EnglishSchool.Service
 
                 var result = _repository._courseDetailOfStudent.GetAllInFormationById(p => p.studentId == studentId);
                 response.result = _mapper.Map<List<CourseDetailOfStudent>, List<CourseDetailOfStudentDTO>>(result);
+                for(int i=0;i<response.result.Count();i++)
+                {
+                    response.result[i].courses = _mapper.Map<Course, NameOfCourse>(_repository._course.GetCourseWithSchedule(response.result[i].courseId));
+                }    
             }
             catch (Exception ex)
             {

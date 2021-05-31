@@ -9,14 +9,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Service
 {
-    public interface IParentService:IServiceBase<ParentDTO>
+    public interface IParentService : IServiceBase<ParentDTO>
     {
         ResponseService<bool> AddStudentOfParent(string student, string parentId);
-
+        ResponseService<ManageStudentDTO> ManageStudent(string studentId, int courseId);
     }
     public class ParentService : IParentService
     {
@@ -46,7 +45,7 @@ namespace EnglishSchool.Service
             var tempId = _repository._parent.GetLastParentId() + 1;
             var student = _repository._student.GetSingleByCondition(p => p.studentId == entity.studentId);
             var checkParent = _repository._parent.GetSingleByCondition(p => p.phoneNumber == entity.phoneNumber);
-            if (checkParent!=null)
+            if (checkParent != null)
             {
                 response.success = false;
                 response.message = "Parent was created";
@@ -83,7 +82,7 @@ namespace EnglishSchool.Service
                     }
                 }
             }
-                
+
             return response;
         }
 
@@ -109,7 +108,7 @@ namespace EnglishSchool.Service
                 SaveChanges();
                 response.result = "Update Parent successfully";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.success = false;
                 response.message = ex.Message;
@@ -153,7 +152,7 @@ namespace EnglishSchool.Service
             try
             {
                 var temp = _repository._student.GetSingleByCondition(p => p.studentId == student);
-                if (temp.parentId==null)
+                if (temp.parentId == null)
                 {
                     temp.parentId = parentId;
                     _repository._student.Update(temp);
@@ -164,7 +163,40 @@ namespace EnglishSchool.Service
                     response.result = false;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+
+
+        public ResponseService<ManageStudentDTO> ManageStudent(string studentId, int courseId)
+        {
+            var response = new ResponseService<ManageStudentDTO>();
+            try
+            {
+                var result = _repository._courseDetailOfStudent.GetAllInFormation(studentId, courseId);
+                response.result = _mapper.Map<CourseDetailOfStudent, ManageStudentDTO>(result);
+                var temp = _repository._course.GetCourseWithSchedule(result.courseId).schedules.Count();
+                
+                foreach (var item in response.result.tests)
+                {
+                    item.attendances = new List<AttendanceOfStudent>();
+                    item.attendances = _mapper.Map<List<Attendance>, List<AttendanceOfStudent>>(result.attendances.Where(p => p.date.Date >= item.startDay.Date && p.date <= item.finishDay.Date).ToList());
+                    if (item.attendances.Count < temp)
+                    {
+                        var temp1 = item.attendances.Count;
+                        for (int i = 0; i < temp - temp1; i++)
+                        {
+                            item.attendances.Add(null);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
             {
                 response.success = false;
                 response.message = ex.Message;

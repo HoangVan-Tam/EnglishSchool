@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Model.DTOs
 {
@@ -33,5 +30,11 @@ namespace EnglishSchool.Model.DTOs
         public string studentId { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
+    }
+
+
+    public class ManageStudentDTO
+    {
+        public List<Test3DTO> tests { get; set; }
     }
 }

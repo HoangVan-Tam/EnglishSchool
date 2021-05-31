@@ -1,8 +1,7 @@
 ﻿namespace EnglishSchool.Data.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class db17 : DbMigration
     {
         public override void Up()
@@ -12,7 +11,7 @@
             AddColumn("dbo.Recruitments", "jobRequirements", c => c.String());
             DropColumn("dbo.Recruitments", "detail");
         }
-        
+
         public override void Down()
         {
             AddColumn("dbo.Recruitments", "detail", c => c.String(nullable: false));

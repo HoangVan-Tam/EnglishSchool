@@ -3,8 +3,6 @@ using EnglishSchool.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Data.Repositories
 {
@@ -18,7 +16,7 @@ namespace EnglishSchool.Data.Repositories
     {
         public EmployeeRepository(IDbFactory dbFactory) : base(dbFactory)
         {
-            
+
         }
 
         public int CountTeacher()
@@ -35,7 +33,7 @@ namespace EnglishSchool.Data.Repositories
         {
             try
             {
-                var teacherId = db.Employee.Where(p=>p.role=="Teacher").ToList().Last().userId.Substring(12);
+                var teacherId = db.Employee.Where(p => p.role == "Teacher").ToList().Last().userId.Substring(12);
                 return Convert.ToInt32(teacherId);
             }
             catch

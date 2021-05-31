@@ -8,10 +8,8 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Service
 {
@@ -21,10 +19,14 @@ namespace EnglishSchool.Service
         ResponseService<StudentLoginReponseDTO> StudentLogin(StudentLoginDTO account);
         ResponseService<string> ParentChangePassword(ChangePasswordDTO account);
         ResponseService<string> StudentChangePassword(ChangePasswordDTO account);
+        ResponseService<EmployeeLoginDTO> EmployeeLogin(LoginDTO account);
         ResponseService<string> EmployeeChangePassword(ChangePasswordDTO account);
         ResponseService<string> Login(LoginDTO account);
         ResponseService<EmployeeLoginDTO> AdminLogin(LoginDTO account);
         ResponseService<Employee> AdminRegister(ParentLoginDTO account);
+        ResponseService<FullInfoStudentDTO> StudentInfo(string userId);
+        ResponseService<ParentDTO> ParentInfo(string userId);
+        ResponseService<EmployeeDTO> EmployeeInfo(string userId);
         void SaveChanges();
     }
     public class AuthService : IAuthService
@@ -107,7 +109,7 @@ namespace EnglishSchool.Service
             var temp = _repository._employee.GetSingleByCondition(p => p.userId == account.userName);
             if (temp != null)
             {
-                if (BCrypt.Net.BCrypt.Verify(account.newPassword, temp.password) == true)
+                if (BCrypt.Net.BCrypt.Verify(account.oldPassword, temp.password) == true)
                 {
                     try
                     {
@@ -142,7 +144,7 @@ namespace EnglishSchool.Service
             var temp = _repository._parent.GetSingleByCondition(p => p.parentId == account.userName);
             if (temp != null)
             {
-                if (BCrypt.Net.BCrypt.Verify(account.newPassword, temp.password) == true)
+                if (BCrypt.Net.BCrypt.Verify(account.oldPassword, temp.password) == true)
                 {
                     try
                     {
@@ -178,7 +180,7 @@ namespace EnglishSchool.Service
             var temp = _repository._student.GetSingleByCondition(p => p.studentId == account.userName);
             if (temp != null)
             {
-                if (BCrypt.Net.BCrypt.Verify(account.newPassword, temp.password) == true)
+                if (BCrypt.Net.BCrypt.Verify(account.oldPassword, temp.password) == true)
                 {
                     try
                     {
@@ -265,7 +267,7 @@ namespace EnglishSchool.Service
             {
                 response.result = "Student";
             }
-            else if(_repository._parent.GetSingleByCondition(p=>p.parentId==account.userID)!=null)
+            else if (_repository._parent.GetSingleByCondition(p => p.parentId == account.userID) != null)
             {
                 response.result = "Parent";
             }
@@ -283,7 +285,7 @@ namespace EnglishSchool.Service
             var temp = _repository._employee.GetSingleByCondition(p => p.userId == account.userID);
             if (temp != null)
             {
-                if(temp.role == "Admin")
+                if (temp.role == "Admin")
                 {
                     if (temp.status == true)
                     {
@@ -321,6 +323,96 @@ namespace EnglishSchool.Service
         public ResponseService<Employee> AdminRegister(ParentLoginDTO account)
         {
             throw new NotImplementedException();
+        }
+
+        public ResponseService<FullInfoStudentDTO> StudentInfo(string userId)
+        {
+            var response = new ResponseService<FullInfoStudentDTO>();
+            try
+            {
+                var result = _repository._student.GetAllInfoById(userId);
+                response.result = _mapper.Map<Student, FullInfoStudentDTO>(result);
+            }
+            catch(Exception ex)
+            {
+                response.message = ex.Message;
+                response.success = false;
+            }
+            return response;
+
+        }
+
+        public ResponseService<ParentDTO> ParentInfo(string userId)
+        {
+            var response = new ResponseService<ParentDTO>();
+            try
+            {
+                var result = _repository._parent.GetSingleByCondition(p=>p.parentId==userId);
+                response.result = _mapper.Map<Parent, ParentDTO>(result);
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+                response.success = false;
+            }
+            return response;
+        }
+
+        public ResponseService<EmployeeDTO> EmployeeInfo(string userId)
+        {
+            var response = new ResponseService<EmployeeDTO>();
+            try
+            {
+                var result = _repository._employee.GetSingleByCondition(p => p.userId == userId);
+                response.result = _mapper.Map<Employee, EmployeeDTO>(result);
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+                response.success = false;
+            }
+            return response;
+        }
+
+        public ResponseService<EmployeeLoginDTO> EmployeeLogin(LoginDTO account)
+        {
+            var response = new ResponseService<EmployeeLoginDTO>();
+            var temp = _repository._employee.GetSingleByCondition(p => p.userId == account.userID);
+            if (temp != null)
+            {
+                if (temp.role == "Teacher")
+                {
+                    if (temp.status == true)
+                    {
+                        if (BCrypt.Net.BCrypt.Verify(account.password, temp.password))
+                        {
+                            response.result = _mapper.Map<Employee, EmployeeLoginDTO>(temp);
+                            response.result.token = CreateToken(account.userID);
+                        }
+                        else
+                        {
+                            response.message = "Password is not correct";
+                            response.success = false;
+                        }
+                    }
+                    else
+                    {
+                        response.message = "Account is not available";
+                        response.success = false;
+                    }
+                }
+                else
+                {
+                    response.message = "Account does not have access";
+                    response.success = false;
+                }
+            }
+            else
+            {
+                response.message = "Account is not found";
+                response.success = false;
+            }
+            return response;
         }
     }
 }

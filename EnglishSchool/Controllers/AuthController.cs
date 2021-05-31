@@ -1,11 +1,5 @@
 ﻿using EnglishSchool.Model.DTOs;
-using EnglishSchool.Model.Models;
 using EnglishSchool.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -123,6 +117,53 @@ namespace EnglishSchool.Controllers
                 return BadRequest(response.message);
             }
             return Ok(response.result);
+        }
+
+        [Route("employee/login")]
+        [HttpPost]
+        public IHttpActionResult EmployeeLogin(LoginDTO account)
+        {
+            var response = _service.EmployeeLogin(account);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            return Ok(response);
+        }
+
+
+        [Authorize]
+        [Route("GetInfo/{userId}")]
+        [HttpGet]
+        public IHttpActionResult GetInFo(string userId)
+        {
+            if (userId.Substring(0, 3) == "stu")
+            {
+                var response = _service.StudentInfo(userId);
+                if (response.success == false)
+                {
+                    return BadRequest(response.message);
+                }
+                return Ok(response.result);
+            }
+            else if (userId.Substring(0,3)=="par")
+            {
+                var response = _service.ParentInfo(userId);
+                if (response.success == false)
+                {
+                    return BadRequest(response.message);
+                }
+                return Ok(response.result);
+            }
+            else
+            {
+                var response = _service.EmployeeInfo(userId);
+                if (response.success == false)
+                {
+                    return BadRequest(response.message);
+                }
+                return Ok(response.result);
+            }
         }
     }
 }

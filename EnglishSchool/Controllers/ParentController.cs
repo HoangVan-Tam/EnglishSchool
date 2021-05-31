@@ -1,10 +1,5 @@
 ﻿using EnglishSchool.Model.DTOs;
 using EnglishSchool.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -41,6 +36,18 @@ namespace EnglishSchool.Controllers
         public IHttpActionResult AddParent(ParentDTO parentDTO)
         {
             var response = _service.AddAndSave(parentDTO);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            return Ok(response.result);
+        }
+
+        [Route("manage/{studentId}/{courseId}")]
+        [HttpGet]
+        public IHttpActionResult ManageStudent(string studentId, int courseId)
+        {
+            var response = _service.ManageStudent(studentId, courseId);
             if (response.success == false)
             {
                 return BadRequest(response.message);

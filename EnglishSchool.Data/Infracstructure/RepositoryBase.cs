@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EnglishSchool.Data.Infracstructure
@@ -29,7 +28,7 @@ namespace EnglishSchool.Data.Infracstructure
             DbFactory = dbFactory;
             dbSet = db.Set<T>();
         }
-        
+
         public virtual void Add(T entity)
         {
             dbSet.Add(entity);

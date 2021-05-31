@@ -1,10 +1,5 @@
 ﻿using EnglishSchool.Model.DTOs;
 using EnglishSchool.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -20,7 +15,7 @@ namespace EnglishSchool.Controllers
             _service = service;
         }
 
-        [Route("Exercise")]
+        /*[Route("Exercise")]
         [HttpGet]
         public IHttpActionResult GetExercise()
         {
@@ -34,7 +29,7 @@ namespace EnglishSchool.Controllers
                 return NotFound();
             }
             return Ok(response.result);
-        }
+        }*/
 
 
         [Route("All")]

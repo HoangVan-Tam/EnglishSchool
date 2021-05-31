@@ -1,8 +1,5 @@
 ﻿using EnglishSchool.Service;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -34,11 +31,11 @@ namespace EnglishSchool.Controllers
             return Ok(response.result);
         }
 
-        [Route("all/{id}")]
+        [Route("all/course/{studentId}")]
         [HttpGet]
-        public IHttpActionResult GetAllCourseDetailOfStudent(string id)
+        public IHttpActionResult GetAllCourseDetailOfStudent(string studentId)
         {
-            var response = _service.GetAllCourseOfStudent(id);
+            var response = _service.GetAllCourseOfStudent(studentId);
             if (response.success == false)
             {
                 return BadRequest(response.message);

@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Model.Models
 {
@@ -12,6 +9,8 @@ namespace EnglishSchool.Model.Models
     {
         [Key]
         public int testId { get; set; }
+        [Required]
+        public int week { get; set; }
         [Required]
         public DateTime startDay { get; set; }
         [Required]

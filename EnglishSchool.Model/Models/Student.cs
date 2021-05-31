@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Model.Models
 {
@@ -37,7 +34,7 @@ namespace EnglishSchool.Model.Models
         public int departmentId { get; set; }
         public Department departments { get; set; }
         [ForeignKey("parents")]
-        public string parentId  { get; set; }
+        public string parentId { get; set; }
         public Parent parents { get; set; }
         // [Required]
         public List<CourseDetailOfStudent> courseDetailOfStudents { get; set; }

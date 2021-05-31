@@ -6,9 +6,6 @@ using EnglishSchool.Model.Models;
 using EnglishSchool.Model.ResponseService;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishSchool.Service
 {
@@ -73,7 +70,7 @@ namespace EnglishSchool.Service
             var response = new ResponseService<List<QuestionDTO>>();
             try
             {
-                response.result=_mapper.Map<List<Question>,List<QuestionDTO>>(_repository._question.GetAll());
+                response.result = _mapper.Map<List<Question>, List<QuestionDTO>>(_repository._question.GetAll());
             }
             catch (Exception ex)
             {
@@ -125,7 +122,7 @@ namespace EnglishSchool.Service
             var response = new ResponseService<IList<QuestionDTO>>();
             try
             {
-                response.result=_mapper.Map<IList<Question>, IList<QuestionDTO>>(_repository._question.getRamdon());
+                response.result = _mapper.Map<IList<Question>, IList<QuestionDTO>>(_repository._question.getRamdon20());
             }
             catch (Exception ex)
             {
