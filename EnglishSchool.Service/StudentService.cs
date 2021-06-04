@@ -187,7 +187,10 @@ namespace EnglishSchool.Service
                             _repository._courseDetailOfStudent.Add(courseDetailOfStudent, course.numberOfMonths);
                             SaveChanges();
                             var tempStudent = _repository._student.GetSingleByCondition(p => p.studentId == student.studentId);
-                            tempStudent.deactivationDate = courseDetailOfStudent.dayFinish;
+                            if (tempStudent.deactivationDate < courseDetailOfStudent.dayFinish)
+                            {
+                                tempStudent.deactivationDate = courseDetailOfStudent.dayFinish;
+                            }
                             SaveChanges();
                             transaction.Commit();
                             response.result = "Register Successfully";

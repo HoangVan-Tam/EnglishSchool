@@ -65,11 +65,11 @@ namespace EnglishSchool.Controllers
             return Ok(response.result);
         }
 
-        [Route("course/{courseId}")]
+        [Route("course/attendance")]
         [HttpPost] 
-        public IHttpActionResult AttendanceStudentOfCourse(List<AttendanceDTO> attendances, int courseId)
+        public IHttpActionResult AttendanceStudentOfCourse(AttendanceDTO attendances)
         {
-            var response = _service.AttendanceStudentOfCourse(attendances, courseId);
+            var response = _service.AttendanceStudentOfCourse(attendances);
             if (response.success == false)
             {
                 return BadRequest(response.message);

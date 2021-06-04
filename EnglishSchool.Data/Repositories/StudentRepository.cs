@@ -30,7 +30,7 @@ namespace EnglishSchool.Data.Repositories
             }
             foreach(var item2 in schedule)
             {
-                if(lst.Where(p=>p.day==item2.day && Convert.ToDateTime(item2.timeStart)>=Convert.ToDateTime(p.timeStart) || Convert.ToDateTime(item2.timeEnd) <= Convert.ToDateTime(p.timeEnd)).FirstOrDefault() != null)
+                if(lst.Where(p=>p.day==item2.day && (Convert.ToDateTime(item2.timeStart)>=Convert.ToDateTime(p.timeStart) || Convert.ToDateTime(item2.timeEnd) <= Convert.ToDateTime(p.timeEnd))).FirstOrDefault() != null)
                 {
                     return false;
                 }

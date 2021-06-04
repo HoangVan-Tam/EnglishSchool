@@ -107,28 +107,34 @@ namespace EnglishSchool.Service
             {
                 try
                 {
-                    var temp = _repository._schedule.GetSingleByCondition(p => p.courseId == entity.id);
                     var temp2 = _repository._schedule.GetMulti(p => p.courseId == entity.id);
+                    var temp = temp2.Where(p => p.courseId == entity.id).FirstOrDefault();
                     if (temp == null)
-                    {
+                    {                      
                         foreach (var item in entity.schedules)
                         {
-                            Schedule schedule = new Schedule()
+                            if (item.day != null)
                             {
-                                courseId = entity.id,
-                                day = item.day,
-                                timeEnd = item.timeEnd,
-                                timeStart = item.timeStart,
-                            };
-                            _repository._schedule.Add(schedule);
+                                Schedule schedule = new Schedule()
+                                {
+
+                                    courseId = entity.id,
+                                    day = item.day,
+                                    timeEnd = item.timeEnd,
+                                    timeStart = item.timeStart,
+                                };
+                                _repository._schedule.Add(schedule);
+                            }
+                            SaveChanges();
                         }
-                        SaveChanges();
                     }
                     else if (temp2.Count == entity.schedules.Count)
                     {
-                        foreach (var item in entity.schedules)
+                        for(int i = 0; i < temp2.Count; i++)
                         {
-                            _repository._schedule.Update(_mapper.Map<ScheduleDTO, Schedule>(item));
+                            temp2[i].day = entity.schedules[i].day;
+                            temp2[i].timeEnd = entity.schedules[i].timeEnd;
+                            temp2[i].timeStart = entity.schedules[i].timeStart;
                         }
                         SaveChanges();
                     }

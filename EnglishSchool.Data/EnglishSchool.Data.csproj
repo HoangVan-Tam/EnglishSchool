@@ -317,6 +317,10 @@
     <Compile Include="Migrations\202105310446217_db40.designer.cs">
       <DependentUpon>202105310446217_db40.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106041856150_db41.cs" />
+    <Compile Include="Migrations\202106041856150_db41.designer.cs">
+      <DependentUpon>202106041856150_db41.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AttendanceRepository.cs" />
@@ -460,6 +464,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105310446217_db40.resx">
       <DependentUpon>202105310446217_db40.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106041856150_db41.resx">
+      <DependentUpon>202106041856150_db41.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

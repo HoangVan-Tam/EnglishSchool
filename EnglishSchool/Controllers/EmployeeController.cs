@@ -56,7 +56,7 @@ namespace EnglishSchool.Controllers
 
 
         [Route("manage/ver2")]
-        [HttpGet]
+        [HttpPost]
         public IHttpActionResult GetAllEmployeeVer2(ManageCourse manage)
         {
             var response = _service.ManageListStudentVer2(manage.firstDayOfWeek, manage.courseId);
@@ -97,6 +97,18 @@ namespace EnglishSchool.Controllers
         public IHttpActionResult AddStudent(string id)
         {
             var response = _service.GetById(id);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            return Ok(response.result);
+        }
+
+        [Route("RegisterCourse")]
+        [HttpPost]
+        public IHttpActionResult EmployeeRegisterCourse(EmployeeRegisterCourse registerCourse)
+        {
+            var response = _service.EmployeeRegisterCourse(registerCourse);
             if (response.success == false)
             {
                 return BadRequest(response.message);

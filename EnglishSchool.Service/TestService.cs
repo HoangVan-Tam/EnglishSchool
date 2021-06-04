@@ -14,7 +14,7 @@ namespace EnglishSchool.Service
     {
         ResponseService<List<TestDTO>> GetListTestByStudentID(string studentId);
         ResponseService<List<TestDTO>> GetListTestByCourseID(int courseId);
-        ResponseService<List<TestDTO>> GetListTestByCourseDetailId(int CourseDetailId);
+        ResponseService<List<TestDTO>> GetListTestByCourseDetailId(string studentId, int courseId);
         ResponseService<List<DetailTestDTO>> GetListQuestionByTestId(int testId);
         ResponseService<List<QuestionDTO>> GetListQuestion();
         ResponseService<string> Submit(SubmitTestDTO submitTestDTO);
@@ -41,12 +41,13 @@ namespace EnglishSchool.Service
             throw new NotImplementedException();
         }
 
-        public ResponseService<List<TestDTO>> GetListTestByCourseDetailId(int CourseDetailId)
+        public ResponseService<List<TestDTO>> GetListTestByCourseDetailId(string studentId, int courseId)
         {
             var response = new ResponseService<List<TestDTO>>();
             try
             {
-                var result = _repository._test.GetMulti(p => p.courseDetailId == CourseDetailId);
+                var courseDetail = _repository._courseDetailOfStudent.GetSingleByCondition(p => p.studentId == studentId && p.courseId == courseId).courseDetailId;
+                var result = _repository._test.GetMulti(p => p.courseDetailId == courseDetail);
                 foreach (Test test in result)
                 {
                     if (test.finishDay < DateTime.Now)

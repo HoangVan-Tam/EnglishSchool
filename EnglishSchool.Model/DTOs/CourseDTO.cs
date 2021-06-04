@@ -30,5 +30,6 @@ namespace EnglishSchool.Model.DTOs
         public string title { get; set; }
         public string headContent { get; set; }
         public string bodyContent { get; set; }
+        List<Schedule> schedules { get; set; }
     }
 }

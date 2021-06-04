@@ -219,3 +219,4 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Da
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csproj.CopyComplete
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.pdb
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db41.resources

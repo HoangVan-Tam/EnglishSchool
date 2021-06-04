@@ -6,12 +6,20 @@ using System.Threading.Tasks;
 
 namespace EnglishSchool.Model.DTOs
 {
-    public class AttendanceDTO
+    public class AttendanceStudentDTO
     {
         public string  studentId { get; set; }
         public DateTime date { get; set; }
         public bool absent { get; set; }
         public string reason { get; set; }
+    }
+
+    public class AttendanceDTO
+    {
+       public int courseId { get; set; }
+       public DateTime firstDayOfWeek { get; set; }
+       public int session { get; set; }
+       public List<AttendanceStudentDTO> attendances { get; set; }
     }
     public class AttendanceOfStudent
     {

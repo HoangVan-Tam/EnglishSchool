@@ -16,11 +16,11 @@ namespace EnglishSchool.Controllers
             _service = service;
         }
 
-        [Route("all/{id}")]
+        [Route("all/{studentId}/{courseId}")]
         [HttpGet]
-        public IHttpActionResult GetAllTestByCourseDetailId(int id)
+        public IHttpActionResult GetAllTestByCourseDetailId(string studentId, int courseId)
         {
-            var response = _service.GetListTestByCourseDetailId(id);
+            var response = _service.GetListTestByCourseDetailId(studentId, courseId);
             if (response.success == false)
             {
                 return BadRequest(response.message);

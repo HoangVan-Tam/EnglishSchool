@@ -17,15 +17,18 @@ namespace EnglishSchool.Service
         ResponseService<EmployeeDTO> GetById(string userId);
         ResponseService<List<TeacherManageStudent>> ManageListStudent(DateTime ngayDauTuan, int courseId);
         ResponseService<List<TeacherManageStudentVer2>> ManageListStudentVer2(DateTime ngayDauTuan, int courseId);
+        ResponseService<string> EmployeeRegisterCourse(EmployeeRegisterCourse student);
     }
     public class EmployeeService : IEmployeeService
     {
         private IRepositoryWrapper _repository;
         private IUnitOfWork _unitOfWork;
         private IMapper _mapper;
+        private IDbFactory _db;
 
-        public EmployeeService(IRepositoryWrapper repository, IUnitOfWork unitOfWork, IMapper mapper)
+        public EmployeeService(IRepositoryWrapper repository, IUnitOfWork unitOfWork, IMapper mapper, IDbFactory db)
         {
+            _db = db;
             _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -188,36 +191,47 @@ namespace EnglishSchool.Service
             try
             {
                 var result = _repository._courseDetailOfStudent.GetAllAttendanceStudentOfCourseVer2(courseId);
-                response.result = _mapper.Map<List<CourseDetailOfStudent>, List<TeacherManageStudentVer2>>(result);
-                var lastDayOfWeek = ngayDauTuan.AddDays(6);
-                var firstDayOfWeek = ngayDauTuan;
-                var courseSchedule = _repository._course.GetCourseWithSchedule(result[0].courseId).schedules.Count();
-                for (int i = 0; i < response.result.Count(); i++)
+                if (result.Count > 0)
                 {
-                    int temp2 = new int();
-                    response.result[i].tests = response.result[i].tests.Where(p => p.startDay.Date <= firstDayOfWeek.Date && p.finishDay >= lastDayOfWeek.Date).ToList();
-                    if (response.result[i].tests.Count != 0)
+                    response.result = _mapper.Map<List<CourseDetailOfStudent>, List<TeacherManageStudentVer2>>(result);
+                    var lastDayOfWeek = ngayDauTuan.AddDays(6);
+                    var firstDayOfWeek = ngayDauTuan;
+                    var courseSchedule = _repository._course.GetCourseWithSchedule(result[0].courseId).schedules.Count();
+                    for (int i = 0; i < response.result.Count(); i++)
                     {
-                        var temp = result[i].attendances.Where(p => p.date.Date >= firstDayOfWeek.Date && p.date.Date <= lastDayOfWeek.Date).ToList();
-                        if (temp.Count != 0)
+                        int temp2 = new int();
+                        response.result[i].tests = response.result[i].tests.Where(p => p.startDay.Date <= firstDayOfWeek.Date && p.finishDay >= lastDayOfWeek.Date).ToList();
+                        if (response.result[i].tests.Count != 0)
                         {
-                            response.result[i].tests[0].attendances = _mapper.Map<List<Attendance>, List<AttendanceOfStudent>>(temp);
-                            temp2 = response.result[i].tests[0].attendances.Count();
+                            var temp = result[i].attendances.Where(p => p.date.Date >= firstDayOfWeek.Date && p.date.Date <= lastDayOfWeek.Date).ToList();
+                            if (temp.Count != 0)
+                            {
+                                response.result[i].tests[0].attendances = _mapper.Map<List<Attendance>, List<AttendanceOfStudent>>(temp);
+                                temp2 = response.result[i].tests[0].attendances.Count();
+                            }
+                            else
+                            {
+                                temp2 = 0;
+                            }
                         }
-                        else
+                        if (temp2 == 0 || temp2 < courseSchedule)
                         {
-                            temp2 = 0;
+                            if (response.result[i].tests[0].attendances == null)
+                            {
+                                response.result[i].tests[0].attendances = new List<AttendanceOfStudent>();
+                            }
+                            List<AttendanceOfStudent> lst = new List<AttendanceOfStudent>();
+                            for (int j = 0; j < courseSchedule - temp2; j++)
+                            {
+                                lst.Add(null);
+                            }
+                            response.result[i].tests[0].attendances.AddRange(lst);
                         }
                     }
-                    if (temp2==0 || temp2 < courseSchedule)
-                    {
-                        List<AttendanceOfStudent> lst = new List<AttendanceOfStudent>();
-                        for (int j = 0; j < courseSchedule - temp2; j++)
-                        {
-                            lst.Add(null);
-                        }
-                        response.result[i].tests[0].attendances = lst;
-                    }
+                }
+                else
+                {
+                    response.result = null;
                 }
             }
             catch (Exception ex)
@@ -225,6 +239,58 @@ namespace EnglishSchool.Service
                 response.success = false;
                 response.message = ex.Message;
             }
+            return response;
+        }
+
+
+        public ResponseService<string> EmployeeRegisterCourse(EmployeeRegisterCourse employee)
+        {
+            var response = new ResponseService<string>();
+            var schedule = _repository._schedule.GetMulti(p => p.courseId == employee.id);
+            var checkSchedule = _repository._courseDetailOfEmployee.CheckCourseDetail(schedule, employee.userId);
+            if (checkSchedule == true)
+            {
+                var course = _repository._course.GetSingleByCondition(p => p.id == employee.id);
+                var db = _db.Init();
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        CourseDetailOfEmployee courseDetailOfEmployee = new CourseDetailOfEmployee()
+                        {
+                            teacherId = employee.userId,
+                            courseId = employee.id,
+                        };
+                        _repository._courseDetailOfEmployee.Add(courseDetailOfEmployee);
+                        SaveChanges();
+                        transaction.Commit();
+                        response.result = "Register Successfully";
+                        db.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        response.success = false;
+                        response.message = ex.Message;
+                    }
+
+                }
+            }
+            else
+            {
+                response.success = false;
+                response.message = "Teacher has the same class schedule";
+            }
+            /*var courseDetail = _repository._courseDetailOfEmployee.GetSingleByCondition(p => p.courseId == employee.id && p.teacherId == employee.userId);
+            if (courseDetail == null)
+            {
+               
+            }
+            else
+            {
+                response.success = false;
+                response.message = "Teacher has not completed the course";
+            }*/
             return response;
         }
     }

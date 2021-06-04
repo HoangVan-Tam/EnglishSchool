@@ -6,6 +6,7 @@ using EnglishSchool.Model.Models;
 using EnglishSchool.Model.ResponseService;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EnglishSchool.Service
 {
@@ -14,7 +15,7 @@ namespace EnglishSchool.Service
         ResponseService<List<ListCourseDetailOfStudent>> GetListStudent(int courseId);
         ResponseService<List<ListAttendanceStudentOfCourse>> GetListAttendanceStudentOfCourse(int courseId);
         ResponseService<List<ListAttendanceStudentOfCourse>> GetListAttendanceStudentOfCourse(int courseId, string studentId);
-        ResponseService<string> AttendanceStudentOfCourse(List<AttendanceDTO> attendances, int courseId);
+        ResponseService<string> AttendanceStudentOfCourse(AttendanceDTO attendances);
     }
     public class AttendanceService : IAttendanceService
     {
@@ -44,26 +45,110 @@ namespace EnglishSchool.Service
             return response;
         }
 
-        public ResponseService<string> AttendanceStudentOfCourse(List<AttendanceDTO> attendances, int courseId)
+        public ResponseService<string> AttendanceStudentOfCourse(AttendanceDTO attendances)
         {
             var response = new ResponseService<string>();
             try
             {
-                var listStudent = _repository._courseDetailOfStudent.GetMulti(p => p.courseId == courseId && p.finish==false);
-                for(int i = 0; i < attendances.Count; i++)
+                var listStudent = _repository._courseDetailOfStudent.GetMulti(p => p.courseId == attendances.courseId && p.finish==false);
+                var courseSchedule = _repository._course.GetCourseWithSchedule(attendances.courseId).schedules;
+                var date = DateTime.Now.Date;
+                for (int i = 0; i < attendances.attendances.Count; i++)
                 {
-                    var temp = listStudent.Find(p => p.studentId == attendances[0].studentId);
+                    var temp = listStudent.Where(p => p.studentId == attendances.attendances[i].studentId).FirstOrDefault();
                     if (temp != null)
                     {
                         Attendance attendance = new Attendance();
-                        attendance.absent = attendances[0].absent;
-                        attendance.date = attendances[0].date;
-                        attendance.reason = attendances[0].reason;
+                        if (attendances.session == 1)
+                        {
+                            if (courseSchedule[0].day == "T2")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.Date;
+                            }
+                            else if (courseSchedule[0].day == "T3")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(1);
+                            }
+                            else if (courseSchedule[0].day == "T4")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(2);
+                            }
+                            else if (courseSchedule[0].day == "T7")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(5);
+                            }
+                            else if (courseSchedule[0].day == "CN")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(6);
+                            }
+                            else if (courseSchedule[0].day == "T5")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(3);
+                            }
+                            else if (courseSchedule[0].day == "T6")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(4);
+                            }
+                        }
+                        else if (attendances.session == 2)
+                        {
+                            if (courseSchedule[1].day == "T3")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(1);
+                            }
+                            else if (courseSchedule[1].day == "T4")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(2);
+                            }
+                            else if (courseSchedule[1].day == "T5")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(3);
+                            }
+                            else if (courseSchedule[1].day == "T6")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(4);
+                            }
+                            else if (courseSchedule[1].day == "CN")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(5);
+                            }
+                            else if (courseSchedule[1].day == "T7")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(6);
+                            }
+                        }
+                        else
+                        {
+                            if (courseSchedule[2].day == "T7")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(5);
+                            }
+                            
+                            else if (courseSchedule[2].day == "T6")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(4);
+                            }
+                            else if (courseSchedule[2].day == "T5")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(3);
+                            }
+                            else if (courseSchedule[2].day == "CN")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(6);
+                            }
+                            else if (courseSchedule[2].day == "T4")
+                            {
+                                attendance.date = attendances.firstDayOfWeek.AddDays(2);
+                            }
+                        }
+                        attendance.absent = attendances.attendances[i].absent;
+                        attendance.reason = attendances.attendances[i].reason;
                         attendance.courseDetailId = temp.courseDetailId;
                         _repository._attendance.Add(attendance);
                     }
-                }
-                SaveChange();
+                    SaveChange();
+                }  
+                response.result="Attdenace Successfully";
             }
             catch(Exception ex)
             {

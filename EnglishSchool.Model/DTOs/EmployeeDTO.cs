@@ -34,4 +34,10 @@ namespace EnglishSchool.Model.DTOs
         public string email { get; set; }
         public string token { get; set; }
     }
+
+    public class EmployeeRegisterCourse
+    {
+        public string userId { get; set; }
+        public int id { get; set; }
+    }
 }
