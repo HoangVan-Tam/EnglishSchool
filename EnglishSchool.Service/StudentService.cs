@@ -42,7 +42,8 @@ namespace EnglishSchool.Service
         public ResponseService<string> AddAndSave(FullInfoStudentDTO entity)
         {
             var response = new ResponseService<string>();
-            var tempId = _repository._student.GetLastStudentId() + 1;
+            var tempId = _repository._student.GetLastStudentId(entity.departmentId) + 1;
+
             var tempCourse = _repository._course.GetSingleByCondition(p => p.id == entity.courseId);
             if (tempCourse == null)
             {
@@ -64,6 +65,7 @@ namespace EnglishSchool.Service
                     tempStudent.studentId = "stu" + String.Format("{0:D2}", tempStudent.departmentId) + "-" + String.Format("{0:D6}", tempId);
                     var firstName = convertToUnSign3(tempStudent.firstName);
                     var lastName = convertToUnSign3(tempStudent.lastName);
+                    
                     tempStudent.password = "123456789";
                     tempStudent.status = true;
                     tempStudent.deactivationDate = DateTime.Now.AddMonths(tempCourse.numberOfMonths);
@@ -73,7 +75,7 @@ namespace EnglishSchool.Service
 
                     CourseDetailOfStudent courseOfStudent = new CourseDetailOfStudent()
                     {
-                        dayFinish = DateTime.Now.AddMonths(tempCourse.numberOfMonths),
+                        dayFinish = DateTime.Now.AddDays(tempCourse.numberOfMonths*7),
                         dayStart = DateTime.Now,
                         finish = false,
                         courseId = tempCourse.id,

@@ -12,6 +12,7 @@ namespace EnglishSchool.Service
 {
     public interface ICourseService : IServiceBase<CourseDTO>
     {
+        ResponseService<List<CourseDTO>> GetAll(int deparmentId);
         ResponseService<List<CourseDTO>> GetAllCourseNoOneRegister(string studentId);
     }
     public class CourseService : ICourseService
@@ -175,6 +176,21 @@ namespace EnglishSchool.Service
             {
                 var courseDetails = _repository._courseDetailOfStudent.GetAllInFormationAddCourseInfo(studentId).Select(p=>p.courses).Distinct();
                 response.result = _mapper.Map<IEnumerable<Course>, List<CourseDTO>>(courseDetails);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        public ResponseService<List<CourseDTO>> GetAll(int departmentId)
+        {
+            var response = new ResponseService<List<CourseDTO>>();
+            try
+            {
+                response.result = _mapper.Map<List<Course>, List<CourseDTO>>(_repository._course.GetAllInfoListCourse().Where(p=>p.departmentId==departmentId).ToList());
             }
             catch (Exception ex)
             {

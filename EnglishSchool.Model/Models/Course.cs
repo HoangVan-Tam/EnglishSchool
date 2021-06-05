@@ -26,10 +26,10 @@ namespace EnglishSchool.Model.Models
         public float tuition { get; set; }
         public string note { get; set; }
         public float discount { get; set; }
-        /*
+        
         [ForeignKey("departments")]
         public int departmentId { get; set; }
-        public Department departments { get; set; }*/
+        public Department departments { get; set; }
         public List<CourseDetailOfStudent> courseDetailOfStudents { get; set; }
         public List<Schedule> schedules { get; set; }
     }

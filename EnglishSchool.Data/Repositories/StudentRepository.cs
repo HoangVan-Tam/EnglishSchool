@@ -10,7 +10,7 @@ namespace EnglishSchool.Data.Repositories
     {
         List<Student> GetAllInFomation();
         Student GetAllInfoById(string id);
-        int GetLastStudentId();
+        int GetLastStudentId(int departmentId);
         bool CheckCourseDetail(List<Schedule> schedule, string studentId);
     }
     public class StudentRepository : RepositoryBase<Student>, IStudentRepository
@@ -48,11 +48,12 @@ namespace EnglishSchool.Data.Repositories
             return db.Student.Include("departments").Include("parents").ToList();
         }
 
-        public int GetLastStudentId()
+        public int GetLastStudentId(int departmentId)
         {
             try
             {
-                var studentId = db.Student.ToList().Last().studentId.Substring(6, 6);
+                var temp = "stu" + departmentId.ToString();   
+                var studentId = db.Student.Where(p=>p.studentId.Contains(temp)).ToList().OrderByDescending(p=>p.studentId).First().studentId.Substring(6, 6);
                 return Convert.ToInt32(studentId);
             }
             catch

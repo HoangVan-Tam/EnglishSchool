@@ -25,7 +25,7 @@ namespace EnglishSchool.Data.Repositories
         }
         public List<Course> GetAllInfoListCourse()
         {
-            return db.Course.Include("schedules").ToList();
+            return db.Course.Include("schedules").Include("departments").ToList();
         }
 
         public List<Course> GetAllCourseNoOneRegister(string studentId)

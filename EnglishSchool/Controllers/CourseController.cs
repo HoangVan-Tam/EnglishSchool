@@ -32,6 +32,22 @@ namespace EnglishSchool.Controllers
             return Ok(response.result);
         }
 
+        [Route("All/{departmentId}")]
+        [HttpGet]
+        public IHttpActionResult GetAllById(int departmentId)
+        {
+            var response = _service.GetAll(departmentId);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            if (response.result == null)
+            {
+                return NotFound();
+            }
+            return Ok(response.result);
+        }
+
 
         [Route("All/{studentId}/noregister")]
         [HttpGet]

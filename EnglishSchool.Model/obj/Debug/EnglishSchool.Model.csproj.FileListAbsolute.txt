@@ -75,7 +75,6 @@ E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Model\bin\Debug\Microsoft.Owin.Sec
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Model\bin\Debug\Microsoft.Owin.Security.OAuth.xml
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Model\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.csprojAssemblyReference.cache
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.csprojAssemblyReference.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\obj\Debug\EnglishSchool.Model.csproj.CoreCompileInputs.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\EnglishSchool.Model.dll.config
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Model\bin\Debug\EnglishSchool.Model.dll

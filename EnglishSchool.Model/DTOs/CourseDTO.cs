@@ -17,6 +17,8 @@ namespace EnglishSchool.Model.DTOs
         public string title { get; set; }
         public string headContent { get; set; }
         public string bodyContent { get; set; }
+        public int departmentId { get; set; }
+        public DepartmentDTO departments { get; set; }
     }
     public class CourseUpdateDTO
     {
@@ -31,5 +33,6 @@ namespace EnglishSchool.Model.DTOs
         public string headContent { get; set; }
         public string bodyContent { get; set; }
         List<Schedule> schedules { get; set; }
+        public int departmentId { get; set; }
     }
 }
