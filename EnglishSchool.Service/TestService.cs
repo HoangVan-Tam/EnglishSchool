@@ -16,7 +16,7 @@ namespace EnglishSchool.Service
         ResponseService<List<TestDTO>> GetListTestByCourseID(int courseId);
         ResponseService<List<TestDTO>> GetListTestByCourseDetailId(string studentId, int courseId);
         ResponseService<List<DetailTestDTO>> GetListQuestionByTestId(int testId);
-        ResponseService<List<QuestionDTO>> GetListQuestion();
+        ResponseService<ListQuestionExam> GetListQuestion(int week);
         ResponseService<string> Submit(SubmitTestDTO submitTestDTO);
     }
     public class TestService : ITestService
@@ -50,15 +50,20 @@ namespace EnglishSchool.Service
                 var result = _repository._test.GetMulti(p => p.courseDetailId == courseDetail);
                 foreach (Test test in result)
                 {
-                    if (test.finishDay < DateTime.Now)
+                    if (test.finishDay < DateTime.Now.Date)
                     {
-                        test.status = "Không tham gia";
+                        if (test.score == 0)
+                        {
+                            if(test.status=="Chưa được làm")
+                                test.status = "Không tham gia";
+                            test.status = "Đã Thi";
+                        }
                     }
-                    else if (test.startDay < DateTime.Now && test.finishDay > DateTime.Now)
+                    else if (test.startDay <= DateTime.Now.Date && test.finishDay >= DateTime.Now)
                     {
                         test.status = "Làm bài";
                     }
-                    else if (test.startDay > DateTime.Now)
+                    else if (test.startDay > DateTime.Now.Date)
                     {
                         test.status = "Chưa được làm";
                     }
@@ -100,13 +105,47 @@ namespace EnglishSchool.Service
             return response;
         }
 
-        public ResponseService<List<QuestionDTO>> GetListQuestion()
+        public ResponseService<ListQuestionExam> GetListQuestion(int week)
         {
-            var response = new ResponseService<List<QuestionDTO>>();
+            var response = new ResponseService<ListQuestionExam>();
             try
             {
                 var result = _repository._question.getRamdon20();
-                response.result = _mapper.Map<List<Question>, List<QuestionDTO>>(result);
+                response.result = new ListQuestionExam();
+                response.result.results = new List<QuestionExam>();
+                foreach(var item in result)
+                {
+                    QuestionExam exam = new QuestionExam();
+                    exam.incorrect_answers = new List<string>();
+                    if (item.answer1 == item.rightAnswer)
+                    {
+                        exam.incorrect_answers.Add(item.answer2);
+                        exam.incorrect_answers.Add(item.answer3);
+                        exam.incorrect_answers.Add(item.answer4);
+                    }
+                    else if (item.answer2 == item.rightAnswer)
+                    {
+                        exam.incorrect_answers.Add(item.answer1);
+                        exam.incorrect_answers.Add(item.answer3);
+                        exam.incorrect_answers.Add(item.answer4);
+                    }
+                    else if (item.answer3 == item.rightAnswer)
+                    {
+                        exam.incorrect_answers.Add(item.answer2);
+                        exam.incorrect_answers.Add(item.answer1);
+                        exam.incorrect_answers.Add(item.answer4);
+                    }
+                    else if (item.answer4 == item.rightAnswer)
+                    {
+                        exam.incorrect_answers.Add(item.answer2);
+                        exam.incorrect_answers.Add(item.answer3);
+                        exam.incorrect_answers.Add(item.answer1);
+                    }
+                    exam.correct_answer = item.rightAnswer;
+                    exam.question = item.questionDetail;
+                    exam.difficulty = item.level;
+                    response.result.results.Add(exam);
+                }
             }
             catch(Exception ex)
             {

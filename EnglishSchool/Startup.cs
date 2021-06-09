@@ -14,6 +14,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Jwt;
 using Owin;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Web.Http;
@@ -75,8 +76,6 @@ namespace EnglishSchool.App_Start
                 //cfg.CreateMap<Test, Test2Ver2DTO>().ReverseMap();
                 cfg.CreateMap<CourseDetailOfStudent, TeacherManageStudentVer2>().ReverseMap();
                 cfg.CreateMap<Department, NameOfDepartment>();
-
-
                 cfg.CreateMap<Student, StudentLoginReponseDTO>().ReverseMap();
                 cfg.CreateMap<Student, FullInfoStudentDTO>().ReverseMap();
                 cfg.CreateMap<Student, NameOfDepartment>().ReverseMap();

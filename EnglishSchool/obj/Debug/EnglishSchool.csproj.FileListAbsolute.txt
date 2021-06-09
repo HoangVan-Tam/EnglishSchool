@@ -137,8 +137,6 @@ E:\Đồ án\.Net\EnglishSchool\EnglishSchool\bin\Microsoft.Owin.Security.xml
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool\bin\Microsoft.Owin.Security.Jwt.xml
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool\bin\Microsoft.Owin.Security.OAuth.xml
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool\bin\System.IdentityModel.Tokens.Jwt.xml
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\obj\Debug\EnglishSchool.csprojAssemblyReference.cache
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\obj\Debug\EnglishSchool.csproj.CoreCompileInputs.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\EnglishSchool.dll.config
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\EnglishSchool.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\EnglishSchool.pdb
@@ -278,6 +276,8 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\System.Net.Http.Formatting.
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\System.Web.Http.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\System.Web.Http.WebHost.xml
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\obj\Debug\EnglishSchool.csprojAssemblyReference.cache
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\obj\Debug\EnglishSchool.csproj.CoreCompileInputs.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\obj\Debug\EnglishSchool.csproj.CopyComplete
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\obj\Debug\EnglishSchool.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool\obj\Debug\EnglishSchool.pdb

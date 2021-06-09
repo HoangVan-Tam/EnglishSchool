@@ -32,11 +32,11 @@ namespace EnglishSchool.Controllers
             return Ok(response.result);
         }
 
-        [Route("exercise")]
+        [Route("exercise/{week}")]
         [HttpGet]
-        public IHttpActionResult DoExercise()
+        public IHttpActionResult DoExercise(int week)
         {
-            var response = _service.GetListQuestion();
+            var response = _service.GetListQuestion(week);
             if (response.success == false)
             {
                 return BadRequest(response.message);

@@ -148,7 +148,7 @@ namespace EnglishSchool.Service
                     }
                     SaveChange();
                 }  
-                response.result="Attdenace Successfully";
+                response.result="Attendance Successfully";
             }
             catch(Exception ex)
             {

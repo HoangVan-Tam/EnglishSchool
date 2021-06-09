@@ -30,6 +30,7 @@ namespace EnglishSchool.Service
             var response = new ResponseService<string>();
             try
             {
+                entity.note = DateTime.Now.ToString();
                 _repository._personalInformation.Add(_mapper.Map<PersonalInformationDTO, PersonalInformation>(entity));
                 SaveChanges();
                 response.result = "Add Successfully";
@@ -89,7 +90,7 @@ namespace EnglishSchool.Service
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            _unitOfWork.Commit();
         }
 
         public ResponseService<PersonalInformationDTO> GetById(int id)

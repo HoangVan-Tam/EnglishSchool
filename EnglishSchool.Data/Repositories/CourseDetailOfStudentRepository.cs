@@ -16,7 +16,7 @@ namespace EnglishSchool.Data.Repositories
         void Add(CourseDetailOfStudent entity, int numberOfMonth);
         List<CourseDetailOfStudent> GetAllAttendanceStudentOfCourse(int courseId);
         List<CourseDetailOfStudent> GetAllAttendanceStudentOfCourse(int courseId, string studentId);
-        List<CourseDetailOfStudent> GetAllInFormationAddCourseInfo(string StudentId);
+        List<CourseDetailOfStudent> GetAllInFormationAddCourseInfo();
         List<CourseDetailOfStudent> GetAllAttendanceStudentOfCourseVer2(int courseId);
     }
     public class CourseDetailOfStudentRepository : RepositoryBase<CourseDetailOfStudent>, ICourseDetailOfStudentRepository
@@ -40,9 +40,9 @@ namespace EnglishSchool.Data.Repositories
             return db.CourseDetailOfStudent.Include("attendances").Include("tests").Where(p=>p.studentId==studentId && p.courseId==courseId && p.finish==false).FirstOrDefault();
         }
 
-        public List<CourseDetailOfStudent> GetAllInFormationAddCourseInfo(string StudentId)
+        public List<CourseDetailOfStudent> GetAllInFormationAddCourseInfo()
         {
-            return db.CourseDetailOfStudent.Include("courses").Where(p=>p.studentId!=StudentId).ToList();
+            return db.CourseDetailOfStudent.Include("courses").ToList();
         }
 
         public List<CourseDetailOfStudent> GetAllInFormationById(Expression<Func<CourseDetailOfStudent, bool>> expression)

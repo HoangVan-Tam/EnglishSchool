@@ -174,8 +174,16 @@ namespace EnglishSchool.Service
             var response = new ResponseService<List<CourseDTO>>();
             try
             {
-                var courseDetails = _repository._courseDetailOfStudent.GetAllInFormationAddCourseInfo(studentId).Select(p=>p.courses).Distinct();
-                response.result = _mapper.Map<IEnumerable<Course>, List<CourseDTO>>(courseDetails);
+                var courseDetails = _repository._courseDetailOfStudent.GetAllInFormationAddCourseInfo();
+                var temp = courseDetails.Where(p => p.studentId == studentId && p.finish==false).ToList();
+                foreach(var item in temp)
+                {
+                    if (courseDetails.Where(p => p.courseId == item.courseId).FirstOrDefault()!=null)
+                    {
+                        courseDetails.RemoveAll(p=>p.courseId==item.courseId);
+                    }
+                }
+                response.result = _mapper.Map<IEnumerable<Course>, List<CourseDTO>>(courseDetails.Select(x=>x.courses).Distinct());
             }
             catch (Exception ex)
             {
@@ -190,7 +198,15 @@ namespace EnglishSchool.Service
             var response = new ResponseService<List<CourseDTO>>();
             try
             {
-                response.result = _mapper.Map<List<Course>, List<CourseDTO>>(_repository._course.GetAllInfoListCourse().Where(p=>p.departmentId==departmentId).ToList());
+                var temp = _mapper.Map<List<Course>, List<CourseDTO>>(_repository._course.GetAllInfoListCourse().Where(p=>p.departmentId==departmentId).ToList());
+                response.result = new List<CourseDTO>();
+                foreach (var item in temp)
+                {
+                    if (_repository._courseDetailOfEmployee.GetSingleByCondition(p => p.courseId == item.id)== null)
+                    {
+                        response.result.Add(item);
+                    }
+                }
             }
             catch (Exception ex)
             {

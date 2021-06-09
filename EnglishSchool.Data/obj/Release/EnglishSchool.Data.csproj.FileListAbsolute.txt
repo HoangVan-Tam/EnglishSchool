@@ -95,3 +95,4 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Release\es\DevExpress.
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Release\ja\DevExpress.Xpo.v19.2.resources.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Release\ru\DevExpress.Xpo.v19.2.resources.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db1.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Release\EnglishSchool.Data.Migrations.db2.resources

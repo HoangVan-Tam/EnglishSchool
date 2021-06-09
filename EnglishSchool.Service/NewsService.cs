@@ -146,8 +146,11 @@ namespace EnglishSchool.Service
                     {
                         file.Delete();
                     }
+                    news.image = "image" + news.postDate.Day.ToString() + news.postDate.Month.ToString() + news.postDate.Year.ToString() +
+                       "-" + DateTime.Now.Millisecond.ToString() + news.postDate.Second.ToString() + news.postDate.Minute.ToString() + news.postDate.Hour.ToString() + ".png";
                     postedFile.SaveAs(Path + news.image);
                 }
+
                 _repository._news.Update(news);
                 SaveChanges();
                 response.result = "Update News successfully";

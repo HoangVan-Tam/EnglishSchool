@@ -85,7 +85,6 @@ E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db4.resources
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.AddtableStudent.resources
 E:\Đồ án\.Net\EnglishSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.AddtableCourseAndMore.resources
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csproj.CoreCompileInputs.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\EnglishSchool.Data.dll.config
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\EnglishSchool.Data.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\EnglishSchool.Data.pdb
@@ -177,8 +176,10 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\es\DevExpress.Xp
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\ja\DevExpress.Xpo.v19.2.resources.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\bin\Debug\ru\DevExpress.Xpo.v19.2.resources.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csprojAssemblyReference.cache
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db1.resources
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csproj.GenerateResource.cache
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csproj.CoreCompileInputs.cache
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csproj.CopyComplete
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.pdb
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db1.resources
-E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.csproj.GenerateResource.cache
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Data\obj\Debug\EnglishSchool.Data.Migrations.db2.resources

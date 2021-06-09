@@ -1,4 +1,6 @@
-﻿namespace EnglishSchool.Model.DTOs
+﻿using System.Collections.Generic;
+
+namespace EnglishSchool.Model.DTOs
 {
     public class QuestionDTO
     {
@@ -10,5 +12,16 @@
         public string answer3 { get; set; }
         public string answer4 { get; set; }
         public string rightAnswer { get; set; }
+    }
+    public class ListQuestionExam
+    {
+        public List<QuestionExam> results { get; set; }
+    }
+    public class QuestionExam
+    {
+        public string question { get; set; }
+        public string correct_answer { get; set; }
+        public List<string> incorrect_answers { get; set; }
+        public string difficulty { get; set; }
     }
 }
