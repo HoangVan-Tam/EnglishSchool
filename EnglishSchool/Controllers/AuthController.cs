@@ -31,32 +31,12 @@ namespace EnglishSchool.Controllers
                 };
                 return Ok(_service.StudentLogin(student));
             }
-            else if (response.result == "Parent")
-            {
-                ParentLoginDTO parent = new ParentLoginDTO()
-                {
-                    password = account.password,
-                    parentId = account.userID,
-                };
-                return Ok(_service.ParentLogin(parent));
-            }
             else
             {
                 return BadRequest(response.message);
             }
         }
 
-        [Route("Parent/Login")]
-        [HttpPost]
-        public IHttpActionResult ParentLogin(ParentLoginDTO parent)
-        {
-            var response = _service.ParentLogin(parent);
-            if (response.success == false)
-            {
-                return BadRequest(response.message);
-            }
-            return Ok(response.result);
-        }
 
         [Route("Student/Login")]
         [HttpPost]
@@ -82,17 +62,6 @@ namespace EnglishSchool.Controllers
             return Ok(response.result);
         }
 
-        [Route("parent/ChangePassword")]
-        [HttpPost]
-        public IHttpActionResult ParentChangePassword(ChangePasswordDTO account)
-        {
-            var response = _service.ParentChangePassword(account);
-            if (response.success == false)
-            {
-                return BadRequest(response.message);
-            }
-            return Ok(response.result);
-        }
 
 
         [Route("student/ChangePassword")]
@@ -140,15 +109,6 @@ namespace EnglishSchool.Controllers
             if (userId.Substring(0, 3) == "stu")
             {
                 var response = _service.StudentInfo(userId);
-                if (response.success == false)
-                {
-                    return BadRequest(response.message);
-                }
-                return Ok(response.result);
-            }
-            else if (userId.Substring(0,3)=="par")
-            {
-                var response = _service.ParentInfo(userId);
                 if (response.success == false)
                 {
                     return BadRequest(response.message);

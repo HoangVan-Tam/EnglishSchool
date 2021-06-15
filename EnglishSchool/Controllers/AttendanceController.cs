@@ -17,11 +17,11 @@ namespace EnglishSchool.Controllers
         }
 
 
-        [Route("student/{courseId}")]
+        [Route("student/{classId}")]
         [HttpGet]
-        public IHttpActionResult GetAllStudentOfCourse(int courseId)
+        public IHttpActionResult GetAllStudentOfCourse(int classId)
         {
-            var response = _service.GetListStudent(courseId);
+            var response = _service.GetListStudent(classId);
             if (response.success == false)
             {
                 return BadRequest(response.message);
@@ -33,11 +33,11 @@ namespace EnglishSchool.Controllers
             return Ok(response.result);
         }
 
-        [Route("course/{courseId}")]
+        [Route("course/{classId}")]
         [HttpGet]
-        public IHttpActionResult GetAllAttendancetOfStudent(int courseId)
+        public IHttpActionResult GetAllAttendancetOfStudent(int classId)
         {
-            var response = _service.GetListAttendanceStudentOfCourse(courseId);
+            var response = _service.GetListAttendanceStudentOfCourse(classId);
             if (response.success == false)
             {
                 return BadRequest(response.message);

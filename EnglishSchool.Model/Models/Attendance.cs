@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EnglishSchool.Model.Models
 {
+    [Table("Attendance")]
     public class Attendance
     {
         [Key]
@@ -14,7 +15,7 @@ namespace EnglishSchool.Model.Models
         [Column(Order = 2)]
         [ForeignKey("courseDetailOfStudents")]
         public int courseDetailId { get; set; }
-        public CourseDetailOfStudent courseDetailOfStudents { get; set; }
+        public ClassDetailOfStudent courseDetailOfStudents { get; set; }
         [Required]
         public DateTime date { get; set; }
         [Required]

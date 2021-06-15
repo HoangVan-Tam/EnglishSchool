@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EnglishSchool.Model.Models
 {
+    [Table("DetailExercise")]
     public class DetailTest
     {
         [Key]

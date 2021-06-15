@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EnglishSchool.Model.Models
 {
+    [Table("Employee")]
     public class Employee
     {
         [Key]

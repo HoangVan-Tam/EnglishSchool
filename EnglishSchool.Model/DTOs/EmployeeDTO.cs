@@ -4,6 +4,8 @@ namespace EnglishSchool.Model.DTOs
 {
     public class EmployeeDTO
     {
+        public string departmentName { get; set; }
+        public int totalCourse { get; set; }
         public string userId { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
@@ -16,6 +18,7 @@ namespace EnglishSchool.Model.DTOs
         public bool status { get; set; }
         public int departmentId { get; set; }
         public NameOfDepartment departments { get; set; }
+        public int salary { get; set; }
     }
     public class ManageCourse
     {
@@ -24,6 +27,10 @@ namespace EnglishSchool.Model.DTOs
     }
     public class EmployeeLoginDTO
     {
+        public int departmentId { get; set; }
+        public int salary { get; set; }
+        public string departmentName { get; set; }
+        public int totalCourse { get; set; }
         public string userId { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }

@@ -46,7 +46,7 @@ namespace EnglishSchool.Service
             var response = new ResponseService<List<TestDTO>>();
             try
             {
-                var courseDetail = _repository._courseDetailOfStudent.GetSingleByCondition(p => p.studentId == studentId && p.courseId == courseId).courseDetailId;
+                var courseDetail = _repository._classDetailOfStudent.GetSingleByCondition(p => p.studentId == studentId && p.classId == courseId).courseDetailId;
                 var result = _repository._test.GetMulti(p => p.courseDetailId == courseDetail);
                 foreach (Test test in result)
                 {
@@ -59,7 +59,7 @@ namespace EnglishSchool.Service
                             test.status = "Đã Thi";
                         }
                     }
-                    else if (test.startDay <= DateTime.Now.Date && test.finishDay >= DateTime.Now)
+                    else if (test.startDay <= DateTime.Now.Date && DateTime.Now.Date <= test.finishDay)
                     {
                         test.status = "Làm bài";
                     }

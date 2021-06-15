@@ -83,5 +83,21 @@ namespace EnglishSchool.Controllers
             }
             return Ok(response.result);
         }
+
+        [Route("manage/{studentId}/{classId}")]
+        [HttpGet]
+        public IHttpActionResult ManageStudent(string studentId, int classId)
+        {
+            var response = _service.ManageStudent(studentId, classId);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            else if (response.result == null)
+            {
+                return NotFound();
+            }
+            return Ok(response.result);
+        }
     }
 }

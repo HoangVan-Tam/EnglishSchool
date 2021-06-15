@@ -12,14 +12,15 @@ namespace EnglishSchool.Model.DTOs
         public DateTime date { get; set; }
         public bool absent { get; set; }
         public string reason { get; set; }
+        public string comment { get; set; }
     }
 
     public class AttendanceDTO
     {
-       public int courseId { get; set; }
-       public DateTime firstDayOfWeek { get; set; }
-       public int session { get; set; }
-       public List<AttendanceStudentDTO> attendances { get; set; }
+        public int courseId { get; set; }
+        public DateTime firstDayOfWeek { get; set; }
+        public int session { get; set; }
+        public List<AttendanceStudentDTO> attendances { get; set; }
     }
     public class AttendanceOfStudent
     {

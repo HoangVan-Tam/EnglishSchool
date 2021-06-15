@@ -6,6 +6,7 @@ using EnglishSchool.Model.Models;
 using EnglishSchool.Model.ResponseService;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -15,6 +16,8 @@ namespace EnglishSchool.Service
     {
         ResponseService<FullInfoStudentDTO> GetById(string id);
         ResponseService<string> StudentRegisterCourse(StudentRegisterCourse student);
+        ResponseService<ManageStudentDTO> ManageStudent(string studentId, int classId);
+
     }
     public class StudentService : IStudentService
     {
@@ -47,15 +50,10 @@ namespace EnglishSchool.Service
             var tempCourse = _repository._course.GetSingleByCondition(p => p.id == entity.courseId);
             if (tempCourse == null)
             {
-                response.message = "Course is not created";
+                response.message = "Class is not created";
                 response.success = false;
                 return response;
             }
-            /*
-            tempStudent.studentId = "stu"+entity.GetValue("departmentId").ToString() + "-" + String.Format("{0:D6}", tempId);
-            tempStudent.password = entity.GetValue("firstName").ToString().First().ToString().ToUpper() + entity.GetValue("firstName").ToString().Substring(1).ToLower() 
-                                    + entity.GetValue("lastName").ToString().First().ToString().ToUpper() + "@" + entity.GetValue("phoneNumber").ToString().Substring(6);
-            */
             var db = _db.Init();
             using (var transaction = db.Database.BeginTransaction())
             {
@@ -68,21 +66,21 @@ namespace EnglishSchool.Service
                     
                     tempStudent.password = "123456789";
                     tempStudent.status = true;
-                    tempStudent.deactivationDate = DateTime.Now.AddMonths(tempCourse.numberOfMonths);
+                    tempStudent.deactivationDate = DateTime.Now.AddDays(tempCourse.numberOfWeeks*7);
                     tempStudent.password = BCrypt.Net.BCrypt.HashPassword(tempStudent.password);
                     _repository._student.Add(tempStudent);
                     db.SaveChanges();
 
-                    CourseDetailOfStudent courseOfStudent = new CourseDetailOfStudent()
+                    ClassDetailOfStudent courseOfStudent = new ClassDetailOfStudent()
                     {
-                        dayFinish = DateTime.Now.AddDays(tempCourse.numberOfMonths*7),
+                        dayFinish = DateTime.Now.AddDays(tempCourse.numberOfWeeks*7),
                         dayStart = DateTime.Now,
                         finish = false,
-                        courseId = tempCourse.id,
+                        classId = entity.classId,
                         studentId = tempStudent.studentId,
                         tuition = (tempCourse.tuition - (tempCourse.tuition / 100 * tempCourse.discount)),
                     };
-                    _repository._courseDetailOfStudent.Add(courseOfStudent, tempCourse.numberOfMonths);
+                    _repository._classDetailOfStudent.Add(courseOfStudent, tempCourse.numberOfWeeks);
                     db.SaveChanges();
                     transaction.Commit();
                     response.result = "Add Student Successfully";
@@ -164,29 +162,30 @@ namespace EnglishSchool.Service
         public ResponseService<string> StudentRegisterCourse(StudentRegisterCourse student)
         {
             var response = new ResponseService<string>();
-            var courseDetail = _repository._courseDetailOfStudent.GetSingleByCondition(p => p.courseId == student.id && p.studentId == student.studentId && p.finish == false);
+            var courseDetail = _repository._classDetailOfStudent.GetSingleByCondition(p => p.classId == student.classId && p.studentId == student.studentId && p.finish == false);
             if (courseDetail == null)
             {
-                var schedule = _repository._schedule.GetMulti(p => p.courseId == student.id);
+                var schedule = _repository._schedule.GetMulti(p => p.classId == student.classId);
                 var checkSchedule = _repository._student.CheckCourseDetail(schedule, student.studentId);
                 if (checkSchedule == true)
                 {
-                    var course = _repository._course.GetSingleByCondition(p => p.id == student.id);
+                    var classes = _repository._class.GetSingleByCondition(p => p.id == student.classId);
+                    var course = _repository._course.GetSingleByCondition(p => p.id == student.courseId);
                     var db = _db.Init();
                     using (var transaction = db.Database.BeginTransaction())
                     {
                         try
                         {
-                            CourseDetailOfStudent courseDetailOfStudent = new CourseDetailOfStudent()
+                            ClassDetailOfStudent courseDetailOfStudent = new ClassDetailOfStudent()
                             {
-                                courseId = student.id,
-                                dayStart = DateTime.Now,
-                                dayFinish = DateTime.Now.AddMonths(course.numberOfMonths),
+                                classId = student.classId,
+                                dayStart = DateTime.Now.Date,
+                                dayFinish = DateTime.Now.AddMonths(course.numberOfWeeks),
                                 finish = false,
                                 studentId = student.studentId,
                                 tuition = (course.tuition - (course.tuition / 100 * course.discount)),
                             };
-                            _repository._courseDetailOfStudent.Add(courseDetailOfStudent, course.numberOfMonths);
+                            _repository._classDetailOfStudent.Add(courseDetailOfStudent, course.numberOfWeeks);
                             SaveChanges();
                             var tempStudent = _repository._student.GetSingleByCondition(p => p.studentId == student.studentId);
                             if (tempStudent.deactivationDate < courseDetailOfStudent.dayFinish)
@@ -236,6 +235,35 @@ namespace EnglishSchool.Service
             throw new NotImplementedException();
         }
 
+        public ResponseService<ManageStudentDTO> ManageStudent(string studentId, int classId)
+        {
+            var response = new ResponseService<ManageStudentDTO>();
+            try
+            {
+                var result = _repository._classDetailOfStudent.GetAllInFormation(studentId, classId);
+                response.result = _mapper.Map<ClassDetailOfStudent, ManageStudentDTO>(result);
+                var temp = _repository._class.GetCourseWithSchedule(result.classId).schedules.Count;
 
+                foreach (var item in response.result.tests)
+                {
+                    item.attendances = new List<AttendanceOfStudent>();
+                    item.attendances = _mapper.Map<List<Attendance>, List<AttendanceOfStudent>>(result.attendances.Where(p => p.date.Date >= item.startDay.Date && p.date <= item.finishDay.Date).ToList());
+                    if (item.attendances.Count < temp)
+                    {
+                        var temp1 = item.attendances.Count;
+                        for (int i = 0; i < temp - temp1; i++)
+                        {
+                            item.attendances.Add(null);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.message = ex.Message;
+            }
+            return response;
+        }
     }
 }

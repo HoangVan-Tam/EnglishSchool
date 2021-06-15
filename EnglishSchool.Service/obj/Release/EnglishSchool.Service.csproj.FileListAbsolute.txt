@@ -96,3 +96,16 @@ E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\de\DevExpre
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\es\DevExpress.Xpo.v19.2.resources.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\ja\DevExpress.Xpo.v19.2.resources.dll
 E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\ru\DevExpress.Xpo.v19.2.resources.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.AspNet.SignalR.Client.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.AspNet.SignalR.Core.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.AspNet.SignalR.Owin.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.Owin.Cors.dll
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.AspNet.SignalR.Client.pdb
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.AspNet.SignalR.Client.xml
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.AspNet.SignalR.Core.pdb
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.AspNet.SignalR.Core.xml
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.AspNet.SignalR.Owin.xml
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.AspNet.SignalR.SystemWeb.pdb
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\Đồ án\.Net\BE_EnglichSchool\EnglishSchool.Service\bin\Release\Microsoft.Owin.Cors.xml

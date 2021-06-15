@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace EnglishSchool.Model.Models
 {
+    [Table("Schedule")]
     public class Schedule
     {
         [Key]
@@ -18,8 +19,8 @@ namespace EnglishSchool.Model.Models
         public string timeStart { get; set; }
         [Required]
         public string timeEnd { get; set; }
-        [ForeignKey("courses")]
-        public int courseId { get; set; }
-        public Course courses { get; set; }
+        [ForeignKey("classes")]
+        public int classId { get; set; }
+        public Class classes { get; set; }
     }
 }

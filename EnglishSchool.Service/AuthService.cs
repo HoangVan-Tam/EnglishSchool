@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -15,17 +16,13 @@ namespace EnglishSchool.Service
 {
     public interface IAuthService
     {
-        ResponseService<ParentLoginResponseDTO> ParentLogin(ParentLoginDTO account);
         ResponseService<StudentLoginReponseDTO> StudentLogin(StudentLoginDTO account);
-        ResponseService<string> ParentChangePassword(ChangePasswordDTO account);
         ResponseService<string> StudentChangePassword(ChangePasswordDTO account);
         ResponseService<EmployeeLoginDTO> EmployeeLogin(LoginDTO account);
         ResponseService<string> EmployeeChangePassword(ChangePasswordDTO account);
         ResponseService<string> Login(LoginDTO account);
         ResponseService<EmployeeLoginDTO> AdminLogin(LoginDTO account);
-        ResponseService<Employee> AdminRegister(ParentLoginDTO account);
         ResponseService<FullInfoStudentDTO> StudentInfo(string userId);
-        ResponseService<ParentDTO> ParentInfo(string userId);
         ResponseService<EmployeeDTO> EmployeeInfo(string userId);
         void SaveChanges();
     }
@@ -69,38 +66,6 @@ namespace EnglishSchool.Service
         }
 
 
-        //login
-        public ResponseService<ParentLoginResponseDTO> ParentLogin(ParentLoginDTO account)
-        {
-            var response = new ResponseService<ParentLoginResponseDTO>();
-            var temp = _repository._parent.GetSingleByCondition(p => p.parentId == account.parentId);
-            if (temp != null)
-            {
-                if (temp.status == true)
-                {
-                    if (BCrypt.Net.BCrypt.Verify(account.password, temp.password))
-                    {
-                        response.result = _mapper.Map<Parent, ParentLoginResponseDTO>(temp);
-                    }
-                    else
-                    {
-                        response.message = "Password is not correct";
-                        response.success = false;
-                    }
-                }
-                else
-                {
-                    response.message = "Account is not available";
-                    response.success = false;
-                }
-            }
-            else
-            {
-                response.message = "";
-                response.success = false;
-            }
-            return response;
-        }
 
 
         public ResponseService<string> EmployeeChangePassword(ChangePasswordDTO account)
@@ -138,40 +103,6 @@ namespace EnglishSchool.Service
             return response;
         }
         //Chang Password
-        public ResponseService<string> ParentChangePassword(ChangePasswordDTO account)
-        {
-            var response = new ResponseService<string>();
-            var temp = _repository._parent.GetSingleByCondition(p => p.parentId == account.userName);
-            if (temp != null)
-            {
-                if (BCrypt.Net.BCrypt.Verify(account.oldPassword, temp.password) == true)
-                {
-                    try
-                    {
-                        temp.password = BCrypt.Net.BCrypt.HashPassword(account.newPassword);
-                        _repository._parent.Update(temp);
-                        SaveChanges();
-                        response.result = "Action successfully";
-                    }
-                    catch (Exception ex)
-                    {
-                        response.message = ex.Message;
-                        response.success = false;
-                    }
-                }
-                else
-                {
-                    response.message = "Old Password is not correct";
-                    response.success = false;
-                }
-            }
-            else
-            {
-                response.message = "Username is not found";
-                response.success = false;
-            }
-            return response;
-        }
 
 
         public ResponseService<string> StudentChangePassword(ChangePasswordDTO account)
@@ -267,10 +198,6 @@ namespace EnglishSchool.Service
             {
                 response.result = "Student";
             }
-            else if (_repository._parent.GetSingleByCondition(p => p.parentId == account.userID) != null)
-            {
-                response.result = "Parent";
-            }
             else
             {
                 response.message = "Account is not found";
@@ -320,11 +247,6 @@ namespace EnglishSchool.Service
             return response;
         }
 
-        public ResponseService<Employee> AdminRegister(ParentLoginDTO account)
-        {
-            throw new NotImplementedException();
-        }
-
         public ResponseService<FullInfoStudentDTO> StudentInfo(string userId)
         {
             var response = new ResponseService<FullInfoStudentDTO>();
@@ -342,29 +264,20 @@ namespace EnglishSchool.Service
 
         }
 
-        public ResponseService<ParentDTO> ParentInfo(string userId)
-        {
-            var response = new ResponseService<ParentDTO>();
-            try
-            {
-                var result = _repository._parent.GetSingleByCondition(p=>p.parentId==userId);
-                response.result = _mapper.Map<Parent, ParentDTO>(result);
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-                response.success = false;
-            }
-            return response;
-        }
-
         public ResponseService<EmployeeDTO> EmployeeInfo(string userId)
         {
             var response = new ResponseService<EmployeeDTO>();
             try
             {
                 var result = _repository._employee.GetSingleByCondition(p => p.userId == userId);
+                var temp = _repository._class.GetAllInfoCoursForTeacher(userId).Select(p=>p.courses.salary).ToList();  
                 response.result = _mapper.Map<Employee, EmployeeDTO>(result);
+                foreach(var item in temp)
+                {
+                    response.result.salary = response.result.salary + item;
+                }
+                response.result.totalCourse = temp.Count();
+                response.result.departmentName = _repository._department.GetSingleByCondition(p => p.id == response.result.departmentId).name;
             }
             catch (Exception ex)
             {
@@ -387,6 +300,13 @@ namespace EnglishSchool.Service
                         if (BCrypt.Net.BCrypt.Verify(account.password, temp.password))
                         {
                             response.result = _mapper.Map<Employee, EmployeeLoginDTO>(temp);
+                            /*var temp1 = _repository._class.GetMulti(p => p.teacherId == temp.userId).Select(p => p.salary).ToList();
+                            foreach (var item in temp1)
+                            {
+                                response.result.salary = response.result.salary + item;
+                            }
+                            response.result.totalCourse = temp1.Count();*/
+                            response.result.departmentName = _repository._department.GetSingleByCondition(p => p.id == response.result.departmentId).name;
                             response.result.token = CreateToken(account.userID);
                         }
                         else

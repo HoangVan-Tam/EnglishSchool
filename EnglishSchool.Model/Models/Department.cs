@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EnglishSchool.Model.Models
 {
+    [Table("Department")]
     public class Department
     {
         [Key]
@@ -17,7 +18,7 @@ namespace EnglishSchool.Model.Models
         public string address { get; set; }
         [Required]
         public string detail { get; set; }
-        public List<Course> courses { get; set; }
+        public List<Class> courses { get; set; }
         public List<Student> students { get; set; }
         public List<Employee> employees { get; set; }
     }

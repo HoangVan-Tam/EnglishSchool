@@ -34,8 +34,8 @@ namespace EnglishSchool.Service
             var response = new ResponseService<List<ListCourseDetailOfStudent>>();
             try
             {
-                var courseDetailOfStudent = _repository._courseDetailOfStudent.GetAllInFormation(courseId);
-                response.result = _mapper.Map<List<CourseDetailOfStudent>, List<ListCourseDetailOfStudent>>(courseDetailOfStudent);
+                var courseDetailOfStudent = _repository._classDetailOfStudent.GetAllInFormation(courseId);
+                response.result = _mapper.Map<List<ClassDetailOfStudent>, List<ListCourseDetailOfStudent>>(courseDetailOfStudent);
             }
             catch(Exception ex)
             {
@@ -50,8 +50,8 @@ namespace EnglishSchool.Service
             var response = new ResponseService<string>();
             try
             {
-                var listStudent = _repository._courseDetailOfStudent.GetMulti(p => p.courseId == attendances.courseId && p.finish==false);
-                var courseSchedule = _repository._course.GetCourseWithSchedule(attendances.courseId).schedules;
+                var listStudent = _repository._classDetailOfStudent.GetMulti(p => p.classId == attendances.courseId && p.finish==false);
+                var courseSchedule = _repository._class.GetCourseWithSchedule(attendances.courseId).schedules;
                 var date = DateTime.Now.Date;
                 for (int i = 0; i < attendances.attendances.Count; i++)
                 {
@@ -141,6 +141,8 @@ namespace EnglishSchool.Service
                                 attendance.date = attendances.firstDayOfWeek.AddDays(2);
                             }
                         }
+                        attendances.firstDayOfWeek= attendances.firstDayOfWeek.Date;
+                        _repository._test.GetSingleByCondition(p => p.courseDetailId == temp.courseDetailId && p.startDay == attendances.firstDayOfWeek).comment = attendances.attendances[i].comment;
                         attendance.absent = attendances.attendances[i].absent;
                         attendance.reason = attendances.attendances[i].reason;
                         attendance.courseDetailId = temp.courseDetailId;
@@ -168,8 +170,8 @@ namespace EnglishSchool.Service
             var response = new ResponseService<List<ListAttendanceStudentOfCourse>>();
             try
             {
-                var result = _repository._courseDetailOfStudent.GetAllAttendanceStudentOfCourse(courseId);
-                response.result = _mapper.Map<List<CourseDetailOfStudent>, List<ListAttendanceStudentOfCourse>>(result);
+                var result = _repository._classDetailOfStudent.GetAllAttendanceStudentOfCourse(courseId);
+                response.result = _mapper.Map<List<ClassDetailOfStudent>, List<ListAttendanceStudentOfCourse>>(result);
             }
             catch (Exception ex)
             {
@@ -184,8 +186,8 @@ namespace EnglishSchool.Service
             var response = new ResponseService<List<ListAttendanceStudentOfCourse>>();
             try
             {
-                var result = _repository._courseDetailOfStudent.GetAllAttendanceStudentOfCourse(courseId, studentId);
-                response.result = _mapper.Map<List<CourseDetailOfStudent>, List<ListAttendanceStudentOfCourse>>(result);
+                var result = _repository._classDetailOfStudent.GetAllAttendanceStudentOfCourse(courseId, studentId);
+                response.result = _mapper.Map<List<ClassDetailOfStudent>, List<ListAttendanceStudentOfCourse>>(result);
             }
             catch (Exception ex)
             {

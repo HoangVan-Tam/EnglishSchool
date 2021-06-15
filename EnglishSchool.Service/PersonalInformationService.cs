@@ -4,6 +4,7 @@ using EnglishSchool.Data.Repositories;
 using EnglishSchool.Model.DTOs;
 using EnglishSchool.Model.Models;
 using EnglishSchool.Model.ResponseService;
+using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
 
@@ -50,7 +51,19 @@ namespace EnglishSchool.Service
 
         public ResponseService<string> Update(PersonalInformationDTO entity)
         {
-            throw new NotImplementedException();
+            var response = new ResponseService<string>();
+            try
+            {
+                _repository._personalInformation.Update(_mapper.Map<PersonalInformationDTO, PersonalInformation>(entity));
+                SaveChanges();
+                response.result = "Update Question Successfully";
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+                response.success = false;
+            }
+            return response;
         }
 
         public ResponseService<string> Delete(int id)

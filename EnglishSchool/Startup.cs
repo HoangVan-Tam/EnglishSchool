@@ -8,8 +8,10 @@ using EnglishSchool.Data.Repositories;
 using EnglishSchool.Model.DTOs;
 using EnglishSchool.Model.Models;
 using EnglishSchool.Service;
+using Microsoft.AspNet.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Jwt;
 using Owin;
@@ -43,6 +45,16 @@ namespace EnglishSchool.App_Start
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("my_secret_key_12345"))
                     }
                 });
+            app.Map("/signalR", map =>
+            {
+                map.UseCors(CorsOptions.AllowAll);
+                var hubConfiguration = new HubConfiguration
+                {
+                    EnableJSONP = true
+                };
+                map.RunSignalR(hubConfiguration);
+            });
+          
         }
 
         private void ConfigAutoFac(IAppBuilder app)
@@ -54,8 +66,6 @@ namespace EnglishSchool.App_Start
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
-
-
             builder.RegisterType<EnglishSchoolDbContext>().AsSelf().InstancePerRequest();
 
             builder.RegisterType<RepositoryWrapper>().As<IRepositoryWrapper>().InstancePerRequest();
@@ -73,49 +83,43 @@ namespace EnglishSchool.App_Start
             {
                 cfg.CreateMap<Department, DepartmentDTO>().ReverseMap();
                 cfg.CreateMap<Recruitment, RecruitmentDTO>().ReverseMap();
-                //cfg.CreateMap<Test, Test2Ver2DTO>().ReverseMap();
-                cfg.CreateMap<CourseDetailOfStudent, TeacherManageStudentVer2>().ReverseMap();
+                cfg.CreateMap<ClassInfoForTeacher, ClassUpdateDTO>().ReverseMap();
+                cfg.CreateMap<ClassDetailOfStudent, TeacherManageStudentVer2>().ReverseMap();
                 cfg.CreateMap<Department, NameOfDepartment>();
                 cfg.CreateMap<Student, StudentLoginReponseDTO>().ReverseMap();
                 cfg.CreateMap<Student, FullInfoStudentDTO>().ReverseMap();
                 cfg.CreateMap<Student, NameOfDepartment>().ReverseMap();
                 cfg.CreateMap<Student, NameOfParent>().ReverseMap();
 
-                cfg.CreateMap<Course, CourseDTO>().ReverseMap();
+                cfg.CreateMap<Class, ClassDTO>().ReverseMap();
 
 
                 cfg.CreateMap<Student, NameOfStudent>();
-                cfg.CreateMap<Student, StudentParentDTO>().ReverseMap();
                 cfg.CreateMap<Student, InfoStudent>().ReverseMap();
-                cfg.CreateMap<Course, NameOfCourse>();
-                cfg.CreateMap<CourseDetailOfStudent, CourseDetailOfStudentDTO>().ReverseMap();
-                cfg.CreateMap<CourseDetailOfStudent, ListCourseDetailOfStudent>().ReverseMap();
-
+                cfg.CreateMap<Class, NameOfCourse>();
+                cfg.CreateMap<ClassDetailOfStudent, ClassDetailOfStudentDTO>().ReverseMap();
+                cfg.CreateMap<ClassDetailOfStudent, ListCourseDetailOfStudent>().ReverseMap();
+                cfg.CreateMap<ClassDetailOfStudent, ManageStudentDTO>().ReverseMap();
 
                 cfg.CreateMap<Question, QuestionDTO>().ReverseMap();
-
-
+                cfg.CreateMap<Class, ClassInfoForTeacher>().ReverseMap();
                 cfg.CreateMap<News, NewsDTO>().ReverseMap();
-
-
-                cfg.CreateMap<PersonalInformation, PersonalInformationDTO>().ReverseMap();
-                cfg.CreateMap<CourseDetailOfEmployee, CourseDetailOfEmployeeDTO>().ReverseMap();                
+                cfg.CreateMap<Class, ClassForStudentDetailDTO>().ReverseMap();
+                cfg.CreateMap<Course, CourseDTO>().ReverseMap();
+                cfg.CreateMap<PersonalInformation, PersonalInformationDTO>().ReverseMap();              
                 cfg.CreateMap<Test, TestDTO>().ReverseMap();
                 cfg.CreateMap<Test, Test3DTO>().ReverseMap();
-                cfg.CreateMap<Parent, ParentDTO>().ReverseMap();
-                cfg.CreateMap<Parent, NameOfParent>().ReverseMap();
                 cfg.CreateMap<Test, Test2DTO>().ReverseMap();
                 cfg.CreateMap<Employee, EmployeeDTO>().ReverseMap();
                 cfg.CreateMap<Employee, EmployeeLoginDTO>().ReverseMap();
-                cfg.CreateMap<CourseDetailOfStudent, ManageStudentDTO>().ReverseMap();
-                cfg.CreateMap<CourseDetailOfStudent, TeacherManageStudent>().ReverseMap();
+                cfg.CreateMap<ClassDetailOfStudent, TeacherManageStudent>().ReverseMap();
                 cfg.CreateMap<DetailTest, DetailTestDTO>().ReverseMap();
-                cfg.CreateMap<CourseDetailOfStudent, CourseStudentNoRegister>().ReverseMap();
+                cfg.CreateMap<ClassDetailOfStudent, CourseStudentNoRegister>().ReverseMap();
                 cfg.CreateMap<Schedule, ScheduleDTO>().ReverseMap();
-                cfg.CreateMap<Course, CourseUpdateDTO>().ReverseMap();
-                cfg.CreateMap<CourseDTO, CourseUpdateDTO>().ReverseMap();
+                cfg.CreateMap<Class, ClassUpdateDTO>().ReverseMap();
+                cfg.CreateMap<ClassDTO, ClassUpdateDTO>().ReverseMap();
                 cfg.CreateMap<Attendance, AttendanceOfStudent>().ReverseMap();
-                cfg.CreateMap<CourseDetailOfStudent, ListAttendanceStudentOfCourse>().ReverseMap();
+                cfg.CreateMap<ClassDetailOfStudent, ListAttendanceStudentOfCourse>().ReverseMap();
             })).AsSelf().SingleInstance();
 
             builder.Register(c =>

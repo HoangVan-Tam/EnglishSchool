@@ -19,7 +19,7 @@ namespace EnglishSchool.Data.Repositories
 
         public List<Question> getRamdon20()
         {
-            return db.Questions.OrderBy(x=>Guid.NewGuid()).Take(50).ToList();
+            return db.Question.OrderBy(x=>Guid.NewGuid()).Take(50).ToList();
             //return db.Questions.GroupBy(p => p.questionDetail).Select(x => x.FirstOrDefault()).OrderBy(x => Guid.NewGuid()).ToList();
         }
     }

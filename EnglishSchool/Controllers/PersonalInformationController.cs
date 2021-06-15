@@ -1,5 +1,8 @@
 ﻿using EnglishSchool.Model.DTOs;
 using EnglishSchool.Service;
+using EnglishSchool.SignalR;
+using Microsoft.AspNet.SignalR;
+using System;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -24,6 +27,7 @@ namespace EnglishSchool.Controllers
             {
                 return BadRequest(response.message);
             }
+            AdvisoryHub.BroadcastCommonDataStatic(personalInformationDTO, null);
             return Ok(response.result);
         }
 
@@ -55,6 +59,18 @@ namespace EnglishSchool.Controllers
             else if (response.result == null)
             {
                 return NotFound();
+            }
+            return Ok(response.result);
+        }
+
+        [Route("update")]
+        [HttpPut]
+        public IHttpActionResult UpdatePersonalInfomation(PersonalInformationDTO personalInformationDTO)
+        {
+            var response = _service.Update(personalInformationDTO);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
             }
             return Ok(response.result);
         }

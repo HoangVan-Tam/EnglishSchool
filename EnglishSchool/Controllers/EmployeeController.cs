@@ -28,6 +28,18 @@ namespace EnglishSchool.Controllers
             return Ok(response.result);
         }
 
+        [Route("all/{departmentId}")]
+        [HttpGet]
+        public IHttpActionResult GetAllEmployeeByDepartmentId(int departmentId)
+        {
+            var response = _service.GetAllTeacher(departmentId);
+            if (response.success == false)
+            {
+                return BadRequest(response.message);
+            }
+            return Ok(response.result);
+        }
+
         [Route("teacher/allcourse/{teacherId}")]
         [HttpGet]
         public IHttpActionResult GetAllCourseOfTeacher(string teacherId)

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EnglishSchool.Model.Models
 {
+    [Table("Student")]
     public class Student
     {
         [Key]
@@ -33,10 +34,7 @@ namespace EnglishSchool.Model.Models
         [ForeignKey("departments")]
         public int departmentId { get; set; }
         public Department departments { get; set; }
-        [ForeignKey("parents")]
-        public string parentId { get; set; }
-        public Parent parents { get; set; }
         // [Required]
-        public List<CourseDetailOfStudent> courseDetailOfStudents { get; set; }
+        public List<ClassDetailOfStudent> courseDetailOfStudents { get; set; }
     }
 }

@@ -13,7 +13,8 @@ namespace EnglishSchool.Service
     public interface IEmployeeService : IServiceBase<EmployeeDTO>
     {
         ResponseService<List<EmployeeDTO>> GetAllTeacher();
-        ResponseService<List<CourseDetailOfEmployeeDTO>> GetAllCourseOfTeacher(string teacherId);
+        ResponseService<List<EmployeeDTO>> GetAllTeacher(int departmentId);
+        ResponseService<List<ClassInfoForTeacher>> GetAllCourseOfTeacher(string teacherId);
         ResponseService<EmployeeDTO> GetById(string userId);
         ResponseService<List<TeacherManageStudent>> ManageListStudent(DateTime ngayDauTuan, int courseId);
         ResponseService<List<TeacherManageStudentVer2>> ManageListStudentVer2(DateTime ngayDauTuan, int courseId);
@@ -144,8 +145,8 @@ namespace EnglishSchool.Service
             var response = new ResponseService<List<TeacherManageStudent>>();
             try
             {
-                var result = _repository._courseDetailOfStudent.GetAllInFormation(courseId);
-                response.result = _mapper.Map<List<CourseDetailOfStudent>, List<TeacherManageStudent>>(result);
+                var result = _repository._classDetailOfStudent.GetAllInFormation(courseId);
+                response.result = _mapper.Map<List<ClassDetailOfStudent>, List<TeacherManageStudent>>(result);
                 var lastDayOfWeek = ngayDauTuan.AddDays(6);
                 for (int i = 0; i < response.result.Count(); i++)
                 {
@@ -164,17 +165,13 @@ namespace EnglishSchool.Service
             return response;
         }
 
-        public ResponseService<List<CourseDetailOfEmployeeDTO>> GetAllCourseOfTeacher(string teacherId)
+        public ResponseService<List<ClassInfoForTeacher>> GetAllCourseOfTeacher(string teacherId)
         {
-            var response = new ResponseService<List<CourseDetailOfEmployeeDTO>>();
+            var response = new ResponseService<List<ClassInfoForTeacher>>();
             try
             {
-                var result = _repository._courseDetailOfEmployee.GetAllCourseOfTeacher(teacherId);
-                response.result = _mapper.Map<List<CourseDetailOfEmployee>, List<CourseDetailOfEmployeeDTO>>(result);
-                foreach (var item in response.result)
-                {
-                    item.courses.schedules = _mapper.Map<List<Schedule>, List<ScheduleDTO>>(_repository._schedule.GetMulti(p => p.courseId == item.courses.id));
-                }
+                var result = _repository._class.GetAllInfoListClass().Where(p=>p.teacherId==teacherId).ToList();
+                response.result = _mapper.Map<List<Class>, List<ClassInfoForTeacher>>(result);
             }
             catch (Exception ex)
             {
@@ -190,13 +187,13 @@ namespace EnglishSchool.Service
             var response = new ResponseService<List<TeacherManageStudentVer2>>();
             try
             {
-                var result = _repository._courseDetailOfStudent.GetAllAttendanceStudentOfCourseVer2(courseId);
+                var result = _repository._classDetailOfStudent.GetAllAttendanceStudentOfCourseVer2(courseId);
                 if (result.Count > 0)
                 {
-                    response.result = _mapper.Map<List<CourseDetailOfStudent>, List<TeacherManageStudentVer2>>(result);
+                    response.result = _mapper.Map<List<ClassDetailOfStudent>, List<TeacherManageStudentVer2>>(result);
                     var lastDayOfWeek = ngayDauTuan.AddDays(6);
                     var firstDayOfWeek = ngayDauTuan;
-                    var courseSchedule = _repository._course.GetCourseWithSchedule(result[0].courseId).schedules.Count();
+                    var courseSchedule = _repository._class.GetCourseWithSchedule(result[0].classId).schedules.Count();
                     for (int i = 0; i < response.result.Count(); i++)
                     {
                         int temp2 = new int();
@@ -245,9 +242,10 @@ namespace EnglishSchool.Service
 
         public ResponseService<string> EmployeeRegisterCourse(EmployeeRegisterCourse employee)
         {
-            var response = new ResponseService<string>();
+            return null;
+            /*var response = new ResponseService<string>();
             var schedule = _repository._schedule.GetMulti(p => p.courseId == employee.id);
-            var checkSchedule = _repository._courseDetailOfEmployee.CheckCourseDetail(schedule, employee.userId);
+            var checkSchedule = _repository._course.CheckCourseDetail(schedule, employee.userId);
             if (checkSchedule == true)
             {
                 var course = _repository._course.GetSingleByCondition(p => p.id == employee.id);
@@ -256,12 +254,7 @@ namespace EnglishSchool.Service
                 {
                     try
                     {
-                        CourseDetailOfEmployee courseDetailOfEmployee = new CourseDetailOfEmployee()
-                        {
-                            teacherId = employee.userId,
-                            courseId = employee.id,
-                        };
-                        _repository._courseDetailOfEmployee.Add(courseDetailOfEmployee);
+                        _repository._course.GetSingleByCondition(p => p.id == employee.id).teacherId = employee.userId;
                         SaveChanges();
                         transaction.Commit();
                         response.result = "Register Successfully";
@@ -281,16 +274,22 @@ namespace EnglishSchool.Service
                 response.success = false;
                 response.message = "Teacher has the same class schedule";
             }
-            /*var courseDetail = _repository._courseDetailOfEmployee.GetSingleByCondition(p => p.courseId == employee.id && p.teacherId == employee.userId);
-            if (courseDetail == null)
+            return response;*/
+        }
+
+        public ResponseService<List<EmployeeDTO>> GetAllTeacher(int departmentId)
+        {
+            var response = new ResponseService<List<EmployeeDTO>>();
+            try
             {
-               
+                var result = _repository._employee.GetMulti(p => p.departmentId == departmentId && p.role=="Teacher");
+                response.result = _mapper.Map<List<Employee>, List<EmployeeDTO>>(result);
             }
-            else
+            catch(Exception ex)
             {
                 response.success = false;
-                response.message = "Teacher has not completed the course";
-            }*/
+                response.message = ex.Message;
+            }
             return response;
         }
     }

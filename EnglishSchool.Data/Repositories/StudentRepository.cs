@@ -22,15 +22,15 @@ namespace EnglishSchool.Data.Repositories
 
         public bool CheckCourseDetail(List<Schedule> schedule, string studentId)
         {
-            var check = db.CourseDetailOfStudent.Where(p =>p.studentId == studentId && p.finish == false).ToList();
+            var check = db.ClassDetailOfStudent.Where(p =>p.studentId == studentId && p.finish == false).ToList();
             List<Schedule> lst = new List<Schedule>();
             foreach(var item1 in check)
             {
-                lst.AddRange(db.Schedule.Where(p => p.courseId == item1.courseId).ToList());   
+                lst.AddRange(db.Schedule.Where(p => p.classId == item1.classId).ToList());   
             }
             foreach(var item2 in schedule)
             {
-                if(lst.Where(p=>p.day==item2.day && (Convert.ToDateTime(item2.timeStart)>=Convert.ToDateTime(p.timeStart) || Convert.ToDateTime(item2.timeEnd) <= Convert.ToDateTime(p.timeEnd))).FirstOrDefault() != null)
+                if(lst.Where(p=>p.day==item2.day && ((Convert.ToDateTime(item2.timeStart)>=Convert.ToDateTime(p.timeStart) && Convert.ToDateTime(item2.timeStart)<=Convert.ToDateTime(p.timeEnd)) || (Convert.ToDateTime(item2.timeEnd)>=Convert.ToDateTime(p.timeStart) && Convert.ToDateTime(item2.timeEnd) <= Convert.ToDateTime(p.timeEnd)))).FirstOrDefault() != null)
                 {
                     return false;
                 }
@@ -40,21 +40,30 @@ namespace EnglishSchool.Data.Repositories
 
         public Student GetAllInfoById(string id)
         {
-            return db.Student.Include("departments").Include("parents").Where(p => p.studentId == id).FirstOrDefault();
+            return db.Student.Include("departments").Where(p => p.studentId == id).FirstOrDefault();
         }
 
         public List<Student> GetAllInFomation()
         {
-            return db.Student.Include("departments").Include("parents").ToList();
+            return db.Student.Include("departments").Include("courseDetailOfStudents").ToList();
         }
 
         public int GetLastStudentId(int departmentId)
         {
             try
             {
-                var temp = "stu" + departmentId.ToString();   
-                var studentId = db.Student.Where(p=>p.studentId.Contains(temp)).ToList().OrderByDescending(p=>p.studentId).First().studentId.Substring(6, 6);
-                return Convert.ToInt32(studentId);
+                if (departmentId < 10)
+                {
+                    var temp = "stu" + "0" + departmentId.ToString();
+                    var studentId = db.Student.Where(p => p.studentId.Contains(temp)).ToList().OrderByDescending(p => p.studentId).First().studentId.Substring(6, 6);
+                    return Convert.ToInt32(studentId);
+                }
+                else
+                {
+                    var temp = "stu" + departmentId.ToString();
+                    var studentId = db.Student.Where(p => p.studentId.Contains(temp)).ToList().OrderByDescending(p => p.studentId).First().studentId.Substring(6, 6);
+                    return Convert.ToInt32(studentId);
+                }
             }
             catch
             {

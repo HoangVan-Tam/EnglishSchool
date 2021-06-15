@@ -9,6 +9,7 @@ namespace EnglishSchool.Model.DTOs
         public int testId { get; set; }
         public DateTime startDay { get; set; }
         public DateTime finishDay { get; set; }
+        public string comment { get; set; }
         public string status { get; set; }
         public float score { get; set; }
         public int courseDetailId { get; set; }
@@ -32,6 +33,7 @@ namespace EnglishSchool.Model.DTOs
     {
         public int week { get; set; }
         public int testId { get; set; }
+        public string comment { get; set; }
         public string status { get; set; }
         public float score { get; set; }
         public int courseDetailId { get; set; }
@@ -43,6 +45,7 @@ namespace EnglishSchool.Model.DTOs
         public int testId { get; set; }
         public DateTime startDay { get; set; }
         public DateTime finishDay { get; set; }
+        public string comment { get; set; }
         public string status { get; set; }
         public float score { get; set; }
         public int courseDetailId { get; set; }

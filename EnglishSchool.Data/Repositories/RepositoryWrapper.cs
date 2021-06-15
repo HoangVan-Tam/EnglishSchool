@@ -6,19 +6,18 @@ namespace EnglishSchool.Data.Repositories
     {
         IAttendanceRepository _attendance { get; }
         ITestRepository _test { get; }
-        IParentRepository _parent { get; }
         IDepartmentRepository _department { get; }
         IRecruitRepository _recruitment { get; }
         IStudentRepository _student { get; }
-        ICourseRepository _course { get; }
-        ICourseDetailOfStudentRepository _courseDetailOfStudent { get; }
+        IClassRepository _class { get; }
+        IClassDetailOfStudentRepository _classDetailOfStudent { get; }
         INewsRepository _news { get; }
         IQuestionRepository _question { get; }
         IPersonalInformationRepository _personalInformation { get; }
         IEmployeeRepository _employee { get; }
         IDetailTestRepository _detailTest { get; }
         IScheduleRepository _schedule { get; }
-        ICourseDetailOfEmployeeRepository _courseDetailOfEmployee { get; }
+        ICourseRepository _course { get; }
     }
     public class RepositoryWrapper : IRepositoryWrapper
     {
@@ -27,9 +26,8 @@ namespace EnglishSchool.Data.Repositories
         private DepartmentRepository departmentRepository;
         private RecruitmentRepository recruitmentRepository;
         private StudentRepository studentRepository;
-        private CourseRepository courseRepository;
-        private CourseDetailOfStudentRepository courseDetailOfStudentRepository;
-        private ParentRepository parentRepository;
+        private ClassRepository classRepository;
+        private ClassDetailOfStudentRepository classDetailOfStudentRepository;
         private TestRepository testRepository;
         private NewsRepository newsRepository;
         private QuestionRepository questionRepository;
@@ -37,7 +35,7 @@ namespace EnglishSchool.Data.Repositories
         private EmployeeRepository employeeRepository;
         private DetailTestRepository detailTestRepository;
         private ScheduleRepository scheduleRepository;
-        private CourseDetailOfEmployeeRepository courseDetailOfEmployeeRepository;
+        private CourseRepository courseRepository;
 
         public RepositoryWrapper(IDbFactory dbFactory)
         {
@@ -125,39 +123,27 @@ namespace EnglishSchool.Data.Repositories
             }
         }
 
-        public ICourseRepository _course
+        public IClassRepository _class
         {
             get
             {
-                if (courseRepository == null)
+                if (classRepository == null)
                 {
-                    courseRepository = new CourseRepository(_dbFactory);
+                    classRepository = new ClassRepository(_dbFactory);
                 }
-                return courseRepository;
+                return classRepository;
             }
         }
 
-        public ICourseDetailOfStudentRepository _courseDetailOfStudent
+        public IClassDetailOfStudentRepository _classDetailOfStudent
         {
             get
             {
-                if (courseDetailOfStudentRepository == null)
+                if (classDetailOfStudentRepository == null)
                 {
-                    courseDetailOfStudentRepository = new CourseDetailOfStudentRepository(_dbFactory);
+                    classDetailOfStudentRepository = new ClassDetailOfStudentRepository(_dbFactory);
                 }
-                return courseDetailOfStudentRepository;
-            }
-        }
-
-        public IParentRepository _parent
-        {
-            get
-            {
-                if (parentRepository == null)
-                {
-                    parentRepository = new ParentRepository(_dbFactory);
-                }
-                return parentRepository;
+                return classDetailOfStudentRepository;
             }
         }
 
@@ -209,17 +195,16 @@ namespace EnglishSchool.Data.Repositories
             }
         }
 
-        public ICourseDetailOfEmployeeRepository _courseDetailOfEmployee
+        public ICourseRepository _course 
         {
             get
             {
-                if (courseDetailOfEmployeeRepository == null)
+                if (courseRepository == null)
                 {
-                    courseDetailOfEmployeeRepository = new CourseDetailOfEmployeeRepository(_dbFactory);
+                    courseRepository = new CourseRepository(_dbFactory);
                 }
-                return courseDetailOfEmployeeRepository;
-            }
+                return courseRepository;
+            } 
         }
-        
     }
 }

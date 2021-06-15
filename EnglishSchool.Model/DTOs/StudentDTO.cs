@@ -18,6 +18,7 @@ namespace EnglishSchool.Model.DTOs
         public DateTime deactivationDate { get; set; }
         public int departmentId { get; set; }
         public int courseId { get; set; }
+        public int classId { get; set; }
         public NameOfDepartment departments { get; set; }
         public NameOfParent parents { get; set; }
     }
@@ -54,7 +55,12 @@ namespace EnglishSchool.Model.DTOs
     public class StudentRegisterCourse
     {
         public string studentId { get; set; }
-        public int id { get; set; }
-        public string schedule { get; set; }
+        public int classId { get; set; }
+        public int courseId { get; set; }
+    }
+
+    public class ManageStudentDTO
+    {
+        public List<Test3DTO> tests { get; set; }
     }
 }
